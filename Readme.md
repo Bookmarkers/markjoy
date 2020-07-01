@@ -14,6 +14,20 @@
 - [ ] Project tasks
 - [ ] User stories
 
+#### Importing existing Chrome browser bookmarks
+- [ ] Export it as an HTML file - how to do it in code?
+    - [ ] Do we intelligently convert folders into categories?
+- [ ] Importing and making sense of the bookmarks - how to do it in code?
+
+#### Redirecting or layering over blocked sites
+- [ ] When the user goes to a blocked site, no matter the length of the url, they are redirected to a specific page
+- [ ] OR user goes to a blocked site and there is a layer and/or header on that page with bookmark suggestions
+
+### UX/UI
+- [ ] Lightweight favicon
+- [ ] Drag & Drop functionality for sorting bookmarks
+
+
 ### Stretch goals
 
 

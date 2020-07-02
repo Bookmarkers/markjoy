@@ -1,4 +1,4 @@
-### Wednesday July 1st
+### GENERAL
 
 * [Wireframe example](https://www.figma.com/file/SBvVSY7WpNCI8OjR4xJSOb/Bookmarkers?node-id=0%3A1)
 * [Tasks and Roles, Schema design](https://docs.google.com/spreadsheets/d/1kYgUQhWzOdwSfBvEf4vBLWRi_LOee8W9BV-fL2SOMNY/edit?ts=5efbb45f#gid=0)
@@ -10,6 +10,11 @@
 - [X] Schema design v.1
 - [X] Project tasks
 - [X] User stories
+- [ ] Come up with 5-ish main categories (defaults) + name for the unsorted category
+- [ ] Review and implement schema design v1.1
+- [ ] Finalize Wireframe v1.0
+- [ ] Finalize Tech stack by EOD Thursday July 2nd
+- [ ] Read up on PWA's
 - [ ] Read up on ways to import current Chrome browser bookmarks into our extension
 - [ ] Read up on ways to redirect from blocked sites
 - [ ] Research Vue and Firestore

@@ -10,9 +10,9 @@
 - [X] Schema design v.1
 - [X] Project tasks
 - [X] User stories
-- [ ] Come up with 5-ish main categories (defaults) + name for the unsorted category
-- [ ] Review and implement schema design v1.1
-- [ ] Finalize Wireframe v1.0
+- [ ] Come up with 5-ish main categories (defaults) + name for the unsorted category
+- [ ] Review and implement schema design v1.1
+- [ ] Finalize Wireframe v1.0
 - [ ] Finalize Tech stack by EOD Thursday July 2nd
 - [ ] Read up on PWA's
 - [ ] Read up on ways to import current Chrome browser bookmarks into our extension
@@ -21,7 +21,7 @@
 
 #### Importing existing Chrome browser bookmarks
 - [ ] Export it as an HTML file - how to do it in code?
-    - [ ] Do we convert folders into categories?
+    - [ ] Stretch goal: intelligently sort all folder content into one category.
 - [ ] Importing and making sense of the bookmarks - how to do it in code?
 
 #### Redirecting or layering over blocked sites

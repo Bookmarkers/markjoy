@@ -7,27 +7,27 @@
 #### Basics: Research & User testing
 - [X] Create a Readme file to keep track of tasks and goals.
 - [X] Download / use similar apps to see what we like and don't
+- [X] Schema design v.1
+- [X] Project tasks
+- [X] User stories
 - [ ] Read up on ways to import current Chrome browser bookmarks into our extension
 - [ ] Read up on ways to redirect from blocked sites
 - [ ] Research Vue and Firestore
-- [X] Schema design v.1
-- [ ] Project tasks
-- [ ] User stories
 
 #### Importing existing Chrome browser bookmarks
 - [ ] Export it as an HTML file - how to do it in code?
-    - [ ] Do we intelligently convert folders into categories?
+    - [ ] Do we convert folders into categories?
 - [ ] Importing and making sense of the bookmarks - how to do it in code?
 
 #### Redirecting or layering over blocked sites
-- [ ] When the user goes to a blocked site, no matter the length of the url, they are redirected to a specific page
-- [ ] OR user goes to a blocked site and there is a layer and/or header on that page with bookmark suggestions
+- [ ] When the user goes to a blocked site, no matter the length of the url, they are redirected to our SPA
+    - [ ] AND/OR (stretch goal?) user goes to a blocked site and there is a layer and/or header on that page with the goalie bookmark suggestions
 
 ### UX/UI
 - [ ] Lightweight favicon
-- [ ] Drag & Drop functionality for sorting bookmarks
+- [ ] Sorting bookmarks with buttons and/or dropdown menu?
 - [ ] On-the-page alert of bookmark added / bookmark removed
-- [ ] Rounded buttons for drag-drop suggestion
+- [ ] Rounded buttons for suggestions of which goal/category to put this newly added bookmark in.
 
 
 ### Stretch goals

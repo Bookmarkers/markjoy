@@ -8,17 +8,17 @@ describe('Goal Model', () => {
   before(() => db.sync({force: true}))
   afterEach(() => db.sync({force: true}))
 
-  it('has fields goal and active', async () => {
+  it('has fields detail and active', async () => {
     const goal = await Goal.create({
-      goal: 'Dance in the moonlight',
+      detail: 'Dance in the moonlight',
       active: true
     })
-    expect(goal.goal).to.equal('Get swole AF')
+    expect(goal.detail).to.equal('Get swole AF')
     expect(goal.active).to.equal(true)
   })
 
   it('goal cannot be empty', async () => {
-    const goal = Goal.build({goal: ''})
+    const goal = Goal.build({detail: ''})
     try {
       await goal.validate()
       throw Error('validation should have failed with empty goal')
@@ -29,10 +29,10 @@ describe('Goal Model', () => {
 
   it('defaults to active:true if left blank', async () => {
     const goal = Goal.build({
-      title: 'Jumping Jack Master'
+      detail: 'Jumping Jack Master'
     })
     await goal.validate()
-    expect(goal.title).to.be.a('string')
+    expect(goal.detail).to.be.a('string')
     expect(goal.active).to.equal(true)
   })
 })

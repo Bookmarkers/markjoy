@@ -1,11 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-// defaultValue for active?
-// yes
-// maybe shouldn't be called Goal.goal
 const Goal = db.define('goal', {
-  goal: {
+  detail: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {

@@ -1,4 +1,7 @@
 const User = require('./user')
+const Blocked = require('./blocked')
+const UserBlocked = require('./userBlocked')
+const UserBookmark = require('./userBookmark')
 const Category = require('./category')
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -15,5 +18,8 @@ const Category = require('./category')
  */
 module.exports = {
   User,
+  Blocked,
+  UserBlocked,
+  UserBookmark,
   Category
 }

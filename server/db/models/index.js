@@ -1,4 +1,7 @@
 const User = require('./user')
+const Blocked = require('./blocked')
+const UserBlocked = require('./userBlocked')
+const UserBookmark = require('./userBookmark')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -14,5 +17,8 @@ const User = require('./user')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  User,
+  Blocked,
+  UserBlocked,
+  UserBookmark
 }

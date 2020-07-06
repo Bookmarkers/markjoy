@@ -17,13 +17,13 @@ describe('Goal Model', () => {
     expect(goal.active).to.equal(true)
   })
 
-  it('goal cannot be empty', async () => {
+  it('detail cannot be empty', async () => {
     const goal = Goal.build({detail: ''})
     try {
       await goal.validate()
-      throw Error('validation should have failed with empty goal')
+      throw Error('validation should have failed with empty detail')
     } catch (err) {
-      expect(err.message).to.contain('Validation notEmpty on goal')
+      expect(err.message).to.contain('Validation notEmpty on detail')
     }
   })
 

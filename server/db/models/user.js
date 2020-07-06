@@ -3,10 +3,28 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-  email: {
+  firstName: {
     type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  email: {
+    type: Sequelize.TEXT,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -26,6 +44,11 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  imageUrl: {
+    type: Sequelize.TEXT,
+    defaultValue:
+      'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'
   }
 })
 
@@ -68,3 +91,5 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+module.exports = User

@@ -2,7 +2,7 @@ const User = require('./user')
 const Blocked = require('./blocked')
 const UserBlocked = require('./userBlocked')
 const UserBookmark = require('./userBookmark')
-
+const Category = require('./category')
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -20,5 +20,6 @@ module.exports = {
   User,
   Blocked,
   UserBlocked,
-  UserBookmark
+  UserBookmark,
+  Category
 }

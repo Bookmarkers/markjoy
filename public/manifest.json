@@ -1,0 +1,20 @@
+{
+  "name": "bookmarq",
+  "short_name": "bookmarq",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#0476F2",
+  "background_color": "#fff",
+  "icons": [
+    {
+      "src": "icons/bookmarkers-200x200.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/bookmarkers-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

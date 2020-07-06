@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <title>bookmarq</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/bookmarkers-200x200.png" />
+    <link rel="apple-touch-icon" href="/icons/bookmarkers-512x512.png" />
+    <meta name="theme-color" content="#db4938" />
+    <script defer src="/bundle.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- app shell to show while loading or offline -->
+      <h1>bookmarq</h1>
+      <div class="loading-container">
+        <p>Trying to connect...</p>
+      </div>
+    </div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('./sw.js')
+            .then((registration) => {
+              console.log(
+                `Service Worker registered! Scope: ${registration.scope}`
+              )
+            })
+            .catch((err) => {
+              console.log(`Service Worker registration failed: ${err}`)
+            })
+        })
+      }
+    </script>
+  </body>
+</html>

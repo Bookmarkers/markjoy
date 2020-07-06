@@ -8,6 +8,7 @@ const Bookmark = db.define('bookmark', {
   },
   url: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false,
     validate: {
       notEmpty: true

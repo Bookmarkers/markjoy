@@ -6,10 +6,12 @@ const UserBookmark = db.define('userBookmark', {
     type: Sequelize.TEXT
   },
   favorite: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
   archived: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

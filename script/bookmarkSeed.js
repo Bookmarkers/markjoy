@@ -11,9 +11,9 @@ const bookmarkUrls = [
 ]
 
 const bookmarkSeed = []
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 3; i++) {
   bookmarkSeed.push({
-    url: faker.random.arrayElement(bookmarkUrls)
+    url: bookmarkUrls[i]
   })
 }
 

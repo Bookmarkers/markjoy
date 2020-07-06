@@ -26,7 +26,7 @@ async function seed() {
     User.create({
       firstName: 'Yanjaa',
       lastName: 'Wintersoul',
-      email: 'yj@bm.com',
+      email: 'yw@bm.com',
       password: '123'
     }),
     User.create({

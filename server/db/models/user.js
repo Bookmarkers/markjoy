@@ -47,8 +47,7 @@ const User = db.define('user', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue:
-      'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'
+    defaultValue: '/icon/profile-icon.jpg'
   }
 })
 

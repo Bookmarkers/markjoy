@@ -1,5 +1,7 @@
 const User = require('./user')
 const Blocked = require('./blocked')
+const Goal = require('./goal')
+const Bookmark = require('./bookmark')
 const UserBlocked = require('./userBlocked')
 const UserBookmark = require('./userBookmark')
 const Category = require('./category')
@@ -10,6 +12,21 @@ const Category = require('./category')
  *    BlogPost.belongsTo(User)
  */
 
+User.hasMany(Goal)
+Goal.belongsTo(User)
+
+Goal.hasMany(Bookmark)
+Bookmark.belongsTo(Goal)
+
+Bookmark.belongsTo(Category)
+Category.hasMany(Bookmark)
+
+User.belongsToMany(Bookmark, {through: UserBookmark})
+Bookmark.belongsToMany(User, {through: UserBookmark})
+
+User.belongsToMany(Blocked, {through: UserBlocked})
+Blocked.belongsToMany(User, {through: UserBlocked})
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -19,6 +36,8 @@ const Category = require('./category')
 module.exports = {
   User,
   Blocked,
+  Goal,
+  Bookmark,
   UserBlocked,
   UserBookmark,
   Category

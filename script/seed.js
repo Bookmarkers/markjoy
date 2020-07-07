@@ -81,17 +81,32 @@ async function seed() {
   await jianna.addGoal(allGoals[3])
   console.log(jiannasGoals)
 
+  const jiannasBookmarks = await jianna.addBookmarks(allBookmarks[0])
+  await jianna.addBookmarks(allBookmarks[1])
+  await jianna.addBookmarks(allBookmarks[2])
+  console.log(jiannasBookmarks)
+
   const yanjaasGoals = await yanjaa.addGoal(allGoals[4])
   await yanjaa.addGoal(allGoals[5])
   await yanjaa.addGoal(allGoals[6])
   await yanjaa.addGoal(allGoals[7])
   console.log(yanjaasGoals)
 
+  const yanjaasBookmarks = await yanjaa.addBookmarks(allBookmarks[3])
+  await yanjaa.addBookmarks(allBookmarks[4])
+  await yanjaa.addBookmarks(allBookmarks[5])
+  console.log(yanjaasBookmarks)
+
   const vickysGoals = await vicky.addGoal(allGoals[8])
   await yanjaa.addGoal(allGoals[9])
   await yanjaa.addGoal(allGoals[10])
   await yanjaa.addGoal(allGoals[11])
   console.log(vickysGoals)
+
+  const vickysBookmarks = await vicky.addBookmarks(allBookmarks[6])
+  await vicky.addBookmarks(allBookmarks[7])
+  await vicky.addBookmarks(allBookmarks[8])
+  console.log(vickysBookmarks)
 
   console.log(`seeded successfully`)
 }

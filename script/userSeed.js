@@ -2,7 +2,7 @@ const faker = require('faker')
 faker.seed(123)
 
 const userSeed = []
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 27; i++) {
   userSeed.push({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),

@@ -14,7 +14,7 @@ const bookmarkUrls = [
 ]
 
 const bookmarkSeed = []
-for (let i = 0; i < 9; i++) {
+for (let i = 0; i < bookmarkUrls.length; i++) {
   bookmarkSeed.push({
     url: bookmarkUrls[i]
   })

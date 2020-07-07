@@ -108,6 +108,16 @@ async function seed() {
   await vicky.addBookmarks(allBookmarks[8])
   console.log(vickysBookmarks)
 
+  const allBlocked = await Blocked.findAll()
+  await jianna.addBlocked(allBlocked[0])
+  await jianna.addBlocked(allBlocked[3])
+  await vicky.addBlocked(allBlocked[1])
+  await vicky.addBlocked(allBlocked[4])
+  await vicky.addBlocked(allBlocked[0])
+  await yanjaa.addBlocked(allBlocked[2])
+  await yanjaa.addBlocked(allBlocked[5])
+  await yanjaa.addBlocked(allBlocked[0])
+
   console.log(`seeded successfully`)
 }
 

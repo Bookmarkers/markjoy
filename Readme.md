@@ -7,8 +7,9 @@
 
 #### Naming conventions
 
-| client/components | bookmark-form.js | (kebab-case) | filepath name for components       |
+| Directory         | Example          | Casing       | Description                        |
 | ----------------- | ---------------- | ------------ | ---------------------------------- |
+| client/components | bookmark-form.js | (kebab-case) | filepath name for components       |
 | client/components | AllComponents    | (PascalCase) | inside the component files         |
 | client/store      | addBookmark.js   | (camelCase)  | filepath name for redux            |
 | server/db/models  | user_blocked.js  | (snake_case) | filepath name for Sequelize models |

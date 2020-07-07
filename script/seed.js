@@ -1,20 +1,61 @@
 'use strict'
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Category, Goal, Bookmark, Blocked} = require('../server/db/models')
+const userSeed = require('./userSeed')
+const goalSeed = require('./goalSeed')
+const bookmarkSeed = require('./bookmarkSeed')
+const blockedSeed = require('./blockedSeed')
 
-const categories = [{}]
+const categorySeed = [
+  {name: 'Unsorted'},
+  {name: 'Learning'},
+  {name: 'Community'},
+  {name: 'Lifestyle'},
+  {name: 'Finance'},
+  {name: 'Wellness'}
+]
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'yj@bm.com', password: '123'}),
-    User.create({email: 'vr@bm.com', password: '123'}),
-    User.create({email: 'jp@bm.com', password: '123'})
-  ])
-
+  const users = await User.bulkCreate(userSeed)
   console.log(`seeded ${users.length} users`)
+
+  await Promise.all([
+    User.create({
+      firstName: 'Yanjaa',
+      lastName: 'Wintersoul',
+      email: 'yw@bm.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Vicky',
+      lastName: 'Rodriguez',
+      email: 'vr@bm.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Jianna',
+      lastName: 'Park',
+      email: 'jp@bm.com',
+      password: '123'
+    })
+  ])
+  console.log(`seeded Yanjaa, Vicky, and Jianna as users`)
+
+  const categories = await Category.bulkCreate(categorySeed)
+  console.log(`seeded ${categories.length} categories`)
+
+  const goals = await Goal.bulkCreate(goalSeed)
+  console.log(`seeded ${goals.length} goals`)
+
+  const bookmarks = await Bookmark.bulkCreate(bookmarkSeed)
+  console.log(`seeded ${bookmarks.length} bookmarks`)
+
+  const blocked = await Blocked.bulkCreate(blockedSeed)
+  console.log(`seeded ${blocked.length} blocked websites`)
+
   console.log(`seeded successfully`)
 }
 

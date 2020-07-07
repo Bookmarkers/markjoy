@@ -26,23 +26,23 @@ module.exports = {
         loader: 'babel-loader'
       }
     ]
-  },
-  plugins: [
-    new WorkboxWebpackPlugin.GenerateSW({
-      swDest: './public/sw.js',
-      modifyURLPrefix: {'./public': '.'},
-      additionalManifestEntries: [
-        {
-          url: './index.html',
-          revision: null
-        },
-        {
-          url: './style.css',
-          revision: null
-        }
-      ],
-      clientsClaim: true,
-      skipWaiting: true
-    })
-  ]
+  }
+  // plugins: [
+  //   new WorkboxWebpackPlugin.GenerateSW({
+  //     swDest: './public/sw.js',
+  //     modifyURLPrefix: {'./public': '.'},
+  //     additionalManifestEntries: [
+  //       {
+  //         url: './index.html',
+  //         revision: null
+  //       },
+  //       {
+  //         url: './style.css',
+  //         revision: null
+  //       }
+  //     ],
+  //     clientsClaim: true,
+  //     skipWaiting: true
+  //   })
+  // ]
 }

@@ -5,6 +5,13 @@
 * [Wireframe v1](https://docs.google.com/presentation/d/1tLYkjwOF82MOE2ZbAxyEVhmRg5nHaw0BwLE2fUhls40/edit#slide=id.g8227949d86_1_13)
 * [Wireframe OLD example](https://www.figma.com/file/SBvVSY7WpNCI8OjR4xJSOb/Bookmarkers?node-id=0%3A1)
 
+#### Naming conventions
+
+* [ ] client/components - bookmark-form.js (kebab-case)- filepath name for components
+* [ ] client/store - addBookmark.js (camelCase) - filepath name for redux
+* [ ] server/db/models - userBlocked.js (camelCase) - filepath name for Sequelize models
+* [ ] ComponentNames - AllComponents (PascalCase) - inside the component files
+
 #### Basics: Research & User testing
 
 * [ ] Read up on ways to import current Chrome browser bookmarks into our extension

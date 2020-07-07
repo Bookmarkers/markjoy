@@ -86,7 +86,7 @@ router.put('/:id', async (req, res, next) => {
       }
     })
     if (bookmarkToUpdate) {
-      res.status(200).res.json(bookmarkToUpdate)
+      res.status(200).json(bookmarkToUpdate)
     } else {
       res.sendStatus(404)
     }

@@ -3,14 +3,16 @@
 * [Tasks and Roles, Schema design](https://docs.google.com/spreadsheets/d/1kYgUQhWzOdwSfBvEf4vBLWRi_LOee8W9BV-fL2SOMNY/edit?ts=5efbb45f#gid=0)
 * [MVP details, Team Contract, Github Org info](https://docs.google.com/document/d/1k9i_jV-R90ww2q3NZ-o9igq9lcLuM2A8qnBKjagLfks/edit#)
 * [Wireframe v1](https://docs.google.com/presentation/d/1tLYkjwOF82MOE2ZbAxyEVhmRg5nHaw0BwLE2fUhls40/edit#slide=id.g8227949d86_1_13)
-* [Wireframe OLD example](https://www.figma.com/file/SBvVSY7WpNCI8OjR4xJSOb/Bookmarkers?node-id=0%3A1)
+* [Deployed on Heroku!](https://markjoy.herokuapp.com/)
 
 #### Naming conventions
 
-* [ ] client/components - bookmark-form.js (kebab-case)- filepath name for components
-* [ ] client/store - addBookmark.js (camelCase) - filepath name for redux
-* [ ] server/db/models - userBlocked.js (camelCase) - filepath name for Sequelize models
-* [ ] ComponentNames - AllComponents (PascalCase) - inside the component files
+| client/components | bookmark-form.js | (kebab-case) | filepath name for components       |
+| ----------------- | ---------------- | ------------ | ---------------------------------- |
+| client/components | AllComponents    | (PascalCase) | inside the component files         |
+| client/store      | addBookmark.js   | (camelCase)  | filepath name for redux            |
+| server/db/models  | user_blocked.js  | (snake_case) | filepath name for Sequelize models |
+| server/db/models  | UserBlocked      | (PascalCase) | Sequelize model names              |
 
 #### Basics: Research & User testing
 
@@ -30,7 +32,6 @@
 
 ### UX/UI
 
-* [x] Lightweight favicon
 * [ ] Sorting bookmarks with buttons and/or dropdown menu?
 * [ ] On-the-page alert of bookmark added / bookmark removed
 * [ ] Rounded buttons for suggestions of which goal/category to put this newly added bookmark in.
@@ -57,5 +58,7 @@
 * [x] Read up on PWA's
 * [x] Experiment with PWA's
 * [x] Research Vue and Firestore
+* [x] Lightweight favicon
+* [Wireframe OLD example](https://www.figma.com/file/SBvVSY7WpNCI8OjR4xJSOb/Bookmarkers?node-id=0%3A1)
 
 </details>

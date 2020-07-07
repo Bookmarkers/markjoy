@@ -3,6 +3,7 @@ const {Goal} = require('../db/models')
 module.exports = router
 
 // Delete, update, create, get one goal. Get all goals.
+// Potentially should it be by user? I.e. '/userId:/id' where userId: req.params.userId and id is id?
 
 router.delete('/:id', async (req, res, next) => {
   try {

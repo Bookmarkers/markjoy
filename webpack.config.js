@@ -29,7 +29,18 @@ module.exports = {
   },
   plugins: [
     new WorkboxWebpackPlugin.GenerateSW({
-      swDest: 'public/sw.js',
+      swDest: './public/sw.js',
+      modifyURLPrefix: {'./public': '.'},
+      additionalManifestEntries: [
+        {
+          url: './index.html',
+          revision: null
+        },
+        {
+          url: './style.css',
+          revision: null
+        }
+      ],
       clientsClaim: true,
       skipWaiting: true
     })

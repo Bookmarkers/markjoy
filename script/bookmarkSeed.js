@@ -7,11 +7,14 @@ const bookmarkUrls = [
   'www.twitter.com',
   'www.instagram.com',
   'www.amazon.com',
-  'www.facebook.com'
+  'www.facebook.com',
+  'www.cnn.com',
+  'www.bbc.com',
+  'www.nytimes.com'
 ]
 
 const bookmarkSeed = []
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < bookmarkUrls.length; i++) {
   bookmarkSeed.push({
     url: bookmarkUrls[i]
   })

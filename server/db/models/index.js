@@ -27,6 +27,15 @@ Bookmark.belongsToMany(User, {through: UserBookmark})
 User.belongsToMany(Blocked, {through: UserBlocked})
 Blocked.belongsToMany(User, {through: UserBlocked})
 
+//magic methods:
+// console.log("USER'S MAGIC: ", Object.keys(User.prototype))
+// console.log("GOAL'S MAGIC: ", Object.keys(Goal.prototype))
+// console.log("BOOKMARK'S MAGIC: ", Object.keys(Bookmark.prototype))
+// console.log("CATEGORY'S MAGIC: ", Object.keys(Category.prototype))
+// console.log("BLOCKED'S MAGIC: ", Object.keys(Blocked.prototype))
+// console.log("USERBOOKMARK'S MAGIC: ", Object.keys(UserBookmark.prototype))
+// console.log("USERBLOCKED'S MAGIC: ", Object.keys(UserBlocked.prototype))
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'

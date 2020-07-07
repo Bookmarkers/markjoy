@@ -37,10 +37,9 @@ const localUserSeeds = [
 ]
 //in seed method (first refactor dummy data)
 //1)associate goals with user id
-//2)associate category with bookmarks
-//3)associate bookmarks with goals and category
-//4)associate userBlocked with userId and blockeds
-//5)associate userBookmarks with userId and bookmarkId
+//2)associate bookmarks with goals and category
+//3)associate userBlocked with userId and blockeds
+//4)associate userBookmarks with userId and bookmarkId
 
 // eslint-disable-next-line max-statements
 async function seed() {
@@ -74,6 +73,11 @@ async function seed() {
 
   const allBookmarks = await Bookmark.findAll()
   console.log(allBookmarks)
+  const allCategories = await Category.findAll()
+  await allBookmarks[0].setCategory(allCategories[3])
+  await allBookmarks[0].setGoal(allGoals[0])
+  await allBookmarks[1].setCategory(allCategories[2])
+  await allBookmarks[1].setGoal(allGoals[1])
 
   const jiannasGoals = await jianna.addGoal(allGoals[0])
   await jianna.addGoal(allGoals[1])
@@ -108,15 +112,15 @@ async function seed() {
   await vicky.addBookmarks(allBookmarks[8])
   console.log(vickysBookmarks)
 
-  const allBlocked = await Blocked.findAll()
-  await jianna.addBlocked(allBlocked[0])
-  await jianna.addBlocked(allBlocked[3])
-  await vicky.addBlocked(allBlocked[1])
-  await vicky.addBlocked(allBlocked[4])
-  await vicky.addBlocked(allBlocked[0])
-  await yanjaa.addBlocked(allBlocked[2])
-  await yanjaa.addBlocked(allBlocked[5])
-  await yanjaa.addBlocked(allBlocked[0])
+  const allBlockeds = await Blocked.findAll()
+  await jianna.addBlocked(allBlockeds[0])
+  await jianna.addBlocked(allBlockeds[3])
+  await vicky.addBlocked(allBlockeds[1])
+  await vicky.addBlocked(allBlockeds[4])
+  await vicky.addBlocked(allBlockeds[0])
+  await yanjaa.addBlocked(allBlockeds[2])
+  await yanjaa.addBlocked(allBlockeds[5])
+  await yanjaa.addBlocked(allBlockeds[0])
 
   console.log(`seeded successfully`)
 }

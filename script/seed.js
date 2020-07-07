@@ -14,6 +14,7 @@ const categorySeed = [
   {name: 'Finance'},
   {name: 'Wellness'}
 ]
+
 const localUserSeeds = [
   {
     firstName: 'Yanjaa',
@@ -41,6 +42,7 @@ const localUserSeeds = [
 //4)associate userBlocked with userId and blockeds
 //5)associate userBookmarks with userId and bookmarkId
 
+// eslint-disable-next-line max-statements
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -51,7 +53,6 @@ async function seed() {
   const localUsers = await Promise.all(
     localUserSeeds.map(user => User.create(user))
   )
-
   console.log(`seeded ${localUsers.length} users: Yanjaa, Vicky, and Jianna`)
 
   const categories = await Category.bulkCreate(categorySeed)
@@ -65,6 +66,32 @@ async function seed() {
 
   const blocked = await Blocked.bulkCreate(blockedSeed)
   console.log(`seeded ${blocked.length} blocked websites`)
+
+  const jianna = await User.findOne({where: {firstName: 'Jianna'}})
+  const yanjaa = await User.findOne({where: {firstName: 'Yanjaa'}})
+  const vicky = await User.findOne({where: {firstName: 'Vicky'}})
+  const allGoals = await Goal.findAll()
+
+  const allBookmarks = await Bookmark.findAll()
+  console.log(allBookmarks)
+
+  const jiannasGoals = await jianna.addGoal(allGoals[0])
+  await jianna.addGoal(allGoals[1])
+  await jianna.addGoal(allGoals[2])
+  await jianna.addGoal(allGoals[3])
+  console.log(jiannasGoals)
+
+  const yanjaasGoals = await yanjaa.addGoal(allGoals[4])
+  await yanjaa.addGoal(allGoals[5])
+  await yanjaa.addGoal(allGoals[6])
+  await yanjaa.addGoal(allGoals[7])
+  console.log(yanjaasGoals)
+
+  const vickysGoals = await vicky.addGoal(allGoals[8])
+  await yanjaa.addGoal(allGoals[9])
+  await yanjaa.addGoal(allGoals[10])
+  await yanjaa.addGoal(allGoals[11])
+  console.log(vickysGoals)
 
   console.log(`seeded successfully`)
 }

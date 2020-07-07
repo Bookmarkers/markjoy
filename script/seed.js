@@ -14,6 +14,32 @@ const categorySeed = [
   {name: 'Finance'},
   {name: 'Wellness'}
 ]
+const localUserSeeds = [
+  {
+    firstName: 'Yanjaa',
+    lastName: 'Wintersoul',
+    email: 'yw@bm.com',
+    password: '123'
+  },
+  {
+    firstName: 'Vicky',
+    lastName: 'Rodri',
+    email: 'vr@bm.com',
+    password: '123'
+  },
+  {
+    firstName: 'Jianna',
+    lastName: 'Park',
+    email: 'jp@bm.com',
+    password: '123'
+  }
+]
+//in seed method (first refactor dummy data)
+//1)associate goals with user id
+//2)associate category with bookmarks
+//3)associate bookmarks with goals and category
+//4)associate userBlocked with userId and blockeds
+//5)associate userBookmarks with userId and bookmarkId
 
 async function seed() {
   await db.sync({force: true})
@@ -22,27 +48,11 @@ async function seed() {
   const users = await User.bulkCreate(userSeed)
   console.log(`seeded ${users.length} users`)
 
-  await Promise.all([
-    User.create({
-      firstName: 'Yanjaa',
-      lastName: 'Wintersoul',
-      email: 'yw@bm.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Vicky',
-      lastName: 'Rodriguez',
-      email: 'vr@bm.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Jianna',
-      lastName: 'Park',
-      email: 'jp@bm.com',
-      password: '123'
-    })
-  ])
-  console.log(`seeded Yanjaa, Vicky, and Jianna as users`)
+  const localUsers = await Promise.all(
+    localUserSeeds.map(user => User.create(user))
+  )
+
+  console.log(`seeded ${localUsers.length} users: Yanjaa, Vicky, and Jianna`)
 
   const categories = await Category.bulkCreate(categorySeed)
   console.log(`seeded ${categories.length} categories`)

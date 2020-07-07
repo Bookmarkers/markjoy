@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchBookmarks, addBookmark, deleteBookmark} from '../redux/bookmarks'
+import {fetchBookmarks, addBookmark, deleteBookmark} from '../store/bookmark'
 
 export class AllBookmarks extends React.Component {
   componentDidMount() {

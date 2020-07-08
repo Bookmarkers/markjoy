@@ -52,6 +52,23 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.get('/user/:userId', async (req, res, next) => {
+  try {
+    const userGoals = await Goal.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    if (userGoals) {
+      res.status(200).json(userGoals)
+    } else {
+      res.sendStatus(404)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     const goal = await Goal.findByPk(req.params.id)

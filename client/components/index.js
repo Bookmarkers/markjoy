@@ -5,5 +5,6 @@
  */
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
-export {Login, Signup} from './auth-form'
+export {default as AuthForm} from './auth-form'
 export {default as AllBookmarks} from './bookmark'
+export {default as Landing} from './landing'

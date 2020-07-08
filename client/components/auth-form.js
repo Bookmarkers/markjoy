@@ -2,35 +2,87 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {
+  Container,
+  Button,
+  Divider,
+  Form,
+  Grid,
+  Segment
+} from 'semantic-ui-react'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <Container>
+        <Segment placeholder>
+          <Grid columns={2} relaxed="very" stackable>
+            <Grid.Column>
+              <Form name={name} onSubmit={handleSubmit}>
+                <Form.Input
+                  icon="user"
+                  iconPosition="left"
+                  label="Email"
+                  name="email"
+                  placeholder="enter your email"
+                />
+                <Form.Input
+                  icon="lock"
+                  iconPosition="left"
+                  label="Password"
+                  name="password"
+                  type="password"
+                />
+                {error && error.response && <div> {error.response.data} </div>}
+                <Button type="submit" content="Login" primary />
+              </Form>
+            </Grid.Column>
+
+            <Grid.Column verticalAlign="middle">
+              <Button content="Sign up" icon="signup" size="big" />
+            </Grid.Column>
+          </Grid>
+
+          <a href="/auth/google">{displayName} with Google</a>
+          <Divider vertical>Or</Divider>
+        </Segment>
+      </Container>
     </div>
+    // <div>
+    // <Container>
+    //   <Segment placeholder>
+    //     <Grid column={2} relaxed="very" stackable>
+    //       <Grid.Column>
+    //         <Form onSubmit={handleSubmit} name={name}>
+    //           <Form.Input
+    //             icon="user"
+    //             iconPosition="left"
+    //             label="email"
+    //             placeholder="enter your email"
+    //           />
+    //           <Form.Input
+    //             icon="lock"
+    //             iconPosition="left"
+    //             label="Password"
+    //             type="password"
+    //           />
+    //           <Button content="Login" primary type="submit" />
+    //         </Form>
+    //       </Grid.Column>
+
+    //       <Grid.Column verticalAlign="middle">
+    //         <Button content="Sign up" icon="signup" size="big" />
+    //       </Grid.Column>
+    //     </Grid>
+    //     <Divider vertical>Or</Divider>
+    //   </Segment>
+
+    // </Container>
+    // </div>
   )
 }
 

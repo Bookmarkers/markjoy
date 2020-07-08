@@ -20,6 +20,7 @@ export class AllBookmarks extends React.Component {
                 return (
                   <div className="single-bookmark" key={bookmark.id}>
                     <div className="bookmark-card">{bookmark.title}</div>
+                    <p>{bookmark.url}</p>
                     <button
                       type="button"
                       className="delete"

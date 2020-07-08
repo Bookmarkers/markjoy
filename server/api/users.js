@@ -1,25 +1,6 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Goal} = require('../db/models')
 module.exports = router
-
-router.get('/:id', async (req, res, next) => {
-  try {
-    const user = await User.findByPk(req.params.id, {
-      attributes: ['id', 'email'],
-      include: {
-        model: Goal
-      },
-      order: [[Goal, 'id']]
-    })
-    if (user) {
-      res.json(user)
-    } else {
-      res.sendStatus(404)
-    }
-  } catch (error) {
-    next(error)
-  }
-})
 
 router.get('/', async (req, res, next) => {
   try {
@@ -30,6 +11,19 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'email']
     })
     res.json(users)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    if (user) {
+      res.status(200).json(user)
+    } else {
+      res.sendStatus(404)
+    }
   } catch (error) {
     next(error)
   }

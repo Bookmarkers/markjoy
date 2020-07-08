@@ -4,10 +4,12 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import bookmarksReducer from './bookmark'
+import goalsReducer from './goal'
 
 const reducer = combineReducers({
   user,
-  bookmarks: bookmarksReducer
+  bookmarks: bookmarksReducer,
+  goals: goalsReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

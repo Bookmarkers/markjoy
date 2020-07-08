@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBookmarks, addBookmark, deleteBookmark} from '../store/bookmark'
+import {Grid, Image, Container} from 'semantic-ui-react'
 
 export class AllBookmarks extends React.Component {
   componentDidMount() {
@@ -11,29 +12,24 @@ export class AllBookmarks extends React.Component {
     const bookmarks = this.props.bookmarks
 
     return (
-      <div className="container">
-        <p className="title">All Bookmarks</p>
-        {console.log('these are the bookmarks', bookmarks)}
-        <div id="all-bookmarks-view">
-          {bookmarks && bookmarks.length > 0
-            ? bookmarks.map(bookmark => {
-                return (
-                  <div className="single-bookmark" key={bookmark.id}>
-                    <div className="bookmark-card">{bookmark.title}</div>
-                    <p>{bookmark.url}</p>
-                    <button
-                      type="button"
-                      className="delete"
-                      onClick={() => this.props.deleteBookmark(bookmark.id)}
-                    >
-                      X
-                    </button>
-                  </div>
-                )
-              })
-            : 'No Bookmarks'}
+      <Container>
+        <div className="container">
+          <h1 className="title">All Bookmarks</h1>
+          <div id="all-bookmarks-view" className="ui-grid">
+            <Grid columns={4} relaxed="very" align="center">
+              {bookmarks && bookmarks.length > 0
+                ? bookmarks.map(bookmark => {
+                    return (
+                      <div className="column" key={bookmark.id}>
+                        <img src="/default.png" className="ui image" />
+                      </div>
+                    )
+                  })
+                : 'No Bookmarks'}
+            </Grid>
+          </div>
         </div>
-      </div>
+      </Container>
     )
   }
 }

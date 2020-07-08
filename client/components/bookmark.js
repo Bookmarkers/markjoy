@@ -13,6 +13,7 @@ export class AllBookmarks extends React.Component {
     return (
       <div className="container">
         <p className="title">All Bookmarks</p>
+        {console.log('these are the bookmarks', bookmarks)}
         <div id="all-bookmarks-view">
           {bookmarks && bookmarks.length > 0
             ? bookmarks.map(bookmark => {

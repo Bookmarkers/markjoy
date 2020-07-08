@@ -4,9 +4,15 @@ module.exports = router
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.id, {
+      attributes: ['id', 'email'],
+      include: {
+        model: Goal
+      },
+      order: [[Goal, 'id']]
+    })
     if (user) {
-      res.status(200).res.json(user)
+      res.json(user)
     } else {
       res.sendStatus(404)
     }

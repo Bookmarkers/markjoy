@@ -52,7 +52,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId/', async (req, res, next) => {
   try {
     const userGoals = await Goal.findAll({
       where: {

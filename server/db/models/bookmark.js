@@ -16,7 +16,7 @@ const Bookmark = db.define('bookmark', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '../../public/defaultImage.png'
+    defaultValue: '/default.png'
   }
 })
 

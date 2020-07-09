@@ -103,9 +103,9 @@ async function seed() {
   //console.log(yanjaasBookmarks)
 
   const vickysGoals = await vicky.addGoal(allGoals[8])
-  await yanjaa.addGoal(allGoals[9])
-  await yanjaa.addGoal(allGoals[10])
-  await yanjaa.addGoal(allGoals[11])
+  await vicky.addGoal(allGoals[9])
+  await vicky.addGoal(allGoals[10])
+  await vicky.addGoal(allGoals[11])
   //console.log(vickysGoals)
 
   const vickysBookmarks = await vicky.addBookmarks(allBookmarks[6])

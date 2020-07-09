@@ -1,51 +1,118 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
-import {fetchGoals} from '../store/goal'
-import {Item} from 'semantic-ui-react'
+import {fetchGoals, deleteGoal, updateGoal} from '../store/goal'
+import {me} from '../store/user'
+import {fetchBookmarks} from '../store/bookmark'
+import {Item, Button, Container, Form, Input} from 'semantic-ui-react'
 
 export class AllGoals extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      detail: '',
+      selectedGoalId: null
+    }
+    this.handleChange = this.handleChange.bind(this)
+    //this.handleDelete = this.handleDelete.bind(this)
+    this.edit = this.edit.bind(this)
+  }
+
   componentDidMount() {
     this.props.getGoals()
+    this.props.getUser()
+    this.props.getBookmarks() //problem fetching bookmark!
+  }
+
+  edit(goalId, prevDetail) {
+    this.setState({detail: prevDetail, selectedGoalId: goalId})
+  }
+
+  handleChange(e) {
+    e.preventDefault()
+    this.setState({[e.target.name]: e.target.value})
   }
 
   render() {
-    console.log('PROPS', this.props.goals)
     const goals = this.props.goals
-    //this.props.user in the ternary to get goals associated with the user logged in!
+    const user = this.props.user
+    //const bookmarks = this.props.bookmarks
     return (
-      <Item.Group>
-        {goals && goals.length > 0
-          ? goals.map(goal => {
-              return (
-                <Item key={goal.id}>
-                  <Item.Content>
-                    <Item.Header as="a">{goal.detail}</Item.Header>
-                    <Item.Meta>
-                      Here are some bookmarks related to your goals:{' '}
-                    </Item.Meta>
-                    <Item.Description>
-                      <p>input 2 related bookmark as lists</p>
-                    </Item.Description>
-                  </Item.Content>
-                </Item>
-              )
-            })
-          : 'please add some goals!'}
-      </Item.Group>
+      <Container>
+        <Item.Group>
+          {goals && goals.length > 0
+            ? goals.map(goal => {
+                if (goal.userId === user.id)
+                  return (
+                    <Item key={goal.id}>
+                      <Item.Content>
+                        {this.state.selectedGoalId === goal.id ? (
+                          <Form
+                            onSubmit={() => {
+                              this.props.updateGoal(goal.id, {
+                                detail: this.state.detail
+                              })
+                              this.setState({detail: '', selectedGoalId: null})
+                            }}
+                          >
+                            <Form.Field control={Input}>
+                              <Input
+                                name="detail"
+                                value={this.state.detail}
+                                onChange={this.handleChange}
+                              />
+                            </Form.Field>
+                            <Button type="submit" content="Save Goal" primary />
+                          </Form>
+                        ) : (
+                          <Item.Header as="a">
+                            Goal: {goal.detail}
+                            <Button
+                              onClick={() => this.edit(goal.id, goal.detail)}
+                              content="Edit"
+                              primary
+                            />
+                            <Button
+                              onClick={() => this.props.deleteGoal(goal.id)}
+                              content="Delete"
+                              secondary
+                            />
+                          </Item.Header>
+                        )}
+                        <Item.Meta>
+                          Here's something to help with this goal: {'  '}
+                        </Item.Meta>
+
+                        <Item.Description>
+                          <p>www.nytimes.com</p>
+                        </Item.Description>
+                      </Item.Content>
+                    </Item>
+                  )
+              })
+            : 'please add some goals!'}
+        </Item.Group>
+      </Container>
     )
   }
 }
 
 const mapState = state => {
   return {
-    goals: state.goals
+    goals: state.goals,
+    user: state.user,
+    bookmarks: state.bookmarks
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getGoals: () => dispatch(fetchGoals())
+    getGoals: () => dispatch(fetchGoals()),
+    getUser: () => dispatch(me()),
+    getBookmarks: () => dispatch(fetchBookmarks()),
+    updateGoal: (goalId, updateInfo) =>
+      dispatch(updateGoal(goalId, updateInfo)),
+    deleteGoal: goalId => dispatch(deleteGoal(goalId))
   }
 }
 export default connect(mapState, mapDispatch)(AllGoals)

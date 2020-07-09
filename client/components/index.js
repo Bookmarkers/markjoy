@@ -9,4 +9,4 @@ export {default as AuthForm} from './auth-form'
 export {default as AllBookmarks} from './bookmark'
 export {default as Landing} from './landing'
 export {default as AllGoals} from './all-goals'
-
+export {default as SingleGoal} from './single-goal'

@@ -5,11 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import bookmarksReducer from './bookmark'
 import goalsReducer from './goal'
+import goalReducer from './singleGoal'
 
 const reducer = combineReducers({
   user,
   bookmarks: bookmarksReducer,
-  goals: goalsReducer
+  goals: goalsReducer,
+  goal: goalReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

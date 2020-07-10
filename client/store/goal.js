@@ -27,7 +27,6 @@ export const addedGoal = goal => ({
 
 export const addGoal = goalInfo => async dispatch => {
   try {
-    // need userId
     if (!goalInfo.detail) {
       alert('Detail is a required field!')
     } else {

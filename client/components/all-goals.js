@@ -63,20 +63,20 @@ export class AllGoals extends React.Component {
                         <Button
                           floated="right"
                           content="Cancel"
-                          primary
+                          color="teal"
                           onClick={() => this.edit(null, '')}
                         />
                         <Button
                           floated="right"
                           type="submit"
                           content="Save"
-                          primary
+                          color="teal"
                         />
                       </Form>
                     </Item.Content>
                   ) : (
                     <Item.Content verticalAlign="middle">
-                      <Item.Header as="div">
+                      <Item.Header as="div" style={{width: '100%'}}>
                         GOAL: {goal.detail}
                         <Item.Extra>
                           <Item.Meta>
@@ -85,6 +85,7 @@ export class AllGoals extends React.Component {
                           <Item.Description>
                             {goalBookmarks(goal.id, bookmarks)[0] ? (
                               <a
+                                style={{color: 'teal'}}
                                 href={goalBookmarks(goal.id, bookmarks)[0].url}
                               >
                                 {goalBookmarks(goal.id, bookmarks)[0].url}
@@ -103,7 +104,7 @@ export class AllGoals extends React.Component {
                             floated="right"
                             onClick={() => this.edit(goal.id, goal.detail)}
                             content="Edit"
-                            primary
+                            color="teal"
                           />
                         </Item.Extra>
                       </Item.Header>
@@ -133,38 +134,41 @@ export class AllGoals extends React.Component {
         <Navbar />
         <div style={{display: 'flex'}}>
           <div style={{flex: 1}}>
-            <Header style={{marginLeft: '35%', marginTop: '50px'}}>
-              You have {userGoals.length} goals:
+            <Header style={{textAlign: 'center', marginTop: '50px'}}>
+              You have {userGoals.length} goals
             </Header>
             {userGoals.length < 5 ? (
-              <Item.Content
-                style={{padding: '20px 50px'}}
-                verticalAlign="middle"
-              >
-                <Form
-                  onSubmit={() => {
-                    this.props.addGoal({
-                      detail: this.state.newGoalDetail,
-                      userId: user.id
-                    })
-                    this.setState({newGoalDetail: ''})
-                  }}
+              <div>
+                <p style={{textAlign: 'center'}}>You can add up to 5 goals</p>
+                <Item.Content
+                  style={{padding: '20px 50px'}}
+                  verticalAlign="middle"
                 >
-                  <Form.Field control={Input}>
-                    <Input
-                      name="newGoalDetail"
-                      value={this.state.newGoalDetail}
-                      onChange={this.handleChange}
+                  <Form
+                    onSubmit={() => {
+                      this.props.addGoal({
+                        detail: this.state.newGoalDetail,
+                        userId: user.id
+                      })
+                      this.setState({newGoalDetail: ''})
+                    }}
+                  >
+                    <Form.Field control={Input}>
+                      <Input
+                        name="newGoalDetail"
+                        value={this.state.newGoalDetail}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Field>
+                    <Button
+                      floated="right"
+                      type="submit"
+                      content="Add Goal"
+                      color="teal"
                     />
-                  </Form.Field>
-                  <Button
-                    floated="right"
-                    type="submit"
-                    content="Add Goal"
-                    primary
-                  />
-                </Form>
-              </Item.Content>
+                  </Form>
+                </Item.Content>
+              </div>
             ) : (
               ''
             )}

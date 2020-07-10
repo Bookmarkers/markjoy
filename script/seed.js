@@ -106,6 +106,9 @@ async function seed() {
   await vicky.addGoal(allGoals[9])
   await vicky.addGoal(allGoals[10])
   await vicky.addGoal(allGoals[11])
+  await vicky.addGoal(allGoals[12])
+  await vicky.addGoal(allGoals[13])
+  await vicky.addGoal(allGoals[14])
   //console.log(vickysGoals)
 
   const vickysBookmarks = await vicky.addBookmarks(allBookmarks[6])

@@ -84,15 +84,15 @@ export class AllGoals extends React.Component {
                               </Item.Description>
                               <Button
                                 floated="right"
-                                onClick={() => this.edit(goal.id, goal.detail)}
-                                content="Edit"
-                                primary
-                              />
-                              <Button
-                                floated="right"
                                 onClick={() => this.props.deleteGoal(goal.id)}
                                 content="Delete"
                                 secondary
+                              />
+                              <Button
+                                floated="right"
+                                onClick={() => this.edit(goal.id, goal.detail)}
+                                content="Edit"
+                                primary
                               />
                             </Item.Extra>
                           </Item.Header>

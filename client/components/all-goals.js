@@ -74,7 +74,7 @@ export class AllGoals extends React.Component {
                           </Form>
                         ) : (
                           <Item.Header as="a">
-                            Goal: {goal.detail}
+                            GOAL: {goal.detail}
                             <Item.Extra>
                               <Item.Meta>
                                 Here's something to help with this goal: {'  '}

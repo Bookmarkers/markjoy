@@ -7,8 +7,7 @@ for (let i = 0; i < 27; i++) {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
-    password: '123!',
-    imageUrl: '/icon/profile-icon.jpg'
+    password: '123!'
   })
 }
 

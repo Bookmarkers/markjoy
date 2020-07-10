@@ -9,7 +9,6 @@ import {
   fetchBookmarksByCategory
 } from '../store/bookmark'
 import {Item, Button, Container, Form, Input} from 'semantic-ui-react'
-import {getBookmarkByGoal} from '../../util'
 
 export class AllGoals extends React.Component {
   constructor(props) {

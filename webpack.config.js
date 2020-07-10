@@ -39,6 +39,10 @@ module.exports = {
   //       {
   //         url: './style.css',
   //         revision: null
+  //       },
+  //       {
+  //         url: './landing.jpg',
+  //         revision: null
   //       }
   //     ],
   //     clientsClaim: true,

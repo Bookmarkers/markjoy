@@ -13,7 +13,8 @@ export class AllGoals extends React.Component {
     super(props)
     this.state = {
       detail: '',
-      selectedGoalId: null
+      selectedGoalId: null,
+      newGoalDetail: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.edit = this.edit.bind(this)
@@ -35,19 +36,15 @@ export class AllGoals extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  itemGroup(userGoals, view, inputWidth, bookmarks, goalBookmarks) {
+  itemGroup(userGoals, bookmarks, goalBookmarks) {
     return (
-      <Item.Group relaxed style={{padding: '20px 50px', marginRight: view}}>
+      <Item.Group relaxed style={{padding: '20px 50px'}}>
         {userGoals && userGoals.length > 0
           ? userGoals.map(goal => {
               return (
                 <Item key={goal.id}>
-                  {/* <Item.Image size="small" src="./placeholder.png" /> */}
                   {this.state.selectedGoalId === goal.id ? (
-                    <Item.Content
-                      verticalAlign="middle"
-                      // style={{width: inputWidth}}
-                    >
+                    <Item.Content verticalAlign="middle">
                       <Form
                         onSubmit={() => {
                           this.props.updateGoal(goal.id, {
@@ -78,10 +75,7 @@ export class AllGoals extends React.Component {
                       </Form>
                     </Item.Content>
                   ) : (
-                    <Item.Content
-                      verticalAlign="middle"
-                      // style={{width: inputWidth}}
-                    >
+                    <Item.Content verticalAlign="middle">
                       <Item.Header as="div">
                         GOAL: {goal.detail}
                         <Item.Extra>
@@ -137,53 +131,44 @@ export class AllGoals extends React.Component {
     return (
       <div>
         <Navbar />
-        <CustomSidebar />
-        <div>
-          <Header style={{marginLeft: '35%', marginTop: '50px'}}>
-            You have {userGoals.length} goals:
-          </Header>
-
-          <Item.Content
-            style={{padding: '20px 50px', marginRight: '30%'}}
-            verticalAlign="middle"
-          >
-            <Form
-              onSubmit={() => {
-                this.props.addGoal({
-                  detail: this.state.detail,
-                  userId: user.id
-                })
-                this.setState({detail: '', selectedGoalId: null})
-              }}
-            >
-              <Form.Field control={Input}>
-                <Input
-                  name="detail"
-                  value={this.state.detail}
-                  onChange={this.handleChange}
+        <div style={{display: 'flex'}}>
+          <div style={{flex: 1}}>
+            <Header style={{marginLeft: '35%', marginTop: '50px'}}>
+              You have {userGoals.length} goals:
+            </Header>
+            <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
+              {this.itemGroup(userGoals, bookmarks, goalBookmarks)}
+            </Responsive>
+            <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
+              {this.itemGroup(userGoals, bookmarks, goalBookmarks)}
+            </Responsive>
+            <Item.Content style={{padding: '20px 50px'}} verticalAlign="middle">
+              <Form
+                onSubmit={() => {
+                  this.props.addGoal({
+                    detail: this.state.newGoalDetail,
+                    userId: user.id
+                  })
+                  this.setState({newGoalDetail: ''})
+                }}
+              >
+                <Form.Field control={Input}>
+                  <Input
+                    name="newGoalDetail"
+                    value={this.state.newGoalDetail}
+                    onChange={this.handleChange}
+                  />
+                </Form.Field>
+                <Button
+                  floated="right"
+                  type="submit"
+                  content="Add Goal"
+                  primary
                 />
-              </Form.Field>
-              <Button
-                floated="right"
-                type="submit"
-                content="Add Goal"
-                primary
-              />
-            </Form>
-          </Item.Content>
-
-          <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
-            {this.itemGroup(
-              userGoals,
-              '25%',
-              'inherit',
-              bookmarks,
-              goalBookmarks
-            )}
-          </Responsive>
-          <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
-            {this.itemGroup(userGoals, 0, '70%', bookmarks, goalBookmarks)}
-          </Responsive>
+              </Form>
+            </Item.Content>
+          </div>
+          <CustomSidebar />
         </div>
       </div>
     )

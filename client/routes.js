@@ -10,7 +10,6 @@ import {
   AllGoals,
   SingleGoal
 } from './components'
-import {UserHome, AllBookmarks, AuthForm, Landing, AllGoals, SingleGoal} from './components'
 import {me} from './store'
 
 /**

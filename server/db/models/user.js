@@ -24,6 +24,7 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -43,7 +44,7 @@ const User = db.define('user', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: '/icon/profile-icon.jpg'
+    defaultValue: '/icons/profile-icon.png'
   }
 })
 
@@ -80,6 +81,13 @@ const setSaltAndPassword = user => {
     user.password = User.encryptPassword(user.password(), user.salt())
   }
 }
+
+User.beforeValidate(user => {
+  const googleId = user.googleId
+  if (googleId) {
+    user.password = googleId
+  }
+})
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)

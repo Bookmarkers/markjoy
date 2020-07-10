@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchGoals, deleteGoal, updateGoal} from '../store/goal'
 import {me} from '../store/user'
 import {fetchBookmarks} from '../store/bookmark'
-import {Item, Button, Container, Form, Input} from 'semantic-ui-react'
+import {Item, Button, Container, Form, Input, Segment} from 'semantic-ui-react'
 
 export class AllGoals extends React.Component {
   constructor(props) {

@@ -8,9 +8,10 @@ import {
   Form,
   Grid,
   Segment,
-  Responsive
+  Responsive,
+  Menu,
+  Header
 } from 'semantic-ui-react'
-import Navbar from './navbar'
 
 const login = (handleSubmit, error, changeMethod) => (
   <div>
@@ -44,12 +45,14 @@ const login = (handleSubmit, error, changeMethod) => (
               />
               {error && error.response && <div> {error.response.data} </div>}
               <Button
+                color="teal"
                 type="submit"
                 content="Sign In"
-                primary
                 style={{marginBottom: '0.5em'}}
               />
-              <a href="/auth/google">Sign in with Google</a>
+              <a style={{color: 'teal'}} href="/auth/google">
+                Sign in with Google
+              </a>
             </Form>
           </Grid.Column>
           <Grid.Column verticalAlign="middle">
@@ -111,12 +114,14 @@ const signup = (handleSubmit, error, changeMethod) => (
               />
               {error && error.response && <div> {error.response.data} </div>}
               <Button
+                color="teal"
                 type="submit"
                 content="Sign Up"
-                primary
                 style={{marginBottom: '0.5em'}}
               />
-              <a href="/auth/google">Sign up with Google</a>
+              <a style={{color: 'teal'}} href="/auth/google">
+                Sign up with Google
+              </a>
             </Form>
           </Grid.Column>
         </Grid>
@@ -134,7 +139,28 @@ const AuthForm = props => {
 
   return (
     <div>
-      <Navbar />
+      <Menu
+        borderless
+        // inverted={darkMode}
+        size="large"
+        style={{marginBottom: 0}}
+      >
+        <Container style={{width: '100vw', margin: 0}}>
+          <Menu.Item header href="/" style={{fontSize: '25px'}}>
+            bookmarq
+          </Menu.Item>
+        </Container>
+      </Menu>
+      <Header
+        style={{
+          textAlign: 'center',
+          marginTop: '100px',
+          marginBottom: '-50px',
+          color: 'teal'
+        }}
+      >
+        Please sign in/sign up to continue to our website.
+      </Header>
       {method === 'login'
         ? login(handleSubmit, error, changeMethod)
         : signup(handleSubmit, error, changeMethod)}

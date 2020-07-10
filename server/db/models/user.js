@@ -44,7 +44,7 @@ const User = db.define('user', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: '/icon/profile-icon.jpg'
+    defaultValue: '/icons/profile-icon.png'
   }
 })
 

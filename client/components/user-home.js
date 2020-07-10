@@ -13,6 +13,7 @@ export const UserHome = props => {
     <div>
       <Navbar />
       <h3>Welcome, {user.firstName}</h3>
+      <img src={user.imageUrl} height="200" width="200" />
     </div>
   )
 }

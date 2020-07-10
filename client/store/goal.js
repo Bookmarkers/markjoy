@@ -27,8 +27,9 @@ export const addedGoal = goal => ({
 
 export const addGoal = goalInfo => async dispatch => {
   try {
-    if (!goalInfo.title) {
-      alert('Title is a required field!')
+    // need userId
+    if (!goalInfo.detail) {
+      alert('Detail is a required field!')
     } else {
       const {data} = await axios.post('/api/goals', goalInfo)
       dispatch(addedGoal(data))

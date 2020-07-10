@@ -136,37 +136,44 @@ export class AllGoals extends React.Component {
             <Header style={{marginLeft: '35%', marginTop: '50px'}}>
               You have {userGoals.length} goals:
             </Header>
+            {userGoals.length < 5 ? (
+              <Item.Content
+                style={{padding: '20px 50px'}}
+                verticalAlign="middle"
+              >
+                <Form
+                  onSubmit={() => {
+                    this.props.addGoal({
+                      detail: this.state.newGoalDetail,
+                      userId: user.id
+                    })
+                    this.setState({newGoalDetail: ''})
+                  }}
+                >
+                  <Form.Field control={Input}>
+                    <Input
+                      name="newGoalDetail"
+                      value={this.state.newGoalDetail}
+                      onChange={this.handleChange}
+                    />
+                  </Form.Field>
+                  <Button
+                    floated="right"
+                    type="submit"
+                    content="Add Goal"
+                    primary
+                  />
+                </Form>
+              </Item.Content>
+            ) : (
+              ''
+            )}
             <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
               {this.itemGroup(userGoals, bookmarks, goalBookmarks)}
             </Responsive>
             <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
               {this.itemGroup(userGoals, bookmarks, goalBookmarks)}
             </Responsive>
-            <Item.Content style={{padding: '20px 50px'}} verticalAlign="middle">
-              <Form
-                onSubmit={() => {
-                  this.props.addGoal({
-                    detail: this.state.newGoalDetail,
-                    userId: user.id
-                  })
-                  this.setState({newGoalDetail: ''})
-                }}
-              >
-                <Form.Field control={Input}>
-                  <Input
-                    name="newGoalDetail"
-                    value={this.state.newGoalDetail}
-                    onChange={this.handleChange}
-                  />
-                </Form.Field>
-                <Button
-                  floated="right"
-                  type="submit"
-                  content="Add Goal"
-                  primary
-                />
-              </Form>
-            </Item.Content>
           </div>
           <CustomSidebar />
         </div>

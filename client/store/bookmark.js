@@ -18,6 +18,23 @@ export const fetchBookmarks = () => async dispatch => {
     console.error('There was a problem fetching bookmarks!', error)
   }
 }
+export const fetchBookmarksByGoal = goalId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/bookmarks/goal/${goalId}`)
+    dispatch(setBookmarks(data))
+  } catch (error) {
+    console.error('There was a problem fetching bookmarks!', error)
+  }
+}
+
+export const fetchBookmarksByCategory = categoryId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/bookmarks/category/${categoryId}`)
+    dispatch(setBookmarks(data))
+  } catch (error) {
+    console.error('There was a problem fetching bookmarks!', error)
+  }
+}
 
 export const addedBookmark = bookmark => ({
   type: ADD_BOOKMARK,

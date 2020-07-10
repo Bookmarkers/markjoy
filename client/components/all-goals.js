@@ -3,8 +3,13 @@ import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import {fetchGoals, deleteGoal, updateGoal} from '../store/goal'
 import {me} from '../store/user'
-import {fetchBookmarks} from '../store/bookmark'
+import {
+  fetchBookmarks,
+  fetchBookmarksByGoal,
+  fetchBookmarksByCategory
+} from '../store/bookmark'
 import {Item, Button, Container, Form, Input} from 'semantic-ui-react'
+import {getBookmarkByGoal} from '../../util'
 
 export class AllGoals extends React.Component {
   constructor(props) {
@@ -21,7 +26,8 @@ export class AllGoals extends React.Component {
   componentDidMount() {
     this.props.getGoals()
     this.props.getUser()
-    this.props.getBookmarks() //problem fetching bookmark!
+    this.props.getBookmarks()
+    //this.props.getBookmarksByGoal(goalId)
   }
 
   edit(goalId, prevDetail) {
@@ -37,7 +43,15 @@ export class AllGoals extends React.Component {
     const goals = this.props.goals
     const user = this.props.user
     const bookmarks = this.props.bookmarks
+    console.log('GOALS: ', goals)
     console.log('BOOKMARKS: ', bookmarks)
+    const userGoals = goals.filter(goal => goal.userId === user.id)
+    const goalBookmarks = function(goalId, bookmarks) {
+      return bookmarks.filter(bookmark => {
+        return bookmark.goalId === goalId
+      })
+    }
+    console.log('CAN YOU SEE: ', goalBookmarks(9, bookmarks))
     return (
       <Container>
         <Item.Group relaxed>
@@ -46,7 +60,7 @@ export class AllGoals extends React.Component {
                 if (goal.userId === user.id)
                   return (
                     <Item key={goal.id}>
-                      <Item.Image size="small" src="./category/unsorted.png" />
+                      {/* <Item.Image size="small" src="./category/unsorted.png" /> */}
                       <Item.Content verticalAlign="middle">
                         {this.state.selectedGoalId === goal.id ? (
                           <Form
@@ -81,7 +95,17 @@ export class AllGoals extends React.Component {
                                 Here's something to help with this goal: {'  '}
                               </Item.Meta>
                               <Item.Description>
-                                <a>www.nytimes.com</a>
+                                {goalBookmarks(goal.id, bookmarks)[0] ? (
+                                  <a
+                                    href={
+                                      goalBookmarks(goal.id, bookmarks)[0].url
+                                    }
+                                  >
+                                    {goalBookmarks(goal.id, bookmarks)[0].url}
+                                  </a>
+                                ) : (
+                                  'There are no bookmarks for this goal!'
+                                )}
                               </Item.Description>
                               <Button
                                 floated="right"
@@ -122,9 +146,9 @@ const mapDispatch = dispatch => {
     getGoals: () => dispatch(fetchGoals()),
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
+    getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),
     updateGoal: (goalId, updateInfo) => dispatch(updateGoal(goalId, updateInfo))
   }
 }
 export default connect(mapState, mapDispatch)(AllGoals)
-//export default AllGoals

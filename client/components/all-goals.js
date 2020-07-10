@@ -39,13 +39,14 @@ export class AllGoals extends React.Component {
     //const bookmarks = this.props.bookmarks
     return (
       <Container>
-        <Item.Group>
+        <Item.Group relaxed>
           {goals && goals.length > 0
             ? goals.map(goal => {
                 if (goal.userId === user.id)
                   return (
                     <Item key={goal.id}>
-                      <Item.Content>
+                      <Item.Image size="small" src="./placeholder.png" />
+                      <Item.Content verticalAlign="middle">
                         {this.state.selectedGoalId === goal.id ? (
                           <Form
                             onSubmit={() => {
@@ -62,30 +63,40 @@ export class AllGoals extends React.Component {
                                 onChange={this.handleChange}
                               />
                             </Form.Field>
-                            <Button type="submit" content="Save Goal" primary />
+                            {/* <Item.Extra> */}
+                            <Button
+                              floated="right"
+                              type="submit"
+                              content="Save Goal"
+                              primary
+                            />
+                            {/* </Item.Extra> */}
                           </Form>
                         ) : (
                           <Item.Header as="a">
                             Goal: {goal.detail}
-                            <Button
-                              onClick={() => this.edit(goal.id, goal.detail)}
-                              content="Edit"
-                              primary
-                            />
-                            <Button
-                              onClick={() => this.props.deleteGoal(goal.id)}
-                              content="Delete"
-                              secondary
-                            />
+                            <Item.Extra>
+                              <Item.Meta>
+                                Here's something to help with this goal: {'  '}
+                              </Item.Meta>
+                              <Item.Description>
+                                <a>www.nytimes.com</a>
+                              </Item.Description>
+                              <Button
+                                floated="right"
+                                onClick={() => this.edit(goal.id, goal.detail)}
+                                content="Edit"
+                                primary
+                              />
+                              <Button
+                                floated="right"
+                                onClick={() => this.props.deleteGoal(goal.id)}
+                                content="Delete"
+                                secondary
+                              />
+                            </Item.Extra>
                           </Item.Header>
                         )}
-                        <Item.Meta>
-                          Here's something to help with this goal: {'  '}
-                        </Item.Meta>
-
-                        <Item.Description>
-                          <p>www.nytimes.com</p>
-                        </Item.Description>
                       </Item.Content>
                     </Item>
                   )

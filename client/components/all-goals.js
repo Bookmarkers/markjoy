@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchGoals, deleteGoal, updateGoal} from '../store/goal'
 import {me} from '../store/user'
 import {fetchBookmarks} from '../store/bookmark'
-import {Item, Button, Container, Form, Input, Segment} from 'semantic-ui-react'
+import {Item, Button, Container, Form, Input} from 'semantic-ui-react'
 
 export class AllGoals extends React.Component {
   constructor(props) {
@@ -36,7 +36,8 @@ export class AllGoals extends React.Component {
   render() {
     const goals = this.props.goals
     const user = this.props.user
-    //const bookmarks = this.props.bookmarks
+    const bookmarks = this.props.bookmarks
+    console.log('BOOKMARKS: ', bookmarks)
     return (
       <Container>
         <Item.Group relaxed>
@@ -45,7 +46,7 @@ export class AllGoals extends React.Component {
                 if (goal.userId === user.id)
                   return (
                     <Item key={goal.id}>
-                      <Item.Image size="small" src="./placeholder.png" />
+                      <Item.Image size="small" src="./category/unsorted.png" />
                       <Item.Content verticalAlign="middle">
                         {this.state.selectedGoalId === goal.id ? (
                           <Form
@@ -73,7 +74,7 @@ export class AllGoals extends React.Component {
                             {/* </Item.Extra> */}
                           </Form>
                         ) : (
-                          <Item.Header as="a">
+                          <Item.Header as="div">
                             GOAL: {goal.detail}
                             <Item.Extra>
                               <Item.Meta>
@@ -121,9 +122,8 @@ const mapDispatch = dispatch => {
     getGoals: () => dispatch(fetchGoals()),
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
-    updateGoal: (goalId, updateInfo) =>
-      dispatch(updateGoal(goalId, updateInfo)),
-    deleteGoal: goalId => dispatch(deleteGoal(goalId))
+    deleteGoal: goalId => dispatch(deleteGoal(goalId)),
+    updateGoal: (goalId, updateInfo) => dispatch(updateGoal(goalId, updateInfo))
   }
 }
 export default connect(mapState, mapDispatch)(AllGoals)

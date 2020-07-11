@@ -23,7 +23,7 @@ export const Sidemenu = () => {
 
 export const CustomSidebar = () => {
   return (
-    <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
+    <Responsive minWidth={Responsive.onlyMobile.maxWidth + 2}>
       <Menu style={{height: '100%'}} vertical borderless>
         <Sidemenu />
       </Menu>

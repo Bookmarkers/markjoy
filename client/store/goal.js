@@ -11,10 +11,19 @@ export const setGoals = goals => ({
   goals
 })
 
-export const fetchGoals = () => async dispatch => {
+export const fetchGoals = userId => async dispatch => {
   try {
-    const {data} = await axios.get('/api/goals')
-    dispatch(setGoals(data))
+    let res
+    if (userId) {
+      res = await axios.get(`/api/goals/user/${userId}`)
+    } else {
+      res = await axios.get('/api/goals')
+    }
+    if (res.data) {
+      dispatch(setGoals(res.data))
+    } else {
+      dispatch(setGoals([]))
+    }
   } catch (error) {
     console.error('There was a problem fetching goals!', error)
   }

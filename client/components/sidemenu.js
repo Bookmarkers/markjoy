@@ -4,7 +4,7 @@ import {Menu, Responsive} from 'semantic-ui-react'
 export const Sidemenu = () => {
   return (
     <div>
-      <Menu.Item href="/" active>
+      <Menu.Item href="/home" active>
         Home
       </Menu.Item>
       <Menu.Item href="/goals">Goals</Menu.Item>

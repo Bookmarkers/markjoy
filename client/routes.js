@@ -11,7 +11,6 @@ import {
   SingleGoal
 } from './components'
 import {me} from './store'
-// import CustomSwitch from './components/custom-switch'
 
 /**
  * COMPONENT
@@ -24,21 +23,20 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
 
-    return isLoggedIn ? (
-      <Switch>
-        {/* Routes placed here are only available after logging in */}
-        <Route exact path="/home" component={UserHome} />
-        <Route exact path="/bookmarks" component={AllBookmarks} />
-        <Route exact path="/goals" component={AllGoals} />
-        <Route exact path="/goals/:id" component={SingleGoal} />
-        {/* Duplicate a fallback for logged in users */}
-        <Route component={Landing} />
-      </Switch>
-    ) : (
+    return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/auth" component={AuthForm} />
         <Route exact path="/" component={Landing} />
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route exact path="/home" component={UserHome} />
+            <Route exact path="/bookmarks" component={AllBookmarks} />
+            <Route exact path="/goals" component={AllGoals} />
+            <Route exact path="/goals/:id" component={SingleGoal} />
+          </Switch>
+        )}
         {/* Displays our Landing component as a fallback */}
         <Route component={Landing} />
       </Switch>

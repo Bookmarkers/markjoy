@@ -50,7 +50,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
       </Menu>
 
       {/* Sidebar for mobile screen view */}
-      <Responsive maxWidth={Responsive.onlyMobile.maxWidth + 1}>
+      <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
         <Sidebar
           as={Menu}
           animation="push"

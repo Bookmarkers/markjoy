@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBookmarks, addBookmark, deleteBookmark} from '../store/bookmark'
 import {Grid, Image, Container} from 'semantic-ui-react'
+import {Navbar} from './index'
+import {CustomSidebar} from './sidemenu'
 
 export class AllBookmarks extends React.Component {
   componentDidMount() {
@@ -12,24 +14,28 @@ export class AllBookmarks extends React.Component {
     const bookmarks = this.props.bookmarks
 
     return (
-      <Container>
-        <div className="container">
-          <h1 className="title">All Bookmarks</h1>
-          <div id="all-bookmarks-view" className="ui-grid">
-            <Grid columns={4} relaxed="very" align="center">
-              {bookmarks && bookmarks.length > 0
-                ? bookmarks.map(bookmark => {
-                    return (
-                      <div className="column" key={bookmark.id}>
-                        <img src="/default.png" className="ui image" />
-                      </div>
-                    )
-                  })
-                : 'No Bookmarks'}
-            </Grid>
+      <div>
+        <Navbar />
+        <div style={{display: 'flex', height: '100vh'}}>
+          <div className="container" style={{padding: '50px'}}>
+            <h1 className="title">All Bookmarks</h1>
+            <div id="all-bookmarks-view" className="ui-grid">
+              <Grid columns={4} relaxed="very" align="center">
+                {bookmarks && bookmarks.length > 0
+                  ? bookmarks.map(bookmark => {
+                      return (
+                        <div className="column" key={bookmark.id}>
+                          <img src="/default.png" className="ui image" />
+                        </div>
+                      )
+                    })
+                  : 'No Bookmarks'}
+              </Grid>
+            </div>
           </div>
+          <CustomSidebar />
         </div>
-      </Container>
+      </div>
     )
   }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   UserHome,
@@ -23,20 +23,22 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
 
-    return (
+    return isLoggedIn ? (
+      <Switch>
+        {/* Routes placed here are only available after logging in */}
+        <Redirect from="/auth" to="/home" />
+        <Route exact path="/home" component={UserHome} />
+        <Route exact path="/bookmarks" component={AllBookmarks} />
+        <Route exact path="/goals" component={AllGoals} />
+        <Route exact path="/goals/:id" component={SingleGoal} />
+        {/* Landing as a fallback for logged in users */}
+        <Route component={Landing} />
+      </Switch>
+    ) : (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/auth" component={AuthForm} />
         <Route exact path="/" component={Landing} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={UserHome} />
-            <Route exact path="/bookmarks" component={AllBookmarks} />
-            <Route exact path="/goals" component={AllGoals} />
-            <Route exact path="/goals/:id" component={SingleGoal} />
-          </Switch>
-        )}
         {/* Displays our Landing component as a fallback */}
         <Route component={Landing} />
       </Switch>

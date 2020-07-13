@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBookmarks, addBookmark, deleteBookmark} from '../store/bookmark'
-import {Grid, Image, Container} from 'semantic-ui-react'
+import {Grid, Button, Image} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 
@@ -18,6 +18,12 @@ export class AllBookmarks extends React.Component {
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
           <div className="container" style={{padding: '50px'}}>
+            <Button
+              floated="right"
+              // onClick={} dispatch sync-bookmark thunk
+              content="Sync"
+              color="teal"
+            />
             <h1 className="title">All Bookmarks</h1>
             <div id="all-bookmarks-view" className="ui-grid">
               <Grid columns={4} relaxed="very" align="center">

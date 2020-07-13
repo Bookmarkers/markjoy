@@ -7,7 +7,8 @@ const Blocked = db.define('blocked', {
     unique: true,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      notContains: ['localhost:8080', 'markjoy.herokuapp.com']
     }
   }
 })

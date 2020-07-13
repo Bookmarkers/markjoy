@@ -86,7 +86,9 @@ export class AllGoals extends React.Component {
                             {goalBookmarks(goal.id, bookmarks)[0] ? (
                               <a
                                 style={{color: 'teal'}}
-                                href={goalBookmarks(goal.id, bookmarks)[0].url}
+                                href={`//${
+                                  goalBookmarks(goal.id, bookmarks)[0].url
+                                }`}
                               >
                                 {goalBookmarks(goal.id, bookmarks)[0].url}
                               </a>

@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Blocked = db.define('blocked', {
   url: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     unique: true,
     allowNull: false,
     validate: {

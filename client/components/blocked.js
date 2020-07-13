@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBlocked, addBlocked, removeBlocked} from '../store/blocked'
-import {Grid, Button, Form, Input} from 'semantic-ui-react'
+import {Item, Button, Form, Input} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 
@@ -26,9 +26,16 @@ export class Blocked extends React.Component {
 
   render() {
     const {user, blocked, add, remove} = this.props
+    const url = this.state.url
+    const error = this.state.error
+
+    function isInvalidUrl(url) {
+      const invalid = ['localhost:8080', 'markjoy.herokuapp.com']
+      return invalid.filter(invalidUrl => invalidUrl === url).length > 0
+    }
 
     function alreadyBlocked(blocked, url) {
-      const already = blocked.filter(blockedUrl => blockedUrl === url)
+      const already = blocked.filter(blocked => blocked.url === url)
       return already.length > 0
     }
 
@@ -36,13 +43,18 @@ export class Blocked extends React.Component {
       <div>
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
-          <div className="container" style={{padding: '50px'}}>
+          <div style={{flex: 1, padding: '50px'}}>
+            <h1 className="title">Blocked Urls</h1>
             <Form
+              style={{margin: '55px 0'}}
               onSubmit={() => {
-                if (alreadyBlocked(blocked, this.state.url)) {
+                if (isInvalidUrl(url)) {
+                  this.setState({url: '', error: 'You cannot block us!'})
+                }
+                if (alreadyBlocked(blocked, url)) {
                   this.setState({url: '', error: 'The url is already blocked!'})
                 } else {
-                  add(user.id, {url: this.state.url})
+                  add(user.id, {url})
                   this.setState({url: ''})
                 }
               }}
@@ -53,8 +65,8 @@ export class Blocked extends React.Component {
                   value={this.state.url}
                   onChange={this.handleChange}
                 />
-                {this.state.error !== '' && <div>{this.state.error}</div>}
               </Form.Field>
+              {error !== '' && <div>{error}</div>}
               <Button
                 floated="right"
                 type="submit"
@@ -62,26 +74,31 @@ export class Blocked extends React.Component {
                 color="teal"
               />
             </Form>
-            <h1 className="title">Blocked Urls</h1>
-            <div className="ui-grid">
-              <Grid columns={4} relaxed="very" align="center">
-                {blocked && blocked.length > 0
-                  ? blocked.map(block => {
-                      return (
-                        <div className="column" key={block.id}>
-                          {block.url}
-                          <Button
-                            floated="right"
-                            onClick={() => remove(user.id, block.id)}
-                            content="Remove Blocked Url"
-                            color="teal"
-                          />
-                        </div>
-                      )
-                    })
-                  : 'No Blocked Urls'}
-              </Grid>
-            </div>
+            <Item.Group relaxed style={{width: '100%', marginTop: '100px'}}>
+              {blocked && blocked.length > 0
+                ? blocked.map(block => {
+                    return (
+                      <Item
+                        className="column"
+                        key={block.id}
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Item.Content>{block.url}</Item.Content>
+                        <Button
+                          floated="right"
+                          onClick={() => remove(user.id, block.id)}
+                          content="Remove"
+                          color="teal"
+                        />
+                      </Item>
+                    )
+                  })
+                : 'No Blocked Urls'}
+            </Item.Group>
           </div>
           <CustomSidebar />
         </div>

@@ -11,7 +11,8 @@ const Bookmark = db.define('bookmark', {
     unique: true,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isUrl: true
     }
   },
   imageUrl: {

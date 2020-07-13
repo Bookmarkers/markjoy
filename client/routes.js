@@ -32,7 +32,7 @@ class Routes extends Component {
         <Route exact path="/bookmarks" component={AllBookmarks} />
         <Route exact path="/goals" component={AllGoals} />
         <Route exact path="/goals/:id" component={SingleGoal} />
-        <Route exact path="/blocked" components={Blocked} />
+        <Route exact path="/blocked" component={Blocked} />
         {/* Landing as a fallback for logged in users */}
         <Route component={Landing} />
       </Switch>

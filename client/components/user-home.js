@@ -74,7 +74,7 @@ export const UserHome = props => {
                         key={goalBookmarks[randomNum].id}
                         style={{marginTop: '25px'}}
                       >
-                        <a href={`//${goalBookmarks[randomNum].url}`}>
+                        <a href={goalBookmarks[randomNum].url}>
                           {goalBookmarks[randomNum].url}
                         </a>
                       </div>

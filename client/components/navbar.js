@@ -37,7 +37,6 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
               >
                 <Dropdown.Menu>
                   <Dropdown.Item href="#">My profile</Dropdown.Item>
-                  <Dropdown.Item href="/blocked">My blocks</Dropdown.Item>
                   <Dropdown.Item onClick={handleClick}>Sign out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

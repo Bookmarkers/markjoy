@@ -6,14 +6,12 @@ import user from './user'
 import bookmarksReducer from './bookmark'
 import goalsReducer from './goal'
 import goalReducer from './singleGoal'
-import blockedReducer from './blocked'
 
 const reducer = combineReducers({
   user,
   bookmarks: bookmarksReducer,
   goals: goalsReducer,
-  goal: goalReducer,
-  blocked: blockedReducer
+  goal: goalReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

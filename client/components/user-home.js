@@ -38,8 +38,7 @@ export const UserHome = props => {
   const handleShuffleClick = prevNum => {
     let randomNum = prevNum
     while (randomNum === prevNum) {
-      randomNum = Math.floor(Math.random() * bookmarks.length) - 1
-      if (randomNum < 0) randomNum = 0
+      randomNum = Math.floor(Math.random() * (bookmarks.length - 1))
     }
     setRandomNum(randomNum)
   }

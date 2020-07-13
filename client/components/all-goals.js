@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {fetchGoals, addGoal, deleteGoal, updateGoal} from '../store/goal'
 import {me} from '../store/user'
 import {fetchBookmarks} from '../store/bookmark'
@@ -77,7 +77,9 @@ export class AllGoals extends React.Component {
                   ) : (
                     <Item.Content verticalAlign="middle">
                       <Item.Header as="div" style={{width: '100%'}}>
-                        GOAL: {goal.detail}
+                        <Link to={`/goals/${goal.id}`}>
+                          GOAL: {goal.detail}
+                        </Link>
                         <Item.Extra>
                           <Item.Meta>
                             Here's something to help with this goal: {'  '}

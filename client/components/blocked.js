@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBlocked, addBlocked, removeBlocked} from '../store/blocked'
@@ -10,7 +9,8 @@ export class Blocked extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      url: ''
+      url: '',
+      error: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -39,11 +39,11 @@ export class Blocked extends React.Component {
           <div className="container" style={{padding: '50px'}}>
             <Form
               onSubmit={() => {
-                if (!alreadyBlocked(blocked, this.state.url)) {
+                if (alreadyBlocked(blocked, this.state.url)) {
+                  this.setState({url: '', error: 'The url is already blocked!'})
+                } else {
                   add(user.id, {url: this.state.url})
                   this.setState({url: ''})
-                } else {
-                  alert('The url is already blocked!')
                 }
               }}
             >
@@ -53,6 +53,7 @@ export class Blocked extends React.Component {
                   value={this.state.url}
                   onChange={this.handleChange}
                 />
+                {this.state.error !== '' && <div>{this.state.error}</div>}
               </Form.Field>
               <Button
                 floated="right"

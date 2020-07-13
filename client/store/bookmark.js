@@ -10,31 +10,41 @@ export const setBookmarks = bookmarks => ({
   bookmarks
 })
 
-export const fetchBookmarks = () => async dispatch => {
+export const fetchBookmarks = userId => async dispatch => {
   try {
-    const {data} = await axios.get('/api/bookmarks')
-    dispatch(setBookmarks(data))
-  } catch (error) {
-    console.error('There was a problem fetching bookmarks!', error)
-  }
-}
-export const fetchBookmarksByGoal = goalId => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/bookmarks/goal/${goalId}`)
-    dispatch(setBookmarks(data))
+    let res
+    if (userId) {
+      res = await axios.get(`/api/bookmarks/user/${userId}`)
+    } else {
+      res = await axios.get('/api/bookmarks')
+    }
+    if (res.data) {
+      dispatch(setBookmarks(res.data))
+    } else {
+      dispatch(setBookmarks([]))
+    }
   } catch (error) {
     console.error('There was a problem fetching bookmarks!', error)
   }
 }
 
-export const fetchBookmarksByCategory = categoryId => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/bookmarks/category/${categoryId}`)
-    dispatch(setBookmarks(data))
-  } catch (error) {
-    console.error('There was a problem fetching bookmarks!', error)
-  }
-}
+// export const fetchBookmarksByGoal = goalId => async dispatch => {
+//   try {
+//     const {data} = await axios.get(`/api/bookmarks/goal/${goalId}`)
+//     dispatch(setBookmarks(data))
+//   } catch (error) {
+//     console.error('There was a problem fetching bookmarks!', error)
+//   }
+// }
+
+// export const fetchBookmarksByCategory = categoryId => async dispatch => {
+//   try {
+//     const {data} = await axios.get(`/api/bookmarks/category/${categoryId}`)
+//     dispatch(setBookmarks(data))
+//   } catch (error) {
+//     console.error('There was a problem fetching bookmarks!', error)
+//   }
+// }
 
 export const addedBookmark = bookmark => ({
   type: ADD_BOOKMARK,

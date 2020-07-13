@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 import {fetchGoals, addGoal, deleteGoal, updateGoal} from '../store/goal'
 import {me} from '../store/user'
-import {fetchBookmarks, fetchBookmarksByGoal} from '../store/bookmark'
+import {fetchBookmarks} from '../store/bookmark'
 import {Item, Button, Form, Input, Header, Responsive} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
@@ -199,7 +199,7 @@ const mapDispatch = dispatch => {
     getGoals: () => dispatch(fetchGoals()),
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
-    getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
+    // getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),
     updateGoal: (goalId, updateInfo) =>
       dispatch(updateGoal(goalId, updateInfo)),

@@ -77,14 +77,21 @@ export const UserHome = props => {
                         </a>
                       </div>
                     ) : (
-                      'No bookmarks for this goal!'
+                      <div style={{marginTop: '25px'}}>
+                        No bookmarks for this goal! Add one{' '}
+                        <a href="/bookmarks">here</a>
+                      </div>
                     )}
-                    <Button
-                      floated="right"
-                      onClick={() => handleShuffleClick(randomNum)}
-                      content="Shuffle"
-                      color="teal"
-                    />
+                    {goalBookmarks.length > 0 ? (
+                      <Button
+                        floated="right"
+                        onClick={() => handleShuffleClick(randomNum)}
+                        content="Shuffle"
+                        color="teal"
+                      />
+                    ) : (
+                      ''
+                    )}
                   </Item.Description>
                 </Item.Extra>
               </Item.Content>

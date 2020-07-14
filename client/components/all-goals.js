@@ -201,7 +201,6 @@ const mapDispatch = dispatch => {
     getGoals: () => dispatch(fetchGoals()),
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
-    // getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),
     updateGoal: (goalId, updateInfo) =>
       dispatch(updateGoal(goalId, updateInfo)),

@@ -101,7 +101,10 @@ export const UserHome = props => {
           ) : (
             <div style={{textAlign: 'center'}}>
               <h3>Welcome to bookmarq, {user.firstName}</h3>
-              <h4>Set your very first goal here:</h4>
+              <h4>You don't have any goal yet!</h4>
+              <p>
+                Set your very first goal <a href="/goals">here</a>
+              </p>
             </div>
           )}
         </div>

@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getSingleGoal} from '../store/singleGoal'
 import {me} from '../store/user'
@@ -7,10 +6,9 @@ import {deleteGoal, updateGoal, fetchGoals} from '../store/goal'
 import {
   fetchBookmarksByGoal,
   fetchBookmarks,
-  deleteBookmark,
-  deletedBookmark
+  deleteBookmark
 } from '../store/bookmark'
-import {Item, Button, Icon, Header, Container} from 'semantic-ui-react'
+import {Item, Button, Icon, Container} from 'semantic-ui-react'
 
 //single-goal should have:
 //1)edit goal button and remove bookmark button
@@ -34,13 +32,13 @@ export class SingleGoal extends React.Component {
   render() {
     const goal = this.props.goal
     const bookmarks = this.props.bookmarks
-    const goalId = this.state.goalId
+    //const goalId = this.state.goalId
     return (
       <Container>
         <Item.Group relaxed>
           <Item>
             <Item.Content>
-              {goal ? <h1>Goal: {goal.detail}</h1> : ''}
+              {goal ? <h1>GOAL: {goal.detail}</h1> : ''}
               <Item.Header>
                 Here are the bookmarks you saved for this goal:{' '}
               </Item.Header>
@@ -89,7 +87,7 @@ const mapDispatch = dispatch => {
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
     getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
-    deleteBookmark: bookmarkId => dispatch(deletedBookmark(bookmarkId)),
+    deleteBookmark: bookmarkId => dispatch(deleteBookmark(bookmarkId)),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),
     updateGoal: (goalId, updateInfo) => dispatch(updateGoal(goalId, updateInfo))
   }

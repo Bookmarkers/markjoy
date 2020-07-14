@@ -13,8 +13,7 @@ const checkIfUser = async (req, res, next) => {
       }
     })
     const userIdOnGoal = goal.dataValues.userId
-    console.log('What is the goal?', goal)
-    console.log('what is the userId on this goal?', userIdOnGoal)
+
     if (req.user.dataValues.id !== userIdOnGoal) {
       throw new Error('Goal not found!')
     } else {

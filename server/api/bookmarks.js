@@ -3,6 +3,25 @@ const {Bookmark} = require('../db/models')
 // const { ChromeMarks } = require('../../bg')
 module.exports = router
 
+const checkIfUser = async (req, res, next) => {
+  try {
+    const bookmark = await Bookmark.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    const userIdOnGoal = goal.dataValues.userId
+    console.log('What is the goal?', goal)
+    console.log('what is the userId on this goal?', userIdOnGoal)
+    if (req.user.dataValues.id !== userIdOnGoal) {
+      throw new Error('Bookmark not found!')
+    } else {
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
+}
 // get all, get by id, update by id, delete by id, and create routes
 router.get('/:id', async (req, res, next) => {
   try {

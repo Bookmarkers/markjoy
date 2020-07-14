@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {fetchGoals, deleteGoal, updateGoal} from '../store/goal'
 import {me} from '../store/user'
 import {

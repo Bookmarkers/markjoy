@@ -4,8 +4,13 @@ import {connect} from 'react-redux'
 import {getSingleGoal} from '../store/singleGoal'
 import {me} from '../store/user'
 import {deleteGoal, updateGoal, fetchGoals} from '../store/goal'
-import {fetchBookmarksByGoal, fetchBookmarks} from '../store/bookmark'
-import {Card, Icon, Image, Header} from 'semantic-ui-react'
+import {
+  fetchBookmarksByGoal,
+  fetchBookmarks,
+  deleteBookmark,
+  deletedBookmark
+} from '../store/bookmark'
+import {Item, Button, Icon, Header, Container} from 'semantic-ui-react'
 
 //single-goal should have:
 //1)edit goal button and remove bookmark button
@@ -25,26 +30,45 @@ export class SingleGoal extends React.Component {
     this.props.getBookmarks()
     this.props.getBookmarksByGoal(this.state.goalId)
   }
-
+  //Missing a route to delete bookmarks under single-goal view?
   render() {
     const goal = this.props.goal
     const bookmarks = this.props.bookmarks
     const goalId = this.state.goalId
     return (
-      <div>
-        {goal ? <h1>Goal: {goal.detail}</h1> : ''}
-        {bookmarks
-          ? bookmarks.map(bookmark => (
-              <div key={bookmark.id}>
-                <p>
-                  <Header>
-                    <a href={`//${bookmark.url}`}>{bookmark.url}</a>
-                  </Header>
-                </p>
-              </div>
-            ))
-          : 'There are no bookmarks for this goal'}
-      </div>
+      <Container>
+        <Item.Group relaxed>
+          <Item>
+            <Item.Content>
+              {goal ? <h1>Goal: {goal.detail}</h1> : ''}
+              <Item.Header>
+                Here are the bookmarks you saved for this goal:{' '}
+              </Item.Header>
+              <Item.Extra>
+                {bookmarks
+                  ? bookmarks.map(bookmark => (
+                      <div key={bookmark.id}>
+                        <Item.Description>
+                          <a href={`//${bookmark.url}`}>{bookmark.url}</a>
+                          <Item.Extra>
+                            <Button
+                              floated="right"
+                              onClick={() =>
+                                this.props.deleteBookmark(bookmark.id)
+                              }
+                              content="Delete"
+                              secondary
+                            />
+                          </Item.Extra>
+                        </Item.Description>
+                      </div>
+                    ))
+                  : 'There are no bookmarks for this goal'}
+              </Item.Extra>
+            </Item.Content>
+          </Item>
+        </Item.Group>
+      </Container>
     )
   }
 }
@@ -64,6 +88,7 @@ const mapDispatch = dispatch => {
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
     getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
+    deleteBookmark: bookmarkId => dispatch(deletedBookmark(bookmarkId)),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),
     updateGoal: (goalId, updateInfo) => dispatch(updateGoal(goalId, updateInfo))
   }

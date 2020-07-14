@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Goal} = require('../db/models')
+const {Goal, Bookmark} = require('../db/models')
 module.exports = router
 
 // Delete, update, create, get one goal. Get all goals.

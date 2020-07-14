@@ -53,7 +53,7 @@ export const UserHome = props => {
           {goals.length > 0 ? (
             <div style={{textAlign: 'center'}}>
               <h3>Welcome back, {user.firstName}</h3>
-              <p>Here is a goal for you today:</p>
+              <p>Here's a goal for you today:</p>
               <Item.Content>
                 <Item.Header
                   style={{
@@ -80,7 +80,7 @@ export const UserHome = props => {
                       </div>
                     ) : (
                       <div style={{marginTop: '25px'}}>
-                        No bookmarks for this goal! Add one{' '}
+                        You don't have bookmarks for this goal yet! Add one{' '}
                         <a href="/bookmarks">here</a>
                       </div>
                     )}

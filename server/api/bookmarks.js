@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Bookmark, User, UserBookmark} = require('../db/models')
+const {Bookmark} = require('../db/models')
 // const { ChromeMarks } = require('../../bg')
 module.exports = router
 
@@ -18,11 +18,12 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // get all bookmarks with categoryId
-router.get('/category/:id', async (req, res, next) => {
+router.get('/category/:categoryId', async (req, res, next) => {
   try {
     const bookmarks = await Bookmark.findAll({
       where: {
-        categoryId: req.params.id
+        userId: req.user.id,
+        categoryId: req.params.categoryId
       }
     })
     if (bookmarks) {
@@ -53,35 +54,13 @@ router.get('/goal/:id', async (req, res, next) => {
   }
 })
 
-// get all bookmarks with userId
-router.get('/user/:id', async (req, res, next) => {
-  try {
-    const userWithBookmarks = await User.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [
-        {
-          model: Bookmark,
-          through: {
-            model: UserBookmark
-          }
-        }
-      ]
-    })
-    if (userWithBookmarks) {
-      res.status(200).json(userWithBookmarks.bookmarks)
-    } else {
-      res.sendStatus(404)
-    }
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.get('/', async (req, res, next) => {
   try {
-    const bookmarks = await Bookmark.findAll()
+    const bookmarks = await Bookmark.findAll({
+      where: {
+        userId: req.user.id
+      }
+    })
     if (bookmarks) {
       res.status(200).json(bookmarks)
     } else {
@@ -92,18 +71,18 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const newBookmark = await Bookmark.create(req.body)
-//     if (newBookmark) {
-//       res.status(201).json(newBookmark)
-//     } else {
-//       res.sendStatus(404)
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+router.post('/', async (req, res, next) => {
+  try {
+    const newBookmark = await Bookmark.create(req.body)
+    if (newBookmark) {
+      res.status(201).json(newBookmark)
+    } else {
+      res.sendStatus(404)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
 
 // findOrCreate
 // promises need to be put into an array
@@ -153,20 +132,6 @@ router.put('/:id', async (req, res, next) => {
     } else {
       res.sendStatus(404)
     }
-  } catch (error) {
-    next(error)
-  }
-})
-
-router.delete('/:userId/:bookmarkId', async (req, res, next) => {
-  try {
-    await UserBookmark.destroy({
-      where: {
-        userId: req.params.userId,
-        bookmarkId: req.params.bookmarkId
-      }
-    })
-    res.sendStatus(204)
   } catch (error) {
     next(error)
   }

@@ -49,7 +49,7 @@ export class Blocked extends React.Component {
               style={{margin: '55px 0'}}
               onSubmit={() => {
                 if (isInvalidUrl(url)) {
-                  this.setState({url: '', error: 'You cannot block us!'})
+                  this.setState({url: '', error: "You can't block us!"})
                 }
                 if (alreadyBlocked(blocked, url)) {
                   this.setState({url: '', error: 'The url is already blocked!'})

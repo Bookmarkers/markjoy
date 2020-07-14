@@ -17,10 +17,10 @@ export const UserHome = props => {
   useEffect(
     () => {
       async function fetchUserGoals() {
-        await fetchGoals(user.id)
+        await fetchGoals()
       }
       async function fetchUserBookmarks() {
-        await fetchBookmarks(user.id)
+        await fetchBookmarks()
       }
       fetchUserGoals()
       fetchUserBookmarks()
@@ -53,7 +53,7 @@ export const UserHome = props => {
           {goals.length > 0 ? (
             <div style={{textAlign: 'center'}}>
               <h3>Welcome back, {user.firstName}</h3>
-              <p>Here is a goal for you today:</p>
+              <p>Here's a goal for you today:</p>
               <Item.Content>
                 <Item.Header
                   style={{
@@ -80,7 +80,7 @@ export const UserHome = props => {
                       </div>
                     ) : (
                       <div style={{marginTop: '25px'}}>
-                        No bookmarks for this goal! Add one{' '}
+                        You don't have bookmarks for this goal yet! Add one{' '}
                         <a href="/bookmarks">here</a>
                       </div>
                     )}
@@ -101,7 +101,10 @@ export const UserHome = props => {
           ) : (
             <div style={{textAlign: 'center'}}>
               <h3>Welcome to bookmarq, {user.firstName}</h3>
-              <h4>Set your very first goal here:</h4>
+              <h4>You don't have any goal yet!</h4>
+              <p>
+                Set your very first goal <a href="/goals">here</a>
+              </p>
             </div>
           )}
         </div>
@@ -124,8 +127,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchGoals: userId => dispatch(fetchGoals(userId)),
-    fetchBookmarks: userId => dispatch(fetchBookmarks(userId))
+    fetchGoals: () => dispatch(fetchGoals()),
+    fetchBookmarks: () => dispatch(fetchBookmarks())
   }
 }
 

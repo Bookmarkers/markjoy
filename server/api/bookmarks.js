@@ -1,6 +1,18 @@
 const router = require('express').Router()
 const {Bookmark, User, UserBookmark} = require('../db/models')
+const cors = require('cors')
 module.exports = router
+
+router.use(cors())
+
+// const corsOptions = {
+//   'Access-Control-Allow-Origin': '*',
+//   'Access-Control-Allow-Methods': "GET, PUT, POST, DELETE, HEAD, OPTIONS"
+// }
+
+// router.get('/bookmarks/:id', cors(), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for a Single Route'})
+// })
 
 // get all, get by id, update by id, delete by id, and create routes
 router.get('/:id', async (req, res, next) => {

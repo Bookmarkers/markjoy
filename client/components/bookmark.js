@@ -1,23 +1,65 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchBookmarks, addBookmark, deleteBookmark} from '../store/bookmark'
+import {
+  fetchBookmarks,
+  fetchBookmarksByCategory,
+  addBookmark,
+  deleteBookmark
+} from '../store/bookmark'
 import {Grid, Button, Image} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 
 export class AllBookmarks extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      path: ''
+    }
+    this.getBookmarks = this.getBookmarks.bind(this)
+    this.pathChanged = this.pathChanged.bind(this)
+  }
+
+  getBookmarks(path) {
+    let category = this.props.match.params.categoryId
+    if (path && '123456'.includes(path.split('/')[0])) {
+      const paths = path.split('/')
+      category = parseInt(paths[paths.length - 1], 10)
+      console.log(category, 'category')
+    }
+    if (category) {
+      this.props.fetchBookmarksByCategory(category)
+    } else {
+      this.props.getBookmarks()
+    }
+  }
+
   componentDidMount() {
-    this.props.getBookmarks()
+    this.getBookmarks()
+    this.setState({
+      path: location.pathname
+    })
+  }
+
+  pathChanged() {
+    const currPath = location.pathname
+    if (this.state.path !== currPath) {
+      this.getBookmarks(currPath)
+      this.setState({
+        path: currPath
+      })
+    }
   }
 
   render() {
     const bookmarks = this.props.bookmarks
+    console.log(bookmarks, 'bookmarks')
 
     return (
-      <div>
+      <div onClick={this.pathChanged}>
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
-          <div className="container" style={{padding: '50px'}}>
+          <div className="container" style={{padding: '50px', flex: 1}}>
             <Button
               floated="right"
               // onClick={} dispatch sync-bookmark thunk
@@ -48,6 +90,7 @@ export class AllBookmarks extends React.Component {
 
 const mapState = state => {
   return {
+    user: state.user,
     bookmarks: state.bookmarks
   }
 }
@@ -55,6 +98,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getBookmarks: () => dispatch(fetchBookmarks()),
+    fetchBookmarksByCategory: (categoryId, userId) =>
+      dispatch(fetchBookmarksByCategory(categoryId, userId)),
     addBookmark: bookmarkInfo => dispatch(addBookmark(bookmarkInfo)),
     deleteBookmark: bookmarkId => dispatch(deleteBookmark(bookmarkId))
   }

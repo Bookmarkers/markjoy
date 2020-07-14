@@ -3,11 +3,13 @@ const db = require('../db')
 
 const Blocked = db.define('blocked', {
   url: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     unique: true,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isUrl: true,
+      notIn: [['localhost:8080', 'markjoy.herokuapp.com']]
     }
   }
 })

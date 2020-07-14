@@ -1,19 +1,112 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 // import {AllBookmarks} from './bookmark'
 import {Navbar} from './index'
+import {CustomSidebar} from './sidemenu'
+import {fetchGoals} from '../store/goal'
+import {fetchBookmarks} from '../store/bookmark'
+import {Item, Button, Responsive} from 'semantic-ui-react'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {user} = props
+  const {user, fetchGoals, fetchBookmarks, goals, bookmarks} = props
+
+  // similar to componentDidMount
+  useEffect(
+    () => {
+      async function fetchUserGoals() {
+        await fetchGoals(user.id)
+      }
+      async function fetchUserBookmarks() {
+        await fetchBookmarks(user.id)
+      }
+      fetchUserGoals()
+      fetchUserBookmarks()
+    },
+    [user]
+  )
+
+  const goalBookmarks = bookmarks.filter(bookmark => {
+    if (goals[0] && goals[0].id) {
+      return bookmark.goalId === goals[0].id
+    }
+  })
+
+  const [randomNum, setRandomNum] = useState(0)
+  const handleShuffleClick = prevNum => {
+    let randomNum = prevNum
+    if (goalBookmarks.length > 1) {
+      while (randomNum === prevNum) {
+        randomNum = Math.floor(Math.random() * goalBookmarks.length)
+      }
+    }
+    setRandomNum(randomNum)
+  }
 
   return (
     <div>
       <Navbar />
-      <h3>Welcome, {user.firstName}</h3>
-      <img src={user.imageUrl} height="200" width="200" />
+      <div style={{display: 'flex', height: '100vh'}}>
+        <div style={{flex: 1, padding: '50px'}}>
+          {goals.length > 0 ? (
+            <div style={{textAlign: 'center'}}>
+              <h3>Welcome back, {user.firstName}</h3>
+              <p>Here is a goal for you today:</p>
+              <Item.Content>
+                <Item.Header
+                  style={{
+                    fontWeight: '800',
+                    fontSize: '2em',
+                    margin: '50px -50px'
+                  }}
+                >
+                  {goals[0].detail}
+                </Item.Header>
+                <Item.Extra>
+                  <Item.Description>
+                    <Item.Meta>
+                      Here's something to help with this goal:
+                    </Item.Meta>
+                    {goalBookmarks[randomNum] && goalBookmarks[randomNum].id ? (
+                      <div
+                        key={goalBookmarks[randomNum].id}
+                        style={{marginTop: '25px'}}
+                      >
+                        <a href={goalBookmarks[randomNum].url}>
+                          {goalBookmarks[randomNum].url}
+                        </a>
+                      </div>
+                    ) : (
+                      <div style={{marginTop: '25px'}}>
+                        No bookmarks for this goal! Add one{' '}
+                        <a href="/bookmarks">here</a>
+                      </div>
+                    )}
+                    {goalBookmarks.length > 0 ? (
+                      <Button
+                        floated="right"
+                        onClick={() => handleShuffleClick(randomNum)}
+                        content="Shuffle"
+                        color="teal"
+                      />
+                    ) : (
+                      ''
+                    )}
+                  </Item.Description>
+                </Item.Extra>
+              </Item.Content>
+            </div>
+          ) : (
+            <div style={{textAlign: 'center'}}>
+              <h3>Welcome to bookmarq, {user.firstName}</h3>
+              <h4>Set your very first goal here:</h4>
+            </div>
+          )}
+        </div>
+        <CustomSidebar />
+      </div>
     </div>
   )
 }
@@ -23,8 +116,17 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    goals: state.goals,
+    bookmarks: state.bookmarks
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => {
+  return {
+    fetchGoals: userId => dispatch(fetchGoals(userId)),
+    fetchBookmarks: userId => dispatch(fetchBookmarks(userId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)

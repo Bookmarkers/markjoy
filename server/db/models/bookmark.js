@@ -7,11 +7,12 @@ const Bookmark = db.define('bookmark', {
     defaultValue: ''
   },
   url: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     unique: true,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isUrl: true
     }
   },
   imageUrl: {

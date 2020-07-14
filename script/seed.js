@@ -8,12 +8,12 @@ const bookmarkSeed = require('./bookmarkSeed')
 const blockedSeed = require('./blockedSeed')
 
 const categorySeed = [
-  {name: 'Unsorted'},
   {name: 'Learning'},
   {name: 'Community'},
   {name: 'Lifestyle'},
   {name: 'Finance'},
-  {name: 'Wellness'}
+  {name: 'Wellness'},
+  {name: 'Unsorted'}
 ]
 
 const localUserSeeds = [

@@ -11,16 +11,11 @@ export const setGoals = goals => ({
   goals
 })
 
-export const fetchGoals = userId => async dispatch => {
+export const fetchGoals = () => async dispatch => {
   try {
-    let res
-    if (userId) {
-      res = await axios.get(`/api/goals/user/${userId}`)
-    } else {
-      res = await axios.get('/api/goals')
-    }
-    if (res.data) {
-      dispatch(setGoals(res.data))
+    const {data} = await axios.get('/api/goals')
+    if (data) {
+      dispatch(setGoals(data))
     } else {
       dispatch(setGoals([]))
     }
@@ -61,8 +56,9 @@ export const deleteGoal = goalId => async dispatch => {
   }
 }
 
-export const updatedGoal = updateInfo => ({
+export const updatedGoal = (goalId, updateInfo) => ({
   type: UPDATE_GOAL,
+  goalId,
   updateInfo
 })
 
@@ -70,7 +66,7 @@ export const updateGoal = (goalId, updateInfo) => {
   return async dispatch => {
     try {
       await axios.put(`/api/goals/${goalId}`, updateInfo)
-      dispatch(updatedGoal(updateInfo))
+      dispatch(updatedGoal(goalId, updateInfo))
     } catch (error) {
       console.error('There was a problem updating the goal!', error)
     }
@@ -88,7 +84,13 @@ export default function goalsReducer(state = initialState, action) {
     case DELETE_GOAL:
       return [...state].filter(goal => goal.id !== action.goalId)
     case UPDATE_GOAL:
-      return {...state, ...action.updateInfo}
+      return [...state].map(goal => {
+        if (goal.id === action.goalId) {
+          return {...goal, ...action.updateInfo}
+        } else {
+          return goal
+        }
+      })
     default:
       return state
   }

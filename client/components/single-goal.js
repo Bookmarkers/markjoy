@@ -49,6 +49,7 @@ export class SingleGoal extends React.Component {
                   ? bookmarks.map(bookmark => (
                       <div key={bookmark.id}>
                         <Item.Description>
+                          <Icon name="like" />
                           <a href={`//${bookmark.url}`}>{bookmark.url}</a>
                           <Item.Extra>
                             <Button

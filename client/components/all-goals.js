@@ -22,7 +22,7 @@ export class AllGoals extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getGoals(this.props.user.id)
+    this.props.getGoals()
     this.props.getUser()
     this.props.getBookmarks()
   }
@@ -133,7 +133,7 @@ export class AllGoals extends React.Component {
     return (
       <div>
         <Navbar />
-        <div style={{display: 'flex', height: '100vh'}}>
+        <div style={{display: 'flex'}}>
           <div style={{flex: 1}}>
             <Header style={{textAlign: 'center', marginTop: '50px'}}>
               You have {goals.length} goals
@@ -197,7 +197,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getGoals: userId => dispatch(fetchGoals(userId)),
+    getGoals: () => dispatch(fetchGoals()),
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),

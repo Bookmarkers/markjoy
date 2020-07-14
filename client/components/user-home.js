@@ -17,10 +17,10 @@ export const UserHome = props => {
   useEffect(
     () => {
       async function fetchUserGoals() {
-        await fetchGoals(user.id)
+        await fetchGoals()
       }
       async function fetchUserBookmarks() {
-        await fetchBookmarks(user.id)
+        await fetchBookmarks()
       }
       fetchUserGoals()
       fetchUserBookmarks()
@@ -127,8 +127,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchGoals: userId => dispatch(fetchGoals(userId)),
-    fetchBookmarks: userId => dispatch(fetchBookmarks(userId))
+    fetchGoals: () => dispatch(fetchGoals()),
+    fetchBookmarks: () => dispatch(fetchBookmarks())
   }
 }
 

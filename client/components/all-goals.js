@@ -22,7 +22,7 @@ export class AllGoals extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getGoals()
+    this.props.getGoals(this.props.user.id)
     this.props.getUser()
     this.props.getBookmarks()
   }
@@ -36,11 +36,11 @@ export class AllGoals extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  itemGroup(userGoals, bookmarks, goalBookmarks) {
+  itemGroup(goals, bookmarks, goalBookmarks) {
     return (
       <Item.Group relaxed style={{padding: '20px 50px'}}>
-        {userGoals && userGoals.length > 0
-          ? userGoals.map(goal => {
+        {goals && goals.length > 0
+          ? goals.map(goal => {
               return (
                 <Item key={goal.id}>
                   {this.state.selectedGoalId === goal.id ? (
@@ -124,7 +124,6 @@ export class AllGoals extends React.Component {
     const goals = this.props.goals
     const user = this.props.user
     const bookmarks = this.props.bookmarks
-    const userGoals = goals.filter(goal => goal.userId === user.id)
     const goalBookmarks = function(goalId, bookmarks) {
       return bookmarks.filter(bookmark => {
         return bookmark.goalId === goalId
@@ -137,9 +136,9 @@ export class AllGoals extends React.Component {
         <div style={{display: 'flex', height: '100vh'}}>
           <div style={{flex: 1}}>
             <Header style={{textAlign: 'center', marginTop: '50px'}}>
-              You have {userGoals.length} goals
+              You have {goals.length} goals
             </Header>
-            {userGoals.length < 5 ? (
+            {goals.length < 5 ? (
               <div>
                 <p style={{textAlign: 'center'}}>You can add up to 5 goals</p>
                 <Item.Content
@@ -175,10 +174,10 @@ export class AllGoals extends React.Component {
               ''
             )}
             <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
-              {this.itemGroup(userGoals, bookmarks, goalBookmarks)}
+              {this.itemGroup(goals, bookmarks, goalBookmarks)}
             </Responsive>
             <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
-              {this.itemGroup(userGoals, bookmarks, goalBookmarks)}
+              {this.itemGroup(goals, bookmarks, goalBookmarks)}
             </Responsive>
           </div>
           <CustomSidebar />
@@ -198,7 +197,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getGoals: () => dispatch(fetchGoals()),
+    getGoals: userId => dispatch(fetchGoals(userId)),
     getUser: () => dispatch(me()),
     getBookmarks: () => dispatch(fetchBookmarks()),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),

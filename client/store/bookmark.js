@@ -32,14 +32,9 @@ export const fetchBookmarksByGoal = goalId => async dispatch => {
   }
 }
 
-export const fetchBookmarksByCategory = (
-  categoryId,
-  userId
-) => async dispatch => {
+export const fetchBookmarksByCategory = categoryId => async dispatch => {
   try {
-    const {data} = await axios.get(
-      `/api/bookmarks/category/${categoryId}/${userId}`
-    )
+    const {data} = await axios.get(`/api/bookmarks/category/${categoryId}`)
     dispatch(setBookmarks(data))
   } catch (error) {
     console.error('There was a problem fetching bookmarks!', error)

@@ -20,12 +20,15 @@ export class AllBookmarks extends React.Component {
     this.pathChanged = this.pathChanged.bind(this)
   }
 
-  getBookmarks() {
-    const user = this.props.user
-    const category = this.props.match.params.categoryId
-
+  getBookmarks(path) {
+    let category = this.props.match.params.categoryId
+    if (path && '123456'.includes(path.split('/')[0])) {
+      const paths = path.split('/')
+      category = parseInt(paths[paths.length - 1], 10)
+      console.log(category, 'category')
+    }
     if (category) {
-      this.props.fetchBookmarksByCategory(category, user.id)
+      this.props.fetchBookmarksByCategory(category)
     } else {
       this.props.getBookmarks()
     }
@@ -39,9 +42,9 @@ export class AllBookmarks extends React.Component {
   }
 
   pathChanged() {
-    this.getBookmarks()
     const currPath = location.pathname
     if (this.state.path !== currPath) {
+      this.getBookmarks(currPath)
       this.setState({
         path: currPath
       })
@@ -50,6 +53,7 @@ export class AllBookmarks extends React.Component {
 
   render() {
     const bookmarks = this.props.bookmarks
+    console.log(bookmarks, 'bookmarks')
 
     return (
       <div onClick={this.pathChanged}>

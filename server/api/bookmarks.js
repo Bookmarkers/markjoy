@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Bookmark, User} = require('../db/models')
+const {Bookmark} = require('../db/models')
 // const { ChromeMarks } = require('../../bg')
 module.exports = router
 
@@ -17,12 +17,12 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// get all bookmarks with categoryId & userId
-router.get('/category/:categoryId/:userId', async (req, res, next) => {
+// get all bookmarks with categoryId
+router.get('/category/:categoryId', async (req, res, next) => {
   try {
     const bookmarks = await Bookmark.findAll({
       where: {
-        userId: req.params.userId,
+        userId: req.user.id,
         categoryId: req.params.categoryId
       }
     })

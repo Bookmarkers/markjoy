@@ -27,32 +27,32 @@ export class Sidemenu extends React.Component {
         <Menu.Menu vertical="true" secondary="true">
           <Link to="/bookmarks/category/1">
             <Menu.Item active={this.isActive('/bookmarks/category/1')}>
-              Unsorted
+              Learning
             </Menu.Item>
           </Link>
           <Link to="/bookmarks/category/2">
             <Menu.Item active={this.isActive('/bookmarks/category/2')}>
-              Learning
+              Community
             </Menu.Item>
           </Link>
           <Link to="/bookmarks/category/3">
             <Menu.Item active={this.isActive('/bookmarks/category/3')}>
-              Community
+              Lifestyle
             </Menu.Item>
           </Link>
           <Link to="/bookmarks/category/4">
             <Menu.Item active={this.isActive('/bookmarks/category/4')}>
-              Lifestyle
+              Finance
             </Menu.Item>
           </Link>
           <Link to="/bookmarks/category/5">
             <Menu.Item active={this.isActive('/bookmarks/category/5')}>
-              Finance
+              Wellness
             </Menu.Item>
           </Link>
           <Link to="/bookmarks/category/6">
             <Menu.Item active={this.isActive('/bookmarks/category/6')}>
-              Wellness
+              Unsorted
             </Menu.Item>
           </Link>
         </Menu.Menu>

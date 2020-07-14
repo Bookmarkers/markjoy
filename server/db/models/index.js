@@ -3,7 +3,7 @@ const Blocked = require('./blocked')
 const Goal = require('./goal')
 const Bookmark = require('./bookmark')
 const UserBlocked = require('./user_blocked')
-const UserBookmark = require('./user_bookmark')
+// const UserBookmark = require('./user_bookmark')
 const Category = require('./category')
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -18,11 +18,13 @@ Goal.belongsTo(User)
 Goal.hasMany(Bookmark)
 Bookmark.belongsTo(Goal)
 
-Bookmark.belongsTo(Category)
 Category.hasMany(Bookmark)
+Bookmark.belongsTo(Category)
 
-User.belongsToMany(Bookmark, {through: UserBookmark})
-Bookmark.belongsToMany(User, {through: UserBookmark})
+User.hasMany(Bookmark)
+Bookmark.belongsTo(User)
+// User.belongsToMany(Bookmark, {through: UserBookmark})
+// Bookmark.belongsToMany(User, {through: UserBookmark})
 
 User.belongsToMany(Blocked, {through: UserBlocked})
 Blocked.belongsToMany(User, {through: UserBlocked})
@@ -39,6 +41,6 @@ module.exports = {
   Goal,
   Bookmark,
   UserBlocked,
-  UserBookmark,
+  // UserBookmark,
   Category
 }

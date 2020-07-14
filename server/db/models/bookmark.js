@@ -8,15 +8,27 @@ const Bookmark = db.define('bookmark', {
   },
   url: {
     type: Sequelize.TEXT,
-    unique: true,
+    // unique: true,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
+      isUrl: true
     }
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue: '/default.png'
+  },
+  note: {
+    type: Sequelize.TEXT
+  },
+  favorite: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  archived: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

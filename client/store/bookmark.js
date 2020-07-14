@@ -10,16 +10,11 @@ export const setBookmarks = bookmarks => ({
   bookmarks
 })
 
-export const fetchBookmarks = userId => async dispatch => {
+export const fetchBookmarks = () => async dispatch => {
   try {
-    let res
-    if (userId) {
-      res = await axios.get(`/api/bookmarks/user/${userId}`)
-    } else {
-      res = await axios.get('/api/bookmarks')
-    }
-    if (res.data) {
-      dispatch(setBookmarks(res.data))
+    const {data} = await axios.get('/api/bookmarks')
+    if (data) {
+      dispatch(setBookmarks(data))
     } else {
       dispatch(setBookmarks([]))
     }
@@ -28,23 +23,23 @@ export const fetchBookmarks = userId => async dispatch => {
   }
 }
 
-// export const fetchBookmarksByGoal = goalId => async dispatch => {
-//   try {
-//     const {data} = await axios.get(`/api/bookmarks/goal/${goalId}`)
-//     dispatch(setBookmarks(data))
-//   } catch (error) {
-//     console.error('There was a problem fetching bookmarks!', error)
-//   }
-// }
+export const fetchBookmarksByGoal = goalId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/bookmarks/goal/${goalId}`)
+    dispatch(setBookmarks(data))
+  } catch (error) {
+    console.error('There was a problem fetching bookmarks!', error)
+  }
+}
 
-// export const fetchBookmarksByCategory = categoryId => async dispatch => {
-//   try {
-//     const {data} = await axios.get(`/api/bookmarks/category/${categoryId}`)
-//     dispatch(setBookmarks(data))
-//   } catch (error) {
-//     console.error('There was a problem fetching bookmarks!', error)
-//   }
-// }
+export const fetchBookmarksByCategory = categoryId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/bookmarks/category/${categoryId}`)
+    dispatch(setBookmarks(data))
+  } catch (error) {
+    console.error('There was a problem fetching bookmarks!', error)
+  }
+}
 
 export const addedBookmark = bookmark => ({
   type: ADD_BOOKMARK,
@@ -63,6 +58,10 @@ export const addBookmark = bookmarkInfo => async dispatch => {
     console.error('There was a problem creating a new bookmark!', error)
   }
 }
+
+// export const updatedBookmark
+
+// export const updateBookmark using axios.put(`/api/bookmarks/${id}`, updateInfo)
 
 export const deletedBookmark = bookmarkId => ({
   type: DELETE_BOOKMARK,

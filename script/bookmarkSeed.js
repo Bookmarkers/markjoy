@@ -16,7 +16,8 @@ const bookmarkUrls = [
 const bookmarkSeed = []
 for (let i = 0; i < bookmarkUrls.length; i++) {
   bookmarkSeed.push({
-    url: bookmarkUrls[i]
+    url: bookmarkUrls[i],
+    categoryId: 6
   })
 }
 

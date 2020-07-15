@@ -1,5 +1,3 @@
-const {Bookmark} = require('../db/models')
-
 const router = require('express').Router()
 module.exports = router
 

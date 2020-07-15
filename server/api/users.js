@@ -1,13 +1,19 @@
 const router = require('express').Router()
-const {User, Goal} = require('../db/models')
+const {User} = require('../db/models')
+const {checkIfAdmin} = require('../../utils')
 module.exports = router
+
+router.use((req, res, next) => {
+  if (req.user && checkIfAdmin(req.user)) {
+    next()
+  } else {
+    res.status(401).send('ACCESS DENIED')
+  }
+})
 
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
       attributes: ['id', 'email']
     })
     res.json(users)

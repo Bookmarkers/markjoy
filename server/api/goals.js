@@ -1,30 +1,9 @@
 const router = require('express').Router()
 const {Goal} = require('../db/models')
+const {checkIfUserHasGoal} = require('../../utils')
 module.exports = router
 
-// Delete, update, create, get one goal. Get all goals.
-// Potentially should it be by user? I.e. '/userId:/id' where userId: req.params.userId and id is id?
-
-const checkIfUser = async (req, res, next) => {
-  try {
-    const goal = await Goal.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
-    const userIdOnGoal = goal.dataValues.userId
-
-    if (req.user.dataValues.id !== userIdOnGoal) {
-      throw new Error('Goal not found!')
-    } else {
-      next()
-    }
-  } catch (error) {
-    next(error)
-  }
-}
-
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', checkIfUserHasGoal, async (req, res, next) => {
   try {
     const goalToDelete = await Goal.destroy({
       where: {
@@ -71,7 +50,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', checkIfUser, async (req, res, next) => {
+router.get('/:id', checkIfUserHasGoal, async (req, res, next) => {
   try {
     const goal = await Goal.findByPk(req.params.id)
     if (goal) {

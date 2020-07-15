@@ -91,6 +91,19 @@ function deletingCallback(tabs) {
   }).then(data => {
     console.log(data)
   })
+// const ourHost = process.env.HOST || 'http://localhost:8080'
+const ourHost = 'http://markjoy.herokuapp.com'
+
+function fetchHappen() {
+  fetch(`${ourHost}/api/goals/1`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+
+function fetchTime() {
+  fetch(`${ourHost}/api/users/30`)
+    .then(response => response.json())
+    .then(data => console.log(data))
 }
 
 function addingCallback(tabs) {

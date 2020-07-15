@@ -20,18 +20,21 @@ const localUserSeeds = [
   {
     firstName: 'Yanjaa',
     lastName: 'Wintersoul',
+    isAdmin: true,
     email: 'yw@bm.com',
     password: '123'
   },
   {
     firstName: 'Vicky',
     lastName: 'Rodri',
+    isAdmin: true,
     email: 'vr@bm.com',
     password: '123'
   },
   {
     firstName: 'Jianna',
     lastName: 'Park',
+    isAdmin: true,
     email: 'jp@bm.com',
     password: '123'
   }

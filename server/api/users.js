@@ -14,7 +14,7 @@ router.get('/', checkIfUserIsUser, async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', checkIfUserIsUser, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user) {

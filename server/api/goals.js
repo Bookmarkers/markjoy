@@ -3,15 +3,7 @@ const {Goal} = require('../db/models')
 const {checkIfUserHasGoal} = require('../../utils')
 module.exports = router
 
-// router.use((req, res, next) => {
-//   if (req.user && checkIfAdmin(req.user)) {
-//     next()
-//   } else {
-//     res.status(401).send('ACCESS DENIED')
-//   }
-// })
-
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', checkIfUserHasGoal, async (req, res, next) => {
   try {
     const goalToDelete = await Goal.destroy({
       where: {

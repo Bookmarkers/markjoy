@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {Bookmark} = require('../db/models')
 // const { ChromeMarks } = require('../../bg')
-const {checkIfUserHasBookmark} = require('../../utils')
+const {checkIfAdmin, checkIfUserHasBookmark} = require('../../utils')
 module.exports = router
 
 // router.use((req, res, next) => {
@@ -148,7 +148,7 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', checkIfUserHasBookmark, async (req, res, next) => {
   try {
     const bookmarkToDelete = await Bookmark.destroy({
       where: {

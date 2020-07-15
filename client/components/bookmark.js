@@ -94,7 +94,7 @@ export class AllBookmarks extends React.Component {
                         key={bookmark.id}
                         style={{margin: 0}}
                       >
-                        <img src="/default.png" className="ui image" />
+                        <img src={bookmark.imageUrl} className="ui image" />
                       </div>
                     )
                   })

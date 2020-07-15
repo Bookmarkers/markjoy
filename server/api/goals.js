@@ -3,13 +3,13 @@ const {Goal} = require('../db/models')
 const {checkIfAdmin, checkIfUser} = require('../../utils')
 module.exports = router
 
-router.use((req, res, next) => {
-  if (req.user && checkIfAdmin(req.user)) {
-    next()
-  } else {
-    res.status(401).send('ACCESS DENIED')
-  }
-})
+// router.use((req, res, next) => {
+//   if (req.user && checkIfAdmin(req.user)) {
+//     next()
+//   } else {
+//     res.status(401).send('ACCESS DENIED')
+//   }
+// })
 
 router.delete('/:id', async (req, res, next) => {
   try {

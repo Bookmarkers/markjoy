@@ -1,19 +1,19 @@
 const router = require('express').Router()
 const {Bookmark} = require('../db/models')
 // const { ChromeMarks } = require('../../bg')
-const {checkIfAdmin} = require('../../utils')
+const {checkIfAdmin, checkIfUserHasBookmark} = require('../../utils')
 module.exports = router
 
-router.use((req, res, next) => {
-  if (req.user && checkIfAdmin(req.user)) {
-    next()
-  } else {
-    res.status(401).send('ACCESS DENIED')
-  }
-})
+// router.use((req, res, next) => {
+//   if (req.user && checkIfAdmin(req.user)) {
+//     next()
+//   } else {
+//     res.status(401).send('ACCESS DENIED')
+//   }
+// })
 
 // get all, get by id, update by id, delete by id, and create routes
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', checkIfUserHasBookmark, async (req, res, next) => {
   try {
     const bookmark = await Bookmark.findByPk(req.params.id)
     if (bookmark) {

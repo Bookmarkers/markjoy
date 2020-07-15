@@ -83,11 +83,23 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const newBookmark = await Bookmark.create(req.body)
-    if (newBookmark) {
-      res.status(201).json(newBookmark)
+    const foundBookmark = await Bookmark.findOne({
+      where: {
+        url: req.body.url
+        // THIS NEEDS TO BE A THING IN THE FINAL VERSION!!
+        // ,
+        // userId: req.body.userId
+      }
+    })
+    if (foundBookmark) {
+      res.status(200).json(foundBookmark)
     } else {
-      res.sendStatus(404)
+      const newBookmark = await Bookmark.create(req.body)
+      if (newBookmark) {
+        res.status(201).json(newBookmark)
+      } else {
+        res.sendStatus(404)
+      }
     }
   } catch (error) {
     next(error)
@@ -155,6 +167,27 @@ router.delete('/:id', async (req, res, next) => {
       }
     })
     if (bookmarkToDelete) {
+      res.sendStatus(204)
+    } else {
+      res.sendStatus(404)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/', async (req, res, next) => {
+  try {
+    const foundBookmark = await Bookmark.findOne({
+      where: {
+        url: req.body.url
+        // THIS NEEDS TO BE A THING IN THE FINAL VERSION!!
+        // ,
+        // userId: req.body.userId
+      }
+    })
+    if (foundBookmark) {
+      await foundBookmark.destroy()
       res.sendStatus(204)
     } else {
       res.sendStatus(404)

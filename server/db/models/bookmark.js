@@ -30,6 +30,11 @@ const Bookmark = db.define('bookmark', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
+  // ,
+  // dateAdded: {
+  //   type: Sequelize.DATE,
+  //   defaultValue: date.now()
+  // }
 })
 
 module.exports = Bookmark

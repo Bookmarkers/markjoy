@@ -85,7 +85,7 @@ export class AllBookmarks extends React.Component {
               className="ui-grid"
               style={{margin: '50px 0'}}
             >
-              <Grid columns={4} relaxed="very" align="center">
+              <Grid doubling columns={4} relaxed="very" align="center">
                 {bookmarks && bookmarks.length > 0 ? (
                   bookmarks.map(bookmark => {
                     return (

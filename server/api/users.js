@@ -1,17 +1,9 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-const {checkIfAdmin} = require('../../utils')
+const {checkIfUserIsUser} = require('../../utils')
 module.exports = router
 
-router.use((req, res, next) => {
-  if (req.user && checkIfAdmin(req.user)) {
-    next()
-  } else {
-    res.status(401).send('ACCESS DENIED')
-  }
-})
-
-router.get('/', async (req, res, next) => {
+router.get('/', checkIfUserIsUser, async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['id', 'email']
@@ -22,7 +14,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', checkIfUserIsUser, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     if (user) {

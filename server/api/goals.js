@@ -1,17 +1,9 @@
 const router = require('express').Router()
 const {Goal} = require('../db/models')
-const {checkIfAdmin, checkIfUser} = require('../../utils')
+const {checkIfUserHasGoal} = require('../../utils')
 module.exports = router
 
-router.use((req, res, next) => {
-  if (req.user && checkIfAdmin(req.user)) {
-    next()
-  } else {
-    res.status(401).send('ACCESS DENIED')
-  }
-})
-
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', checkIfUserHasGoal, async (req, res, next) => {
   try {
     const goalToDelete = await Goal.destroy({
       where: {
@@ -58,7 +50,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', checkIfUser, async (req, res, next) => {
+router.get('/:id', checkIfUserHasGoal, async (req, res, next) => {
   try {
     const goal = await Goal.findByPk(req.params.id)
     if (goal) {

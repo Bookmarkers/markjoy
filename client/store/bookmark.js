@@ -48,12 +48,12 @@ export const addedBookmark = bookmark => ({
 
 export const addBookmark = bookmarkInfo => async dispatch => {
   try {
-    if (!bookmarkInfo.title) {
-      alert('Title is a required field!')
-    } else {
-      const {data} = await axios.post('/api/bookmarks', bookmarkInfo)
-      dispatch(addedBookmark(data))
-    }
+    // if (!bookmarkInfo.title) {
+    //   alert('Title is a required field!')
+    // } else {
+    const {data} = await axios.post('/api/bookmarks', bookmarkInfo)
+    dispatch(addedBookmark(data))
+    // }
   } catch (error) {
     console.error('There was a problem creating a new bookmark!', error)
   }

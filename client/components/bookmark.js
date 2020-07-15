@@ -9,36 +9,44 @@ import {
 import {Grid, Button, Image} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
+import AddBookmark from './create-or-update-bookmark'
+
+const titles = {
+  '/bookmarks': 'All Bookmarks',
+  '/bookmarks/category/1': 'Learning',
+  '/bookmarks/category/2': 'Community',
+  '/bookmarks/category/3': 'Lifestyle',
+  '/bookmarks/category/4': 'Finance',
+  '/bookmarks/category/5': 'Wellness',
+  '/bookmarks/category/6': 'Unsorted'
+}
 
 export class AllBookmarks extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      path: ''
+      path: '',
+      title: ''
     }
     this.getBookmarks = this.getBookmarks.bind(this)
     this.pathChanged = this.pathChanged.bind(this)
   }
 
   getBookmarks(path) {
-    let category = this.props.match.params.categoryId
-    if (path && '123456'.includes(path.split('/')[0])) {
+    let category
+    if ('123456'.includes(path.split('/')[0])) {
       const paths = path.split('/')
       category = parseInt(paths[paths.length - 1], 10)
-      console.log(category, 'category')
     }
     if (category) {
       this.props.fetchBookmarksByCategory(category)
     } else {
-      this.props.getBookmarks()
+      this.props.fetchBookmarks()
     }
   }
 
   componentDidMount() {
-    this.getBookmarks()
-    this.setState({
-      path: location.pathname
-    })
+    this.pathChanged()
   }
 
   pathChanged() {
@@ -46,38 +54,55 @@ export class AllBookmarks extends React.Component {
     if (this.state.path !== currPath) {
       this.getBookmarks(currPath)
       this.setState({
-        path: currPath
+        path: currPath,
+        title: titles[currPath]
       })
     }
   }
 
   render() {
     const bookmarks = this.props.bookmarks
-    console.log(bookmarks, 'bookmarks')
+    const title = this.state.title
 
     return (
       <div onClick={this.pathChanged}>
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
-          <div className="container" style={{padding: '50px', flex: 1}}>
+          <div
+            className="container"
+            style={{padding: '50px', flex: 1, flexDirection: 'column'}}
+          >
+            <h1 className="title">{title}</h1>
+            <AddBookmark />
             <Button
               floated="right"
               // onClick={} dispatch sync-bookmark thunk
               content="Sync"
               color="teal"
             />
-            <h1 className="title">All Bookmarks</h1>
-            <div id="all-bookmarks-view" className="ui-grid">
-              <Grid columns={4} relaxed="very" align="center">
-                {bookmarks && bookmarks.length > 0
-                  ? bookmarks.map(bookmark => {
-                      return (
-                        <div className="column" key={bookmark.id}>
-                          <img src="/default.png" className="ui image" />
-                        </div>
-                      )
-                    })
-                  : 'No Bookmarks'}
+            <div
+              id="all-bookmarks-view"
+              className="ui-grid"
+              style={{margin: '50px 0'}}
+            >
+              <Grid doubling columns={4} relaxed="very" align="center">
+                {bookmarks && bookmarks.length > 0 ? (
+                  bookmarks.map(bookmark => {
+                    return (
+                      <div
+                        className="column"
+                        key={bookmark.id}
+                        style={{margin: 0}}
+                      >
+                        <img src={bookmark.imageUrl} className="ui image" />
+                      </div>
+                    )
+                  })
+                ) : (
+                  <div style={{margin: '30px'}}>
+                    You don't have any bookmarks under this category!
+                  </div>
+                )}
               </Grid>
             </div>
           </div>
@@ -97,7 +122,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getBookmarks: () => dispatch(fetchBookmarks()),
+    fetchBookmarks: () => dispatch(fetchBookmarks()),
     fetchBookmarksByCategory: (categoryId, userId) =>
       dispatch(fetchBookmarksByCategory(categoryId, userId)),
     addBookmark: bookmarkInfo => dispatch(addBookmark(bookmarkInfo)),

@@ -68,6 +68,8 @@ router.get('/', async (req, res, next) => {
       where: {
         userId: req.user.id
       }
+      // order bookmarks by newest to oldest, but only after refreshing
+      // order: [['createdAt', 'DESC']],
     })
     if (bookmarks) {
       res.status(200).json(bookmarks)

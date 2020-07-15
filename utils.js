@@ -1,5 +1,5 @@
 //Check if the user logged in is the user on goals
-const checkIfUser = async (req, res, next) => {
+const checkIfUserHasGoal = async (req, res, next) => {
   try {
     const goal = await Goal.findOne({
       where: {
@@ -18,6 +18,7 @@ const checkIfUser = async (req, res, next) => {
   }
 }
 
+//check if use has this bookmark
 const checkIfUserHasBookmark = async (req, res, next) => {
   try {
     const bookmark = await Bookmark.findOne({
@@ -37,6 +38,7 @@ const checkIfUserHasBookmark = async (req, res, next) => {
   }
 }
 
+//check if user is the same as the user logged in
 const checkIfUserIsUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -62,7 +64,7 @@ function checkIfAdmin(user) {
 
 module.exports = {
   checkIfAdmin,
-  checkIfUser,
+  checkIfUserHasGoal,
   checkIfUserHasBookmark,
   checkIfUserIsUser
 }

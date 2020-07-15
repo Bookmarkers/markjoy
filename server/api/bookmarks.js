@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {Bookmark} = require('../db/models')
 // const { ChromeMarks } = require('../../bg')
-const {checkIfAdmin, checkIfUserHasBookmark} = require('../../utils')
+const {checkIfUserHasBookmark} = require('../../utils')
 module.exports = router
 
 // router.use((req, res, next) => {

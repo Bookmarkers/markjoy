@@ -44,7 +44,7 @@ export class Blocked extends React.Component {
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
           <div style={{flex: 1, padding: '50px'}}>
-            <h1 className="title">Blocked Urls</h1>
+            <h1 className="title">My Blocked Urls</h1>
             <Form
               style={{margin: '55px 0'}}
               onSubmit={() => {

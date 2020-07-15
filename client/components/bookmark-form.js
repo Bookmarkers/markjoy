@@ -40,6 +40,7 @@ export const BookmarkForm = props => {
             control={Radio}
             label="Learning"
             value="1"
+            id="1"
             name="categoryId"
             checked={categoryId === '1'}
             onChange={handleChange}
@@ -48,6 +49,7 @@ export const BookmarkForm = props => {
             control={Radio}
             label="Community"
             value="2"
+            id="2"
             name="categoryId"
             checked={categoryId === '2'}
             onChange={handleChange}
@@ -56,6 +58,7 @@ export const BookmarkForm = props => {
             control={Radio}
             label="Lifestyle"
             value="3"
+            id="3"
             name="categoryId"
             checked={categoryId === '3'}
             onChange={handleChange}
@@ -64,6 +67,8 @@ export const BookmarkForm = props => {
             control={Radio}
             label="Finance"
             value="4"
+            id="4"
+            name="categoryId"
             checked={categoryId === '4'}
             onChange={handleChange}
           />
@@ -71,6 +76,7 @@ export const BookmarkForm = props => {
             control={Radio}
             label="Wellness"
             value="5"
+            id="5"
             name="categoryId"
             checked={categoryId === '5'}
             onChange={handleChange}
@@ -79,6 +85,7 @@ export const BookmarkForm = props => {
             control={Radio}
             label="Unsorted"
             value="6"
+            id="6"
             name="categoryId"
             checked={categoryId === '6'}
             onChange={handleChange}

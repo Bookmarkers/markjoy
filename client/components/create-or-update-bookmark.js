@@ -28,6 +28,7 @@ export class AddBookmark extends Component {
     event.preventDefault()
     this.setState({
       [event.target.name]: event.target.value,
+      success: false,
       error: ''
     })
   }

@@ -9,7 +9,8 @@ import {
   Landing,
   AllGoals,
   SingleGoal,
-  Blocked
+  Blocked,
+  ErrorMessage
 } from './components'
 import {me} from './store'
 

@@ -40,9 +40,36 @@ async function fetchUser() {
     return user
   }
 }
+
+let chromeMarks = []
+
 window.onload = async () => {
   await fetchUser()
+
+  chrome.bookmarks.getTree(function(itemTree) {
+    itemTree.forEach(function(item) {
+      processNode(item)
+    })
+  })
+
+  function processNode(node) {
+    if (node.children) {
+      node.children.forEach(function(child) {
+        processNode(child)
+      })
+    }
+    if (node.url) {
+      chromeMarks.push({
+        url: node.url,
+        title: node.title,
+        imageUrl: node.url + 'favicon.ico',
+        userId: user.id,
+        categoryId: 6
+      })
+    }
+  }
 }
+
 // POST
 async function postData(url, data) {
   const response = await fetch(url, {
@@ -55,6 +82,7 @@ async function postData(url, data) {
   return response.json()
 }
 
+// BULK POST
 async function massPostData(url, data) {
   const response = await fetch(url, {
     method: 'POST',
@@ -91,29 +119,6 @@ async function deleteData(url, data = {}) {
   return response.json()
 }
 
-let chromeMarks = []
-
-chrome.bookmarks.getTree(function(itemTree) {
-  itemTree.forEach(function(item) {
-    processNode(item)
-  })
-})
-
-function processNode(node) {
-  if (node.children) {
-    node.children.forEach(function(child) {
-      processNode(child)
-    })
-  }
-  if (node.url) {
-    chromeMarks.push({
-      url: node.url,
-      title: node.title,
-      imageUrl: node.url + 'favicon.ico'
-    })
-  }
-}
-
 let current = {active: true, lastFocusedWindow: true}
 
 function deletingCallback(tabs) {
@@ -132,7 +137,8 @@ function addingCallback(tabs) {
     url: currentTab.url,
     title: currentTab.title,
     imageUrl: currentTab.favIconUrl,
-    userId: user.id
+    userId: user.id,
+    categoryId: 6
   }).then(data => {
     console.log(data)
   })
@@ -143,28 +149,17 @@ document.getElementById('do-mark').onclick = () => {
   chrome.tabs.query(current, addingCallback)
 }
 
-// document.getElementById('do-mark').onclick = () => {
-//   console.log(currentUser)
-// }
-
-// UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
-// document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
-//     title: 'hot tamale time'
-// })
-
 // DELETE CURRENT TAB FROM BOOKMARK TABLE
 document.getElementById('do-delete').onclick = () => {
   chrome.tabs.query(current, deletingCallback)
 }
 
-// Just see if popup.js has access to chrome bookmarks array from bg.js
-// document.getElementById('do-count').onclick = () => {console.log('this is is it', typeof chromeMarks[0])}
-// document.getElementById('do-sync').onclick = () => {postData('http://localhost:8080/api/bookmarks', {
-//     url: 'http://twattre.com',
-//     imageUrl: 'http://twtere.com/favicon.ico',
-//     title: 'not itle'
-// })
-// }
-
+// SYNC NATIVE BOOKMARKS TO YOUR ACCOUNT
 document.getElementById('do-sync').onclick = () =>
   massPostData('http://localhost:8080/api/bookmarks/bulk', chromeMarks)
+
+
+// UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
+// document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
+//     title: 'hot tamale time'
+// })

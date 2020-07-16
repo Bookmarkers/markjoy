@@ -19,10 +19,43 @@
 //   })
 //   return response.json() // parses JSON response into native JavaScript objects
 // }
+// const ourHost = "http://markjoy.herokuapp.com"
+const ourHost = 'http://localhost:8080'
 
+let user
+
+async function fetchUser() {
+  const response = await fetch(`${ourHost}/auth/me`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+  const text = await response.text()
+  if (text) {
+    user = await JSON.parse(text)
+    return user
+  } else {
+    user = {}
+    return user
+  }
+}
+window.onload = async () => {
+  await fetchUser()
+}
 // POST
 async function postData(url, data) {
-  console.log(data)
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  return response.json()
+}
+
+async function massPostData(url, data) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -48,7 +81,6 @@ async function updateData(url, data = {}) {
 
 // DELETE
 async function deleteData(url, data = {}) {
-  // Default options are marked with *
   const response = await fetch(url, {
     method: 'DELETE',
     headers: {
@@ -87,24 +119,11 @@ let current = {active: true, lastFocusedWindow: true}
 function deletingCallback(tabs) {
   let currentTab = tabs[0]
   deleteData('http://localhost:8080/api/bookmarks', {
-    url: currentTab.url
+    url: currentTab.url,
+    userId: user.id
   }).then(data => {
     console.log(data)
   })
-}
-// const ourHost = process.env.HOST || 'http://localhost:8080'
-const ourHost = 'http://markjoy.herokuapp.com'
-
-function fetchHappen() {
-  fetch(`${ourHost}/api/goals/1`)
-    .then(response => response.json())
-    .then(data => console.log(data))
-}
-
-function fetchTime() {
-  fetch(`${ourHost}/api/users/30`)
-    .then(response => response.json())
-    .then(data => console.log(data))
 }
 
 function addingCallback(tabs) {
@@ -112,38 +131,40 @@ function addingCallback(tabs) {
   postData('http://localhost:8080/api/bookmarks', {
     url: currentTab.url,
     title: currentTab.title,
-    imageUrl: currentTab.favIconUrl
+    imageUrl: currentTab.favIconUrl,
+    userId: user.id
   }).then(data => {
     console.log(data)
   })
 }
 
 // MARQ (add) CURRENT TAB
-document.getElementById('do-mark').onclick = chrome.tabs.query(
-  current,
-  addingCallback
-)
+document.getElementById('do-mark').onclick = () => {
+  chrome.tabs.query(current, addingCallback)
+}
+
+// document.getElementById('do-mark').onclick = () => {
+//   console.log(currentUser)
+// }
 
 // UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
 // document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
 //     title: 'hot tamale time'
 // })
 
-// DELETE BOOKMARK WITH ID ONE FROM LOCAL DB
-document.getElementById('do-delete').onclick = chrome.tabs.query(
-  current,
-  deletingCallback
-)
+// DELETE CURRENT TAB FROM BOOKMARK TABLE
+document.getElementById('do-delete').onclick = () => {
+  chrome.tabs.query(current, deletingCallback)
+}
 
 // Just see if popup.js has access to chrome bookmarks array from bg.js
 // document.getElementById('do-count').onclick = () => {console.log('this is is it', typeof chromeMarks[0])}
-// document.getElementById('do-count').onclick = postData('http://localhost:8080/api/bookmarks', {
+// document.getElementById('do-sync').onclick = () => {postData('http://localhost:8080/api/bookmarks', {
 //     url: 'http://twattre.com',
 //     imageUrl: 'http://twtere.com/favicon.ico',
 //     title: 'not itle'
 // })
+// }
 
-// document.getElementById('do-count').onclick = postData(
-//   'http://localhost:8080/api/bookmarks',
-//   chromeMarks[0].json()
-// )
+document.getElementById('do-sync').onclick = () =>
+  massPostData('http://localhost:8080/api/bookmarks/bulk', chromeMarks)

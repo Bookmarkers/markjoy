@@ -29,8 +29,8 @@ function fetchUserBlocked() {
   fetch(`${ourHost}/auth/me`, {
     method: 'GET',
     headers: {
-      Accept: 'application/json',
-      'Set-Cookie': 'cross-site-cookie=name; SameSite=None; Secure'
+      Accept: 'application/json'
+      // 'Set-Cookie': 'cross-site-cookie=name; SameSite=None; Secure'
     }
   })
     .then(response => response.text())
@@ -40,8 +40,8 @@ function fetchUserBlocked() {
         fetch(`${ourHost}/api/blocked/user/${user.id}`, {
           method: 'GET',
           headers: {
-            Accept: 'application/json',
-            'Set-Cookie': 'cross-site-cookie=name; SameSite=None; Secure'
+            Accept: 'application/json'
+            // 'Set-Cookie': 'cross-site-cookie=name; SameSite=None; Secure'
           }
         })
           .then(response => response.json())

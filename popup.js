@@ -40,8 +40,33 @@ async function fetchUser() {
     return user
   }
 }
+let chromeMarks = []
+
 window.onload = async () => {
   await fetchUser()
+
+  chrome.bookmarks.getTree(function(itemTree) {
+    itemTree.forEach(function(item) {
+      processNode(item)
+    })
+  })
+
+  function processNode(node) {
+    if (node.children) {
+      node.children.forEach(function(child) {
+        processNode(child)
+      })
+    }
+    if (node.url) {
+      chromeMarks.push({
+        url: node.url,
+        title: node.title,
+        imageUrl: node.url + 'favicon.ico',
+        userId: user.id,
+        categoryId: 6
+      })
+    }
+  }
 }
 // POST
 async function postData(url, data) {
@@ -91,29 +116,6 @@ async function deleteData(url, data = {}) {
   return response.json()
 }
 
-let chromeMarks = []
-
-chrome.bookmarks.getTree(function(itemTree) {
-  itemTree.forEach(function(item) {
-    processNode(item)
-  })
-})
-
-function processNode(node) {
-  if (node.children) {
-    node.children.forEach(function(child) {
-      processNode(child)
-    })
-  }
-  if (node.url) {
-    chromeMarks.push({
-      url: node.url,
-      title: node.title,
-      imageUrl: node.url + 'favicon.ico'
-    })
-  }
-}
-
 let current = {active: true, lastFocusedWindow: true}
 
 function deletingCallback(tabs) {
@@ -132,7 +134,8 @@ function addingCallback(tabs) {
     url: currentTab.url,
     title: currentTab.title,
     imageUrl: currentTab.favIconUrl,
-    userId: user.id
+    userId: user.id,
+    categoryId: 6
   }).then(data => {
     console.log(data)
   })

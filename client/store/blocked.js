@@ -24,18 +24,9 @@ export const fetchBlocked = userId => async dispatch => {
 
 export const addBlocked = (userId, blockedInfo) => async dispatch => {
   try {
-    const urlDivided = blockedInfo.url.split('.')
-    const isUrl = urlDivided.length > 1
-    if (!isUrl) {
-      alert('Please type in correct url!')
-    } else {
-      const {data} = await axios.post(
-        `/api/blocked/user/${userId}`,
-        blockedInfo
-      )
-      if (data) {
-        dispatch(addedBlocked(data))
-      }
+    const {data} = await axios.post(`/api/blocked/user/${userId}`, blockedInfo)
+    if (data) {
+      dispatch(addedBlocked(data))
     }
   } catch (err) {
     console.error(err)
@@ -60,7 +51,7 @@ export default function blockedReducer(state = initialState, action) {
     case ADD_BLOCKED:
       return [...state, action.blocked]
     case REMOVE_BLOCKED:
-      return [...state].filter(blocked => blocked.id !== action.blockedId)
+      return [...state].filter(blocked => blocked.id !== action.id)
     default:
       return state
   }

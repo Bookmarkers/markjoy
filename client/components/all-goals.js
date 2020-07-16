@@ -1,9 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchGoals, addGoal, deleteGoal, updateGoal} from '../store/goal'
+import {
+  setGoals,
+  fetchGoals,
+  addGoal,
+  deleteGoal,
+  updateGoal
+} from '../store/goal'
 import {me} from '../store/user'
-import {fetchBookmarks} from '../store/bookmark'
+import {setBookmarks, fetchBookmarks} from '../store/bookmark'
 import {Item, Button, Form, Input, Header, Responsive} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
@@ -125,6 +131,11 @@ export class AllGoals extends React.Component {
     )
   }
 
+  componentWillUnmount() {
+    this.props.setGoals([])
+    this.props.setBookmarks([])
+  }
+
   render() {
     const goals = this.props.goals
     const user = this.props.user
@@ -135,7 +146,9 @@ export class AllGoals extends React.Component {
       })
     }
 
-    return (
+    return this.props.loading ? (
+      <div className="ui active loader" />
+    ) : (
       <div>
         <Navbar />
         <div style={{display: 'flex'}}>
@@ -194,16 +207,19 @@ export class AllGoals extends React.Component {
 
 const mapState = state => {
   return {
-    goals: state.goals,
+    goals: state.goals.goals,
+    loading: state.goals.loading,
     user: state.user,
-    bookmarks: state.bookmarks
+    bookmarks: state.bookmarks.bookmarks
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    setGoals: goals => dispatch(setGoals(goals)),
     getGoals: () => dispatch(fetchGoals()),
     getUser: () => dispatch(me()),
+    setBookmarks: bookmarks => dispatch(setBookmarks(bookmarks)),
     getBookmarks: () => dispatch(fetchBookmarks()),
     deleteGoal: goalId => dispatch(deleteGoal(goalId)),
     updateGoal: (goalId, updateInfo) =>

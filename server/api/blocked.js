@@ -38,7 +38,10 @@ router.post('/user/:id', async (req, res, next) => {
     if (Array.isArray(newBlocked)) {
       newBlocked = newBlocked[0]
     }
-    await UserBlocked.create({userId: req.params.id, blockedId: newBlocked.id})
+    await UserBlocked.findOrCreate({
+      where: {userId: req.params.id, blockedId: newBlocked.id}
+    })
+    res.status(201).json(newBlocked)
   } catch (error) {
     next(error)
   }

@@ -93,7 +93,7 @@ export class AddBookmark extends Component {
 
 const mapState = state => ({
   user: state.user,
-  goals: state.goals
+  goals: state.goals.goals
 })
 
 const mapDispatch = dispatch => ({

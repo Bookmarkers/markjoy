@@ -133,7 +133,7 @@ export class AllGoals extends React.Component {
     return (
       <div>
         <Navbar />
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', height: '100vh'}}>
           <div style={{flex: 1}}>
             <Header style={{textAlign: 'center', marginTop: '50px'}}>
               You have {goals.length} goals

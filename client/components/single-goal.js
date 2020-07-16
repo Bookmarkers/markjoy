@@ -9,7 +9,9 @@ import {
   fetchBookmarks,
   deleteBookmark
 } from '../store/bookmark'
-import {Item, Button, Icon, Container} from 'semantic-ui-react'
+import {Item, Button, Icon} from 'semantic-ui-react'
+import {Navbar} from './index'
+import {CustomSidebar} from './sidemenu'
 
 export class SingleGoal extends React.Component {
   constructor(props) {
@@ -29,45 +31,52 @@ export class SingleGoal extends React.Component {
     const goal = this.props.goal.goal
     const goalError = this.props.goal.error
     const bookmarks = this.props.bookmarks
+
     return (
-      <Container>
-        {goalError ? (
-          <ErrorMessage />
-        ) : (
-          <Item.Group relaxed>
-            <Item>
-              <Item.Content>
-                {goal ? <h1>GOAL: {goal.detail}</h1> : ''}
-                <Item.Header>
-                  Here are the bookmarks you saved for this goal:{' '}
-                </Item.Header>
-                <Item.Extra>
-                  {bookmarks
-                    ? bookmarks.map(bookmark => (
-                        <div key={bookmark.id}>
-                          <Item.Description>
-                            <Icon name="like" />
-                            <a href={`//${bookmark.url}`}>{bookmark.url}</a>
-                            <Item.Extra>
-                              <Button
-                                floated="right"
-                                onClick={() =>
-                                  this.props.deleteBookmark(bookmark.id)
-                                }
-                                content="Delete"
-                                secondary
-                              />
-                            </Item.Extra>
-                          </Item.Description>
-                        </div>
-                      ))
-                    : 'There are no bookmarks for this goal'}
-                </Item.Extra>
-              </Item.Content>
-            </Item>
-          </Item.Group>
-        )}
-      </Container>
+      <div>
+        <Navbar />
+        <div style={{display: 'flex', height: '100vh'}}>
+          <div style={{flex: 1, padding: '50px'}}>
+            {goalError ? (
+              <ErrorMessage />
+            ) : (
+              <Item.Group relaxed>
+                <Item>
+                  <Item.Content>
+                    {goal ? <h1>GOAL: {goal.detail}</h1> : ''}
+                    <Item.Header>
+                      Here are the bookmarks you saved for this goal:{' '}
+                    </Item.Header>
+                    <Item.Extra style={{marginTop: '40px'}}>
+                      {bookmarks.length > 0
+                        ? bookmarks.map(bookmark => (
+                            <div key={bookmark.id}>
+                              <Item.Description>
+                                <Icon name="like" />
+                                <a href={`//${bookmark.url}`}>{bookmark.url}</a>
+                                <Item.Extra>
+                                  <Button
+                                    floated="right"
+                                    onClick={() =>
+                                      this.props.deleteBookmark(bookmark.id)
+                                    }
+                                    content="Delete"
+                                    secondary
+                                  />
+                                </Item.Extra>
+                              </Item.Description>
+                            </div>
+                          ))
+                        : 'There are no bookmarks for this goal yet!'}
+                    </Item.Extra>
+                  </Item.Content>
+                </Item>
+              </Item.Group>
+            )}
+          </div>
+          <CustomSidebar />
+        </div>
+      </div>
     )
   }
 }

@@ -121,26 +121,12 @@ router.post('/', async (req, res, next) => {
 // then bulk resolve
 
 // SPICEY .POST - BULK CREATION OF BOOKMARKS ALREADY IN THE BROWSER FOR FIRST TIME USERS
-router.post('/user/:userId', async (req, res, next) => {
+router.post('/bulk', async (req, res, next) => {
   // PSEUDOCODE:
   // GIVEN EITHER AN ARRAY OF OBJECTS OR AN ARRAY OF PROMISES
   // POST/CREATE/INSERT THIS BOOKMARK INTO OUR BOOKMARKS TABLE IN THE DATABASE
   try {
-    // ARRAY OF PROMISES (EMPTY)
-    let promises = []
-    // ARRAY OF OBJECTS (2 bookmarks to insert)
-    const bookmarksArray = [
-      {
-        url: 'vecka.nu',
-        imageUrl: 'vecka.nu/favicon.ico',
-        title: 'A place to know what week it is'
-      },
-      {
-        url: 'potatoes.com',
-        title: 'just potatoes, you know?'
-      }
-    ]
-    const newBookmarks = await Bookmark.bulkCreate(bookmarksArray)
+    const newBookmarks = await Bookmark.bulkCreate(req.body)
     if (newBookmarks) {
       res.status(201).json(newBookmarks)
     } else {

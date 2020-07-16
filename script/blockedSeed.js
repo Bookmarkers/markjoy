@@ -1,10 +1,10 @@
 const blockedUrls = [
-  'www.reddit.com',
-  'www.madewell.com',
-  'www.nextdoor.com',
-  'www.facebook.com',
-  'www.twitter.com',
-  'www.instagram.com'
+  'https://www.reddit.com/',
+  'https://www.madewell.com/',
+  'https://nextdoor.com/',
+  'https://www.facebook.com/',
+  'https://twitter.com/',
+  'https://www.instagram.com/'
 ]
 
 const blockedSeed = []

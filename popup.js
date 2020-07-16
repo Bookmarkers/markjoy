@@ -91,49 +91,49 @@ function deletingCallback(tabs) {
   }).then(data => {
     console.log(data)
   })
-  // const ourHost = process.env.HOST || 'http://localhost:8080'
-  const ourHost = 'http://markjoy.herokuapp.com'
-
-  function fetchHappen() {
-    fetch(`${ourHost}/api/goals/1`)
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
-
-  function fetchTime() {
-    fetch(`${ourHost}/api/users/30`)
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
-
-  function addingCallback(tabs) {
-    let currentTab = tabs[0] // there will be only one in this array
-    postData('http://localhost:8080/api/bookmarks', {
-      url: currentTab.url,
-      title: currentTab.title,
-      imageUrl: currentTab.favIconUrl
-    }).then(data => {
-      console.log(data)
-    })
-  }
-
-  // MARQ (add) CURRENT TAB
-  document.getElementById('do-mark').onclick = chrome.tabs.query(
-    current,
-    addingCallback
-  )
-
-  // UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
-  // document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
-  //     title: 'hot tamale time'
-  // })
-
-  // DELETE BOOKMARK WITH ID ONE FROM LOCAL DB
-  document.getElementById('do-delete').onclick = chrome.tabs.query(
-    current,
-    deletingCallback
-  )
 }
+// const ourHost = process.env.HOST || 'http://localhost:8080'
+const ourHost = 'http://markjoy.herokuapp.com'
+
+function fetchHappen() {
+  fetch(`${ourHost}/api/goals/1`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+
+function fetchTime() {
+  fetch(`${ourHost}/api/users/30`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+
+function addingCallback(tabs) {
+  let currentTab = tabs[0] // there will be only one in this array
+  postData('http://localhost:8080/api/bookmarks', {
+    url: currentTab.url,
+    title: currentTab.title,
+    imageUrl: currentTab.favIconUrl
+  }).then(data => {
+    console.log(data)
+  })
+}
+
+// MARQ (add) CURRENT TAB
+document.getElementById('do-mark').onclick = chrome.tabs.query(
+  current,
+  addingCallback
+)
+
+// UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
+// document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
+//     title: 'hot tamale time'
+// })
+
+// DELETE BOOKMARK WITH ID ONE FROM LOCAL DB
+document.getElementById('do-delete').onclick = chrome.tabs.query(
+  current,
+  deletingCallback
+)
 
 // Just see if popup.js has access to chrome bookmarks array from bg.js
 // document.getElementById('do-count').onclick = () => {console.log('this is is it', typeof chromeMarks[0])}

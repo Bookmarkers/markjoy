@@ -40,6 +40,7 @@ async function fetchUser() {
     return user
   }
 }
+
 let chromeMarks = []
 
 window.onload = async () => {
@@ -68,6 +69,7 @@ window.onload = async () => {
     }
   }
 }
+
 // POST
 async function postData(url, data) {
   const response = await fetch(url, {
@@ -80,6 +82,7 @@ async function postData(url, data) {
   return response.json()
 }
 
+// BULK POST
 async function massPostData(url, data) {
   const response = await fetch(url, {
     method: 'POST',
@@ -146,28 +149,17 @@ document.getElementById('do-mark').onclick = () => {
   chrome.tabs.query(current, addingCallback)
 }
 
-// document.getElementById('do-mark').onclick = () => {
-//   console.log(currentUser)
-// }
-
-// UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
-// document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
-//     title: 'hot tamale time'
-// })
-
 // DELETE CURRENT TAB FROM BOOKMARK TABLE
 document.getElementById('do-delete').onclick = () => {
   chrome.tabs.query(current, deletingCallback)
 }
 
-// Just see if popup.js has access to chrome bookmarks array from bg.js
-// document.getElementById('do-count').onclick = () => {console.log('this is is it', typeof chromeMarks[0])}
-// document.getElementById('do-sync').onclick = () => {postData('http://localhost:8080/api/bookmarks', {
-//     url: 'http://twattre.com',
-//     imageUrl: 'http://twtere.com/favicon.ico',
-//     title: 'not itle'
-// })
-// }
-
+// SYNC NATIVE BOOKMARKS TO YOUR ACCOUNT
 document.getElementById('do-sync').onclick = () =>
   massPostData('http://localhost:8080/api/bookmarks/bulk', chromeMarks)
+
+
+// UPDATE BOOKMARK WITH ID = 1'S TITLE TO hot tamale time
+// document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
+//     title: 'hot tamale time'
+// })

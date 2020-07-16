@@ -27,10 +27,16 @@ export class AllBookmarks extends React.Component {
     this.state = {
       path: '',
       title: ''
+      // open: false
     }
     this.getBookmarks = this.getBookmarks.bind(this)
     this.pathChanged = this.pathChanged.bind(this)
+    // this.open = this.open.bind(this)
+    // this.close = this.close.bind(this)
   }
+
+  // open = () => this.setState({ open: true })
+  // close = () => this.setState({ open: false })
 
   getBookmarks(path) {
     let category
@@ -103,10 +109,15 @@ export class AllBookmarks extends React.Component {
                         </List.Content>
                         <Button
                           floated="right"
-                          onClick={() => this.props.deleteBookmark(bookmark.id)}
-                          content="Delete"
                           secondary
-                        />
+                          onClick={() => {
+                            if (window.confirm('Delete this bookmark?')) {
+                              this.props.deleteBookmark(bookmark.id)
+                            }
+                          }}
+                        >
+                          Delete
+                        </Button>
                       </List.Item>
                     )
                   })

@@ -104,10 +104,15 @@ export class AllGoals extends React.Component {
                           </Item.Description>
                           <Button
                             floated="right"
-                            onClick={() => this.props.deleteGoal(goal.id)}
-                            content="Delete"
                             secondary
-                          />
+                            onClick={() => {
+                              if (window.confirm('Delete this goal?')) {
+                                this.props.deleteGoal(goal.id)
+                              }
+                            }}
+                          >
+                            Delete
+                          </Button>
                           <Button
                             floated="right"
                             onClick={() => this.edit(goal.id, goal.detail)}

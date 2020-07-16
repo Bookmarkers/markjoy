@@ -6,7 +6,7 @@ import {
   addBookmark,
   deleteBookmark
 } from '../store/bookmark'
-import {Grid, Button, Image} from 'semantic-ui-react'
+import {Button, Image, List} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import AddBookmark from './create-or-update-bookmark'
@@ -27,10 +27,16 @@ export class AllBookmarks extends React.Component {
     this.state = {
       path: '',
       title: ''
+      // open: false
     }
     this.getBookmarks = this.getBookmarks.bind(this)
     this.pathChanged = this.pathChanged.bind(this)
+    // this.open = this.open.bind(this)
+    // this.close = this.close.bind(this)
   }
+
+  // open = () => this.setState({ open: true })
+  // close = () => this.setState({ open: false })
 
   getBookmarks(path) {
     let category
@@ -87,17 +93,33 @@ export class AllBookmarks extends React.Component {
               className="ui-grid"
               style={{margin: '50px 0'}}
             >
-              <Grid doubling columns={4} relaxed="very" align="center">
+              <List animated verticalAlign="middle">
                 {bookmarks && bookmarks.length > 0 ? (
                   bookmarks.map(bookmark => {
                     return (
-                      <div
-                        className="column"
-                        key={bookmark.id}
-                        style={{margin: 0}}
-                      >
-                        <img src={bookmark.imageUrl} className="ui image" />
-                      </div>
+                      <List.Item key={bookmark.id}>
+                        <Image
+                          avatar
+                          src={bookmark.imageUrl}
+                          className="ui image"
+                        />
+                        <List.Content>
+                          <List.Header a href={`//${bookmark.url}`}>
+                            {bookmark.url}
+                          </List.Header>
+                        </List.Content>
+                        <Button
+                          floated="right"
+                          secondary
+                          onClick={() => {
+                            if (window.confirm('Delete this bookmark?')) {
+                              this.props.deleteBookmark(bookmark.id)
+                            }
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </List.Item>
                     )
                   })
                 ) : (
@@ -105,7 +127,7 @@ export class AllBookmarks extends React.Component {
                     You don't have any bookmarks under this category!
                   </div>
                 )}
-              </Grid>
+              </List>
             </div>
           </div>
           <CustomSidebar />

@@ -91,6 +91,7 @@ function deletingCallback(tabs) {
   }).then(data => {
     console.log(data)
   })
+}
 // const ourHost = process.env.HOST || 'http://localhost:8080'
 const ourHost = 'http://markjoy.herokuapp.com'
 

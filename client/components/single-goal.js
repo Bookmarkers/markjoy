@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getSingleGoal} from '../store/singleGoal'
+import {setGoal, getSingleGoal} from '../store/singleGoal'
 import ErrorMessage from './error-message'
 import {me} from '../store/user'
 import {deleteGoal, updateGoal, fetchGoals} from '../store/goal'
 import {
+  setBookmarks,
   fetchBookmarksByGoal,
   fetchBookmarks,
   deleteBookmark
@@ -25,6 +26,11 @@ export class SingleGoal extends React.Component {
     this.props.getSingleGoal(this.state.goalId)
     this.props.getGoals()
     this.props.getBookmarksByGoal(this.state.goalId)
+  }
+
+  componentWillUnmount() {
+    this.props.setGoal({goal: {}})
+    this.props.setBookmarks([])
   }
 
   render() {
@@ -85,15 +91,17 @@ const mapState = state => {
   return {
     goal: state.goal,
     user: state.user,
-    bookmarks: state.bookmarks
+    bookmarks: state.bookmarks.bookmarks
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    setGoal: goal => dispatch(setGoal(goal)),
     getGoals: () => dispatch(fetchGoals()),
     getSingleGoal: id => dispatch(getSingleGoal(id)),
     getUser: () => dispatch(me()),
+    setBookmarks: bookmarks => dispatch(setBookmarks(bookmarks)),
     getBookmarks: () => dispatch(fetchBookmarks()),
     getBookmarksByGoal: goalId => dispatch(fetchBookmarksByGoal(goalId)),
     deleteBookmark: bookmarkId => dispatch(deleteBookmark(bookmarkId)),

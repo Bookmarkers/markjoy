@@ -77,16 +77,26 @@ export const deleteBookmark = bookmarkId => async dispatch => {
   }
 }
 
-const initialState = []
+const initialState = {loading: true, bookmarks: []}
 
 export default function bookmarksReducer(state = initialState, action) {
   switch (action.type) {
     case SET_BOOKMARKS:
-      return action.bookmarks
+      return {...state, loading: false, bookmarks: action.bookmarks}
     case ADD_BOOKMARK:
-      return [...state, action.bookmark]
+      return {
+        ...state,
+        loading: false,
+        bookmarks: [...state.bookmarks, action.bookmark]
+      }
     case DELETE_BOOKMARK:
-      return [...state].filter(bookmark => bookmark.id !== action.bookmarkId)
+      return {
+        ...state,
+        loading: false,
+        bookmarks: [...state.bookmarks].filter(
+          bookmark => bookmark.id !== action.bookmarkId
+        )
+      }
     default:
       return state
   }

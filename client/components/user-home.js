@@ -49,7 +49,9 @@ export class UserHome extends React.Component {
     window.localStorage.removeItem('blockedUrls')
     window.localStorage.setItem('blockedUrls', JSON.stringify(blockedUrls))
 
-    return (
+    return this.props.loading ? (
+      <div className="ui active loader" />
+    ) : (
       <div>
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
@@ -128,8 +130,9 @@ export class UserHome extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    goals: state.goals,
-    bookmarks: state.bookmarks,
+    goals: state.goals.goals,
+    loading: state.goals.loading,
+    bookmarks: state.bookmarks.bookmarks,
     blocked: state.blocked
   }
 }

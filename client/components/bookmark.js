@@ -64,7 +64,9 @@ export class AllBookmarks extends React.Component {
     const bookmarks = this.props.bookmarks
     const title = this.state.title
 
-    return (
+    return this.props.loading ? (
+      <div className="ui active loader" />
+    ) : (
       <div onClick={this.pathChanged}>
         <Navbar />
         <div style={{display: 'flex', height: '100vh'}}>
@@ -116,7 +118,8 @@ export class AllBookmarks extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    bookmarks: state.bookmarks
+    bookmarks: state.bookmarks.bookmarks,
+    loading: state.bookmarks.loading
   }
 }
 

@@ -6,7 +6,7 @@ import {
   addBookmark,
   deleteBookmark
 } from '../store/bookmark'
-import {Button, Image, List, Confirm} from 'semantic-ui-react'
+import {Button, Image, List} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import AddBookmark from './create-or-update-bookmark'

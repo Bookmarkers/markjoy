@@ -101,6 +101,12 @@ export class AllBookmarks extends React.Component {
                             {bookmark.url}
                           </List.Header>
                         </List.Content>
+                        <Button
+                          floated="right"
+                          onClick={() => this.props.deleteBookmark(bookmark.id)}
+                          content="Delete"
+                          secondary
+                        />
                       </List.Item>
                     )
                   })

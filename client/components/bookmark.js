@@ -6,7 +6,7 @@ import {
   addBookmark,
   deleteBookmark
 } from '../store/bookmark'
-import {Grid, Button, Image, List} from 'semantic-ui-react'
+import {Button, Image, List, Icon} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import AddBookmark from './create-or-update-bookmark'
@@ -86,7 +86,14 @@ export class AllBookmarks extends React.Component {
               className="ui-grid"
               style={{margin: '50px 0'}}
             >
-              <List animated verticalAlign="middle">
+              <List
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}
+                animated
+              >
                 {bookmarks && bookmarks.length > 0 ? (
                   bookmarks.map(bookmark => {
                     return (
@@ -101,6 +108,13 @@ export class AllBookmarks extends React.Component {
                             {bookmark.url}
                           </List.Header>
                         </List.Content>
+                        <Button
+                          floated="right"
+                          icon
+                          onClick={() => this.props.deleteBookmark(bookmark.id)}
+                        >
+                          <Icon name="x" />
+                        </Button>
                       </List.Item>
                     )
                   })

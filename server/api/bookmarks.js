@@ -92,40 +92,55 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.post('/bulk', async (req, res, next) => {
+// router.post('/bulk', async (req, res, next) => {
+//   try {
+//     let info = []
+//     const findOrCreateArr = req.body.map(chromeMark => {
+//       const urlAndUserObj = {
+//         url: chromeMark.url,
+//         userId: chromeMark.userId
+//       }
+//       info.push({
+//         url: chromeMark.url,
+//         userId: chromeMark.userId,
+//         title: chromeMark.title,
+//         imageUrl: chromeMark.imageUrl
+//       })
+//       return Bookmark.findOrCreate({where: urlAndUserObj})
+//     })
+//     const findOrCreateRes = await Promise.all(findOrCreateArr)
+//     const returnedIds = findOrCreateRes.map(resArr => resArr[0].id)
+//     const updateArr = returnedIds.map((id, idx) => {
+//       const updateObj = {
+//         id,
+//         url: info[idx].url,
+//         userId: info[idx].userId,
+//         title: info[idx].title,
+//         imageUrl: info[idx].imageUrl,
+//         categoryId: 6
+//       }
+//       return Bookmark.upsert(updateObj, {returning: true})
+//     })
+//     const updatedBookmarks = await Promise.all(updateArr)
+//     if (updatedBookmarks) {
+//      res.status(201).json(updatedBookmarks)
+//     } else {
+//      res.sendStatus(400)
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+
+router.post('/massbulk', async (req, res, next) => {
   try {
-    let info = []
-    const findOrCreateArr = req.body.map(chromeMark => {
-      const urlAndUserObj = {
-        url: chromeMark.url,
-        userId: chromeMark.userId
-      }
-      info.push({
-        url: chromeMark.url,
-        userId: chromeMark.userId,
-        title: chromeMark.title,
-        imageUrl: chromeMark.imageUrl
-      })
-      return Bookmark.findOrCreate({where: urlAndUserObj})
-    })
-    const findOrCreateRes = await Promise.all(findOrCreateArr)
-    const returnedIds = findOrCreateRes.map(resArr => resArr[0].id)
-    const updateArr = returnedIds.map((id, idx) => {
-      const updateObj = {
-        id,
-        url: info[idx].url,
-        userId: info[idx].userId,
-        title: info[idx].title,
-        imageUrl: info[idx].imageUrl,
-        categoryId: 6
-      }
-      return Bookmark.upsert(updateObj, {returning: true})
-    })
-    const updatedBookmarks = await Promise.all(updateArr)
-    if (updatedBookmarks) {
-      res.status(201).json(updatedBookmarks)
+    const newBookmarks = await Bookmark.bulkCreate(
+      req.body
+      // ,{ updateOnDuplicate: ["url"] }
+    )
+    if (newBookmarks) {
+      res.status(201).json(newBookmarks)
     } else {
-      res.sendStatus(400)
+      res.sendStatus(404)
     }
   } catch (error) {
     next(error)

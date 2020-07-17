@@ -17,6 +17,7 @@ export class AddBookmark extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleGoalChange = this.handleGoalChange.bind(this)
+    this.toggleSuccess = this.toggleSuccess.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -41,9 +42,16 @@ export class AddBookmark extends Component {
     })
   }
 
+  toggleSuccess() {
+    this.setState({
+      success: false
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     const {title, url, categoryId, goalId, error} = this.state
+    const bookmarksStr = JSON.stringify(this.props.bookmarks)
 
     if (url === '') {
       this.setState({
@@ -61,14 +69,20 @@ export class AddBookmark extends Component {
         goalId: goalId,
         userId: this.props.user.id
       }
-      this.props.addBookmark(newBookmark)
-      this.setState({
-        title: '',
-        url: '',
-        categoryId: '6',
-        goalId: null,
-        success: true
-      })
+      if (bookmarksStr.indexOf(url) > -1) {
+        this.setState({
+          error: 'This bookmark already exists!'
+        })
+      } else {
+        this.props.addBookmark(newBookmark)
+        this.setState({
+          title: '',
+          url: '',
+          categoryId: '6',
+          goalId: null,
+          success: true
+        })
+      }
     }
   }
 
@@ -83,6 +97,7 @@ export class AddBookmark extends Component {
       <BookmarkForm
         handleChange={this.handleChange}
         handleGoalChange={this.handleGoalChange}
+        toggleSuccess={this.toggleSuccess}
         handleSubmit={this.handleSubmit}
         state={this.state}
         goals={goals}

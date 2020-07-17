@@ -169,3 +169,22 @@ document.getElementById('do-sync').onclick = () =>
 // document.getElementById('do-count').onclick = updateData('http://localhost:8080/api/bookmarks/1', {
 //     title: 'hot tamale time'
 // })
+
+// DELETE BOOKMARK WITH ID ONE FROM LOCAL DB
+document.getElementById('do-delete').onclick = chrome.tabs.query(
+  current,
+  deletingCallback
+)
+
+// Just see if popup.js has access to chrome bookmarks array from bg.js
+// document.getElementById('do-count').onclick = () => {console.log('this is is it', typeof chromeMarks[0])}
+// document.getElementById('do-count').onclick = postData('http://localhost:8080/api/bookmarks', {
+//     url: 'http://twattre.com',
+//     imageUrl: 'http://twtere.com/favicon.ico',
+//     title: 'not itle'
+// })
+
+// document.getElementById('do-count').onclick = postData(
+//   'http://localhost:8080/api/bookmarks',
+//   chromeMarks[0].json()
+// )

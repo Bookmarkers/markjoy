@@ -64,9 +64,19 @@ function checkIfAdmin(user) {
   return user.isAdmin
 }
 
+const cleanUrl = url => {
+  if (url.length > 30) {
+    url = url.slice(0, 30)
+  } else {
+    url = url.slice()
+  }
+  return `${url}...`
+}
+
 module.exports = {
   checkIfAdmin,
   checkIfUserHasGoal,
   checkIfUserHasBookmark,
-  checkIfUserIsUser
+  checkIfUserIsUser,
+  cleanUrl
 }

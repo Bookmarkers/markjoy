@@ -10,7 +10,6 @@ import {Button, Image, List, Popup} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import AddBookmark from './create-or-update-bookmark'
-const {cleanUrl} = require('../../utils')
 
 const titles = {
   '/bookmarks': 'All Bookmarks',
@@ -20,6 +19,15 @@ const titles = {
   '/bookmarks/category/4': 'Finance',
   '/bookmarks/category/5': 'Wellness',
   '/bookmarks/category/6': 'Unsorted'
+}
+
+const cleanUrl = url => {
+  if (url.length > 30) {
+    url = `${url.slice(0, 30)}...`
+  } else {
+    url = url.slice()
+  }
+  return url
 }
 
 export class AllBookmarks extends React.Component {
@@ -64,8 +72,6 @@ export class AllBookmarks extends React.Component {
   render() {
     const bookmarks = this.props.bookmarks
     const title = this.state.title
-    const urls = bookmarks.map(bookmark => bookmark.url)
-    console.log('ALL USER BOOKMARKS', urls)
     return (
       <div onClick={this.pathChanged}>
         <Navbar />
@@ -99,6 +105,7 @@ export class AllBookmarks extends React.Component {
                         />
                         <List.Content>
                           <Popup
+                            content={bookmark.url}
                             trigger={
                               <List.Header a href={`//${bookmark.url}`}>
                                 {cleanUrl(bookmark.url)}

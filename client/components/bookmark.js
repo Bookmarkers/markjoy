@@ -75,10 +75,14 @@ export class AllBookmarks extends React.Component {
     ) : (
       <div onClick={this.pathChanged}>
         <Navbar />
-        <div style={{display: 'flex', height: '100vh'}}>
+        <div style={{display: 'flex'}}>
           <div
-            className="container"
-            style={{padding: '50px', flex: 1, flexDirection: 'column'}}
+            style={{
+              padding: '50px',
+              width: 0,
+              flex: 1,
+              flexDirection: 'column'
+            }}
           >
             <h1 className="title">{title}</h1>
             <AddBookmark />
@@ -88,47 +92,41 @@ export class AllBookmarks extends React.Component {
               content="Sync"
               color="teal"
             />
-            <div
-              id="all-bookmarks-view"
-              className="ui-grid"
-              style={{margin: '50px 0'}}
-            >
-              <List animated verticalAlign="middle">
-                {bookmarks && bookmarks.length > 0 ? (
-                  bookmarks.map(bookmark => {
-                    return (
-                      <List.Item key={bookmark.id}>
-                        <Image
-                          avatar
-                          src={bookmark.imageUrl}
-                          className="ui image"
-                        />
-                        <List.Content>
-                          <List.Header a href={`//${bookmark.url}`}>
-                            {bookmark.url}
-                          </List.Header>
-                        </List.Content>
-                        <Button
-                          floated="right"
-                          secondary
-                          onClick={() => {
-                            if (window.confirm('Delete this bookmark?')) {
-                              this.props.deleteBookmark(bookmark.id)
-                            }
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </List.Item>
-                    )
-                  })
-                ) : (
-                  <div style={{margin: '30px'}}>
-                    You don't have any bookmarks under this category!
-                  </div>
-                )}
-              </List>
-            </div>
+            <List animated verticalAlign="middle">
+              {bookmarks && bookmarks.length > 0 ? (
+                bookmarks.map(bookmark => {
+                  return (
+                    <List.Item key={bookmark.id}>
+                      <Image
+                        avatar
+                        src={bookmark.imageUrl}
+                        className="ui image"
+                      />
+                      <List.Content>
+                        <List.Header>
+                          <a href={`//${bookmark.url}`}>{bookmark.url}</a>
+                        </List.Header>
+                      </List.Content>
+                      <Button
+                        floated="right"
+                        secondary
+                        onClick={() => {
+                          if (window.confirm('Delete this bookmark?')) {
+                            this.props.deleteBookmark(bookmark.id)
+                          }
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </List.Item>
+                  )
+                })
+              ) : (
+                <div style={{margin: '30px'}}>
+                  You don't have any bookmarks under this category!
+                </div>
+              )}
+            </List>
           </div>
           <CustomSidebar />
         </div>

@@ -10,6 +10,7 @@ import {Button, Image, List} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import AddBookmark from './create-or-update-bookmark'
+const {cleanUrl} = require('../../utils')
 
 const titles = {
   '/bookmarks': 'All Bookmarks',
@@ -98,7 +99,7 @@ export class AllBookmarks extends React.Component {
                         />
                         <List.Content>
                           <List.Header a href={`//${bookmark.url}`}>
-                            {bookmark.url}
+                            {cleanUrl(bookmark.url)}
                           </List.Header>
                         </List.Content>
                         <Button

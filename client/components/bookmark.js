@@ -104,7 +104,7 @@ export class AllBookmarks extends React.Component {
                       />
                       <List.Content>
                         <List.Header>
-                          <a href={`//${bookmark.url}`}>{bookmark.url}</a>
+                          <a href={`https://${bookmark.url}`}>{bookmark.url}</a>
                         </List.Header>
                       </List.Content>
                       <Button

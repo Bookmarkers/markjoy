@@ -75,10 +75,9 @@ export class AllBookmarks extends React.Component {
     return (
       <div onClick={this.pathChanged}>
         <Navbar />
-        <div style={{display: 'flex', height: '100vh'}}>
+        <div style={{display: 'flex'}}>
           <div
-            className="container"
-            style={{padding: '50px', flex: 1, flexDirection: 'column'}}
+            style={{padding: '50px', width: 0, flex: 1, flexDirection: 'column'}}
           >
             <h1 className="title">{title}</h1>
             <AddBookmark />
@@ -88,11 +87,6 @@ export class AllBookmarks extends React.Component {
               content="Sync"
               color="teal"
             />
-            <div
-              id="all-bookmarks-view"
-              className="ui-grid"
-              style={{margin: '50px 0'}}
-            >
               <List animated verticalAlign="middle">
                 {bookmarks && bookmarks.length > 0 ? (
                   bookmarks.map(bookmark => {
@@ -134,7 +128,6 @@ export class AllBookmarks extends React.Component {
                 )}
               </List>
             </div>
-          </div>
           <CustomSidebar />
         </div>
       </div>

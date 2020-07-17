@@ -24,7 +24,7 @@ p {
 }
 
 button {
-  background-color: #008080;
+  background-color: #45b39d;
   border: none;
   color: whitesmoke;
   padding: 10px 30px;
@@ -39,7 +39,7 @@ button {
 }
 
 .button:hover {
-  background-color: #45b39d;
+  background-color: teal;
 }
 
 .button:active {

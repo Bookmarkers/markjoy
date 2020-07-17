@@ -27,10 +27,16 @@ export class AllBookmarks extends React.Component {
     this.state = {
       path: '',
       title: ''
+      // open: false
     }
     this.getBookmarks = this.getBookmarks.bind(this)
     this.pathChanged = this.pathChanged.bind(this)
+    // this.open = this.open.bind(this)
+    // this.close = this.close.bind(this)
   }
+
+  // open = () => this.setState({ open: true })
+  // close = () => this.setState({ open: false })
 
   getBookmarks(path) {
     let category
@@ -63,15 +69,20 @@ export class AllBookmarks extends React.Component {
   render() {
     const bookmarks = this.props.bookmarks
     const title = this.state.title
-    const urls = bookmarks.map(bookmark => bookmark.url)
-    console.log('ALL USER BOOKMARKS', urls)
-    return (
+
+    return this.props.loading ? (
+      <div className="ui active loader" />
+    ) : (
       <div onClick={this.pathChanged}>
         <Navbar />
-        <div style={{display: 'flex', height: '100vh'}}>
+        <div style={{display: 'flex'}}>
           <div
-            className="container"
-            style={{padding: '50px', flex: 1, flexDirection: 'column'}}
+            style={{
+              padding: '50px',
+              width: 0,
+              flex: 1,
+              flexDirection: 'column'
+            }}
           >
             <h1 className="title">{title}</h1>
             <AddBookmark />
@@ -81,47 +92,41 @@ export class AllBookmarks extends React.Component {
               content="Sync"
               color="teal"
             />
-            <div
-              id="all-bookmarks-view"
-              className="ui-grid"
-              style={{margin: '50px 0'}}
-            >
-              <List animated verticalAlign="middle">
-                {bookmarks && bookmarks.length > 0 ? (
-                  bookmarks.map(bookmark => {
-                    return (
-                      <List.Item key={bookmark.id}>
-                        <Image
-                          avatar
-                          src={bookmark.imageUrl}
-                          className="ui image"
-                        />
-                        <List.Content>
-                          <List.Header a href={`//${bookmark.url}`}>
-                            {bookmark.url}
-                          </List.Header>
-                        </List.Content>
-                        <Button
-                          floated="right"
-                          secondary
-                          onClick={() => {
-                            if (window.confirm('Delete this bookmark?')) {
-                              this.props.deleteBookmark(bookmark.id)
-                            }
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </List.Item>
-                    )
-                  })
-                ) : (
-                  <div style={{margin: '30px'}}>
-                    You don't have any bookmarks under this category!
-                  </div>
-                )}
-              </List>
-            </div>
+            <List animated verticalAlign="middle">
+              {bookmarks && bookmarks.length > 0 ? (
+                bookmarks.map(bookmark => {
+                  return (
+                    <List.Item key={bookmark.id}>
+                      <Image
+                        avatar
+                        src={bookmark.imageUrl}
+                        className="ui image"
+                      />
+                      <List.Content>
+                        <List.Header>
+                          <a href={`//${bookmark.url}`}>{bookmark.url}</a>
+                        </List.Header>
+                      </List.Content>
+                      <Button
+                        floated="right"
+                        secondary
+                        onClick={() => {
+                          if (window.confirm('Delete this bookmark?')) {
+                            this.props.deleteBookmark(bookmark.id)
+                          }
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </List.Item>
+                  )
+                })
+              ) : (
+                <div style={{margin: '30px'}}>
+                  You don't have any bookmarks under this category!
+                </div>
+              )}
+            </List>
           </div>
           <CustomSidebar />
         </div>
@@ -133,7 +138,8 @@ export class AllBookmarks extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    bookmarks: state.bookmarks
+    bookmarks: state.bookmarks.bookmarks,
+    loading: state.bookmarks.loading
   }
 }
 

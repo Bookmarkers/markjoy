@@ -120,21 +120,69 @@ router.post('/', async (req, res, next) => {
 // Promise.all
 // then bulk resolve
 
+// {
+//   url: node.url,
+//   title: node.title,
+//   imageUrl: node.url + 'favicon.ico',
+//   userId: user.id,
+//   categoryId: 6
+// }
+
 // SPICEY .POST - BULK CREATION OF BOOKMARKS ALREADY IN THE BROWSER FOR FIRST TIME USERS
 router.post('/bulk', async (req, res, next) => {
-  // PSEUDOCODE:
-  // GIVEN EITHER AN ARRAY OF OBJECTS OR AN ARRAY OF PROMISES
-  // POST/CREATE/INSERT THIS BOOKMARK INTO OUR BOOKMARKS TABLE IN THE DATABASE
+  //check for duplicates
   try {
-    const newBookmarks = await Bookmark.bulkCreate(req.body)
-    if (newBookmarks) {
-      res.status(201).json(newBookmarks)
-    } else {
-      res.sendStatus(404)
-    }
+    let info = []
+    const findOrCreateArr = req.body.map(chromeMark => {
+      const urlAndUserObj = {
+        url: chromeMark.url,
+        userId: chromeMark.userId
+      }
+      info.push({
+        url: chromeMark.url,
+        userId: chromeMark.userId,
+        title: chromeMark.title,
+        imageUrl: chromeMark.imageUrl
+      })
+      return Bookmark.findOrCreate({where: urlAndUserObj})
+    })
+    const findOrCreateRes = await Promise.all(findOrCreateArr)
+    const returnedIds = findOrCreateRes.map(resArr => resArr[0].id)
+    const updateArr = returnedIds.map((id, idx) => {
+      const updateObj = {
+        id,
+        url: info[idx].url,
+        userId: info[idx].userId,
+        title: info[idx].title,
+        imageUrl: info[idx].imageUrl,
+        categoryId: 6
+      }
+      return Bookmark.upsert(updateObj, {returning: true})
+    })
+    const updatedBookmarks = await Promise.all(updateArr)
+    console.log(updatedBookmarks)
+    // if (newBookmarks) {
+    res.status(201).send('hello')
+    // } else {
+    // res.sendStatus(404)
+    // }
   } catch (error) {
     next(error)
   }
+
+  // PSEUDOCODE:
+  // GIVEN EITHER AN ARRAY OF OBJECTS OR AN ARRAY OF PROMISES
+  // POST/CREATE/INSERT THIS BOOKMARK INTO OUR BOOKMARKS TABLE IN THE DATABASE
+  // try {
+  //   const newBookmarks = await Bookmark.bulkCreate(req.body)
+  //   if (newBookmarks) {
+  //     res.status(201).json(newBookmarks)
+  //   } else {
+  //     res.sendStatus(404)
+  //   }
+  // } catch (error) {
+  //   next(error)
+  // }
 })
 
 router.put('/:id', async (req, res, next) => {

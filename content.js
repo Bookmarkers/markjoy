@@ -30,7 +30,6 @@ function fetchUserBlocked() {
     method: 'GET',
     headers: {
       Accept: 'application/json'
-      // 'Set-Cookie': 'cross-site-cookie=name; SameSite=None; Secure'
     }
   })
     .then(response => response.text())
@@ -41,7 +40,6 @@ function fetchUserBlocked() {
           method: 'GET',
           headers: {
             Accept: 'application/json'
-            // 'Set-Cookie': 'cross-site-cookie=name; SameSite=None; Secure'
           }
         })
           .then(response => response.json())

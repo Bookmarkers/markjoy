@@ -73,24 +73,32 @@ export const updateGoal = (goalId, updateInfo) => {
   }
 }
 
-const initialState = []
+const initialState = {loading: true, goals: []}
 
 export default function goalsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_GOALS:
-      return action.goals
+      return {...state, loading: false, goals: action.goals}
     case ADD_GOAL:
-      return [...state, action.goal]
+      return {...state, loading: false, goals: [...state.goals, action.goal]}
     case DELETE_GOAL:
-      return [...state].filter(goal => goal.id !== action.goalId)
+      return {
+        ...state,
+        loading: false,
+        goals: [...state.goals].filter(goal => goal.id !== action.goalId)
+      }
     case UPDATE_GOAL:
-      return [...state].map(goal => {
-        if (goal.id === action.goalId) {
-          return {...goal, ...action.updateInfo}
-        } else {
-          return goal
-        }
-      })
+      return {
+        ...state,
+        loading: false,
+        goals: [...state.goals].map(goal => {
+          if (goal.id === action.goalId) {
+            return {...goal, ...action.updateInfo}
+          } else {
+            return goal
+          }
+        })
+      }
     default:
       return state
   }

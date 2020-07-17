@@ -1,7 +1,6 @@
 const {Goal, Bookmark, User} = require('./server/db/models')
 
 //Check if the user logged in is the user on goals
-const {Goal, Bookmark, User} = require('./server/db/models')
 const checkIfUserHasGoal = async (req, res, next) => {
   try {
     const goal = await Goal.findOne({
@@ -64,6 +63,10 @@ const checkIfUserIsUser = async (req, res, next) => {
 function checkIfAdmin(user) {
   return user.isAdmin
 }
+
+// const cleanUrl = (url) => {
+//   if(url.length > )
+// }
 
 module.exports = {
   checkIfAdmin,

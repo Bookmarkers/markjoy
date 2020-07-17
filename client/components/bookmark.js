@@ -6,7 +6,7 @@ import {
   addBookmark,
   deleteBookmark
 } from '../store/bookmark'
-import {Button, Image, List} from 'semantic-ui-react'
+import {Button, Image, List, Popup} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import AddBookmark from './create-or-update-bookmark'
@@ -103,9 +103,14 @@ export class AllBookmarks extends React.Component {
                           className="ui image"
                         />
                         <List.Content>
-                          <List.Header a href={`//${bookmark.url}`}>
-                            {bookmark.url}
-                          </List.Header>
+                          <Popup
+                            content={bookmark.url}
+                            trigger={
+                              <List.Header a href={`//${bookmark.url}`}>
+                                {bookmark.url}
+                              </List.Header>
+                            }
+                          />
                         </List.Content>
                         <Button
                           floated="right"

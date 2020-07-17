@@ -85,7 +85,7 @@ export class AllBookmarks extends React.Component {
             }}
           >
             <h1 className="title">{title}</h1>
-            <AddBookmark />
+            <AddBookmark bookmarks={bookmarks} />
             <Button
               floated="right"
               // onClick={} dispatch sync-bookmark thunk

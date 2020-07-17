@@ -62,6 +62,7 @@ window.onload = async () => {
       chromeMarks.push({
         url: node.url,
         title: node.title,
+        // imageUrl: "chrome://favicon/" + node.url,
         imageUrl: node.url + 'favicon.ico',
         userId: user.id,
         categoryId: 6

@@ -157,15 +157,15 @@ router.post('/bulk', async (req, res, next) => {
         imageUrl: info[idx].imageUrl,
         categoryId: 6
       }
-      return Bookmark.upsert({where: updateObj}, {returning: true})
+      return Bookmark.upsert(updateObj, {returning: true})
     })
     const updatedBookmarks = await Promise.all(updateArr)
     console.log(updatedBookmarks)
-    if (newBookmarks) {
-      res.status(201).send('hello')
-    } else {
-      res.sendStatus(404)
-    }
+    // if (newBookmarks) {
+    res.status(201).send('hello')
+    // } else {
+    // res.sendStatus(404)
+    // }
   } catch (error) {
     next(error)
   }

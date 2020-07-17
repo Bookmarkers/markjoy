@@ -145,7 +145,8 @@ export class AllBookmarks extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    bookmarks: state.bookmarks
+    bookmarks: state.bookmarks.bookmarks,
+    loading: state.bookmarks.loading
   }
 }
 

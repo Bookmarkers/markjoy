@@ -77,57 +77,62 @@ export class AllBookmarks extends React.Component {
         <Navbar />
         <div style={{display: 'flex'}}>
           <div
-            style={{padding: '50px', width: 0, flex: 1, flexDirection: 'column'}}
+            style={{
+              padding: '50px',
+              width: 0,
+              flex: 1,
+              flexDirection: 'column'
+            }}
           >
             <h1 className="title">{title}</h1>
-            <AddBookmark />
+            <AddBookmark bookmarks={bookmarks} />
             <Button
               floated="right"
               // onClick={} dispatch sync-bookmark thunk
               content="Sync"
               color="teal"
             />
-              <List animated verticalAlign="middle">
-                {bookmarks && bookmarks.length > 0 ? (
-                  bookmarks.map(bookmark => {
-                    return (
-                      <List.Item key={bookmark.id}>
-                        <Image
-                          avatar
-                          src={bookmark.imageUrl}
-                          className="ui image"
+            <List animated verticalAlign="middle">
+              {bookmarks && bookmarks.length > 0 ? (
+                bookmarks.map(bookmark => {
+                  return (
+                    <List.Item key={bookmark.id}>
+                      <Image
+                        avatar
+                        src={bookmark.imageUrl}
+                        className="ui image"
+                      />
+                      <List.Content>
+                        <Popup
+                          content={bookmark.url}
+                          trigger={
+                            <List.Header a href={`//${bookmark.url}`}>
+                              {cleanUrl(bookmark.url)}
+                            </List.Header>
+                          }
                         />
-                        <List.Content>
-                          <Popup
-                            content={bookmark.url}
-                            trigger={
-                              <List.Header a href={`//${bookmark.url}`}>
-                                {cleanUrl(bookmark.url)}
-                              </List.Header>
-                            }
-                          />
-                        </List.Content>
-                        <Button
-                          floated="right"
-                          secondary
-                          onClick={() => {
-                            if (window.confirm('Delete this bookmark?')) {
-                              this.props.deleteBookmark(bookmark.id)
-                            }
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </List.Item>
-                    )
-                  })
-                ) : (
-                  <div style={{margin: '30px'}}>
-                    You don't have any bookmarks under this category!
-                  </div>
-                )}
-              </List>
-            </div>
+                      </List.Content>
+                      <Button
+                        floated="right"
+                        secondary
+                        onClick={() => {
+                          if (window.confirm('Delete this bookmark?')) {
+                            this.props.deleteBookmark(bookmark.id)
+                          }
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </List.Item>
+                  )
+                })
+              ) : (
+                <div style={{margin: '30px'}}>
+                  You don't have any bookmarks under this category!
+                </div>
+              )}
+            </List>
+          </div>
           <CustomSidebar />
         </div>
       </div>

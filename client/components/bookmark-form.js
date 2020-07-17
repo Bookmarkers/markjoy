@@ -11,7 +11,14 @@ import {
 } from 'semantic-ui-react'
 
 export const BookmarkForm = props => {
-  const {handleChange, handleGoalChange, handleSubmit, state, goals} = props
+  const {
+    handleChange,
+    handleGoalChange,
+    toggleSuccess,
+    handleSubmit,
+    state,
+    goals
+  } = props
   const {title, url, categoryId, success, error} = state
   const [modalOpen, toggleModal] = useState(false)
 
@@ -23,7 +30,10 @@ export const BookmarkForm = props => {
         </Button>
       }
       open={modalOpen}
-      onClose={() => toggleModal(false)}
+      onClose={() => {
+        toggleModal(false)
+        toggleSuccess()
+      }}
       basic
       size="small"
       closeIcon
@@ -145,11 +155,6 @@ export const BookmarkForm = props => {
           </Button>
         </Form>
       </Modal.Content>
-      {/* <Modal.Actions>
-        <Button floated="right" color="teal" onClick={() => toggleModal(false)} inverted>
-          Close
-        </Button>
-      </Modal.Actions> */}
     </Modal>
   )
 }

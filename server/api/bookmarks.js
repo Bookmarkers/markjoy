@@ -129,112 +129,114 @@ router.post('/', async (req, res, next) => {
 // }
 
 // SPICEY .POST - BULK CREATION OF BOOKMARKS ALREADY IN THE BROWSER FOR FIRST TIME USERS
-router.post('/bulk', async (req, res, next) => {
-  //check for duplicates
+// router.post('/bulk', async (req, res, next) => {
+//   //check for duplicates
+//   try {
+//     let info = []
+//     const findOrCreateArr = req.body.map(chromeMark => {
+//       const urlAndUserObj = {
+//         url: chromeMark.url,
+//         userId: chromeMark.userId
+//       }
+//       info.push({
+//         url: chromeMark.url,
+//         userId: chromeMark.userId,
+//         title: chromeMark.title,
+//         imageUrl: chromeMark.imageUrl
+//       })
+//       return Bookmark.findOrCreate({where: urlAndUserObj})
+//     })
+//     const findOrCreateRes = await Promise.all(findOrCreateArr)
+//     const returnedIds = findOrCreateRes.map(resArr => resArr[0].id)
+//     const updateArr = returnedIds.map((id, idx) => {
+//       const updateObj = {
+//         id,
+//         url: info[idx].url,
+//         userId: info[idx].userId,
+//         title: info[idx].title,
+//         imageUrl: info[idx].imageUrl,
+//         categoryId: 6
+//       }
+//       return Bookmark.upsert(updateObj, {returning: true})
+//     })
+//     const updatedBookmarks = await Promise.all(updateArr)
+//     console.log(updatedBookmarks)
+//     // if (newBookmarks) {
+//     res.status(201).send('hello')
+//     // } else {
+//     // res.sendStatus(404)
+//     // }
+//   } catch (error) {
+//     next(error)
+//   }
+
+router.post('/massbulk', async (req, res, next) => {
   try {
-    let info = []
-    const findOrCreateArr = req.body.map(chromeMark => {
-      const urlAndUserObj = {
-        url: chromeMark.url,
-        userId: chromeMark.userId
-      }
-      info.push({
-        url: chromeMark.url,
-        userId: chromeMark.userId,
-        title: chromeMark.title,
-        imageUrl: chromeMark.imageUrl
-      })
-      return Bookmark.findOrCreate({where: urlAndUserObj})
-    })
-    const findOrCreateRes = await Promise.all(findOrCreateArr)
-    const returnedIds = findOrCreateRes.map(resArr => resArr[0].id)
-    const updateArr = returnedIds.map((id, idx) => {
-      const updateObj = {
-        id,
-        url: info[idx].url,
-        userId: info[idx].userId,
-        title: info[idx].title,
-        imageUrl: info[idx].imageUrl,
-        categoryId: 6
-      }
-      return Bookmark.upsert(updateObj, {returning: true})
-    })
-    const updatedBookmarks = await Promise.all(updateArr)
-    console.log(updatedBookmarks)
-    // if (newBookmarks) {
-    res.status(201).send('hello')
-    // } else {
-    // res.sendStatus(404)
-    // }
+    const newBookmarks = await Bookmark.bulkCreate(
+      req.body
+      // ,{ updateOnDuplicate: ["url"] }
+    )
+    if (newBookmarks) {
+      res.status(201).json(newBookmarks)
+    } else {
+      res.sendStatus(404)
+    }
   } catch (error) {
     next(error)
   }
+})
 
-  router.post('/massbulk', async (req, res, next) => {
-    try {
-      const newBookmarks = await Bookmark.bulkCreate(req.body)
-      if (newBookmarks) {
-        res.status(201).json(newBookmarks)
-      } else {
-        res.sendStatus(404)
+router.put('/:id', async (req, res, next) => {
+  try {
+    const bookmarkToUpdate = await Bookmark.update(req.body, {
+      where: {
+        id: req.params.id
       }
-    } catch (error) {
-      next(error)
+    })
+    if (bookmarkToUpdate) {
+      res.status(200).json(bookmarkToUpdate)
+    } else {
+      res.sendStatus(404)
     }
-  })
+  } catch (error) {
+    next(error)
+  }
+})
 
-  router.put('/:id', async (req, res, next) => {
-    try {
-      const bookmarkToUpdate = await Bookmark.update(req.body, {
-        where: {
-          id: req.params.id
-        }
-      })
-      if (bookmarkToUpdate) {
-        res.status(200).json(bookmarkToUpdate)
-      } else {
-        res.sendStatus(404)
+router.delete('/:id', checkIfUserHasBookmark, async (req, res, next) => {
+  try {
+    const bookmarkToDelete = await Bookmark.destroy({
+      where: {
+        id: req.params.id
       }
-    } catch (error) {
-      next(error)
+    })
+    if (bookmarkToDelete) {
+      res.sendStatus(204)
+    } else {
+      res.sendStatus(404)
     }
-  })
+  } catch (error) {
+    next(error)
+  }
+})
 
-  router.delete('/:id', checkIfUserHasBookmark, async (req, res, next) => {
-    try {
-      const bookmarkToDelete = await Bookmark.destroy({
-        where: {
-          id: req.params.id
-        }
-      })
-      if (bookmarkToDelete) {
-        res.sendStatus(204)
-      } else {
-        res.sendStatus(404)
+router.delete('/', async (req, res, next) => {
+  try {
+    const foundBookmark = await Bookmark.findOne({
+      where: {
+        url: req.body.url
+        // THIS NEEDS TO BE A THING IN THE FINAL VERSION!!
+        // ,
+        // userId: req.body.userId
       }
-    } catch (error) {
-      next(error)
+    })
+    if (foundBookmark) {
+      await foundBookmark.destroy()
+      res.sendStatus(204)
+    } else {
+      res.sendStatus(404)
     }
-  })
-
-  router.delete('/', async (req, res, next) => {
-    try {
-      const foundBookmark = await Bookmark.findOne({
-        where: {
-          url: req.body.url
-          // THIS NEEDS TO BE A THING IN THE FINAL VERSION!!
-          // ,
-          // userId: req.body.userId
-        }
-      })
-      if (foundBookmark) {
-        await foundBookmark.destroy()
-        res.sendStatus(204)
-      } else {
-        res.sendStatus(404)
-      }
-    } catch (error) {
-      next(error)
-    }
-  })
+  } catch (error) {
+    next(error)
+  }
 })

@@ -12,6 +12,7 @@ const app = express()
 const cors = require('cors')
 const socketio = require('socket.io')
 module.exports = app
+// const bodyParser = require('body-parser');
 
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
@@ -46,8 +47,10 @@ const createApp = () => {
   app.use(morgan('dev'))
 
   // body parsing middleware
-  app.use(express.json())
-  app.use(express.urlencoded({extended: true}))
+  app.use(express.json({limit: '20mb', extended: true}))
+  app.use(express.urlencoded({limit: '20mb', extended: true}))
+  // app.use(bodyParser.json({limit: '10mb', extended: true}))
+  // app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
   // compression middleware
   app.use(compression())

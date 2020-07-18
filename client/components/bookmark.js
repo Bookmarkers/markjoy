@@ -13,7 +13,6 @@ import {fetchGoals} from '../store/goal'
 import {Button, Image, List, Popup} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
-// import AddBookmark from './create-or-update-bookmark'
 import BookmarkForm from './bookmark-form'
 
 const categories = {
@@ -199,17 +198,11 @@ export class AllBookmarks extends React.Component {
   render() {
     const {bookmarks} = this.props
     const {category, modalOpen, isUpdate, bookmarkInfo} = this.state
-
-    let goalOptions = this.props.goals.map(goal => ({
+    const goalOptions = this.props.goals.map(goal => ({
       key: goal.id,
       text: goal.detail,
       value: goal.id
     }))
-    goalOptions.push({
-      key: 0,
-      text: 'Unassign',
-      value: null
-    })
 
     return (
       <div onClick={this.pathChanged}>
@@ -237,20 +230,26 @@ export class AllBookmarks extends React.Component {
               flexDirection: 'column'
             }}
           >
-            <h1 className="title" style={{marginBottom: '50px'}}>
-              {category}
-            </h1>
-            {/* EMPTY SINGLE BOOKMARK AFTER */}
-            <Button color="teal" onClick={this.toggleModal}>
-              Add Bookmark
-            </Button>
-            <Button
-              floated="right"
-              // onClick={} dispatch sync-bookmark thunk
-              content="Sync"
-              color="teal"
-            />
-            <List animated verticalAlign="middle">
+            <div style={{display: 'flex'}}>
+              <h1 className="title" style={{flex: 1}}>
+                {category}
+              </h1>
+              {/* EMPTY SINGLE BOOKMARK AFTER */}
+              <Button color="orange" floated="right" onClick={this.toggleModal}>
+                Add Bookmark
+              </Button>
+              {category === 'All Bookmarks' ? (
+                <Button
+                  floated="right"
+                  // onClick={} dispatch sync-bookmark thunk
+                  content="Sync"
+                  color="purple"
+                />
+              ) : (
+                ''
+              )}
+            </div>
+            <List animated verticalAlign="middle" style={{marginTop: '30px'}}>
               {bookmarks && bookmarks.length > 0 ? (
                 bookmarks.map(bookmark => {
                   return (

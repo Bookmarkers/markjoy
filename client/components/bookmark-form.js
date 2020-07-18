@@ -85,7 +85,7 @@ export const BookmarkForm = props => {
                 value="1"
                 id="1"
                 name="categoryId"
-                checked={categoryId === 1}
+                checked={categoryId === '1'}
                 onChange={handleChange}
               />
               <Form.Field
@@ -94,7 +94,7 @@ export const BookmarkForm = props => {
                 value="2"
                 id="2"
                 name="categoryId"
-                checked={categoryId === 2}
+                checked={categoryId === '2'}
                 onChange={handleChange}
               />
               <Form.Field
@@ -103,7 +103,7 @@ export const BookmarkForm = props => {
                 value="3"
                 id="3"
                 name="categoryId"
-                checked={categoryId === 3}
+                checked={categoryId === '3'}
                 onChange={handleChange}
               />
               <Form.Field
@@ -112,7 +112,7 @@ export const BookmarkForm = props => {
                 value="4"
                 id="4"
                 name="categoryId"
-                checked={categoryId === 4}
+                checked={categoryId === '4'}
                 onChange={handleChange}
               />
               <Form.Field
@@ -121,7 +121,7 @@ export const BookmarkForm = props => {
                 value="5"
                 id="5"
                 name="categoryId"
-                checked={categoryId === 5}
+                checked={categoryId === '5'}
                 onChange={handleChange}
               />
               <Form.Field
@@ -130,7 +130,7 @@ export const BookmarkForm = props => {
                 value="6"
                 id="6"
                 name="categoryId"
-                checked={categoryId === 6}
+                checked={categoryId === '6'}
                 onChange={handleChange}
               />
             </Form.Group>

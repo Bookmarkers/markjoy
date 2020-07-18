@@ -53,7 +53,6 @@
 //     const {title, url, categoryId, goalId} = this.props.state
 //     const bookmarksStr = JSON.stringify(this.props.bookmarks)
 //     const {bookmark} = this.props
-
 //     const bookmarkToAddOrUpdate = {
 //       title: title,
 //       url: url,

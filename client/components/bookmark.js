@@ -107,12 +107,15 @@ export class AllBookmarks extends React.Component {
   }
 
   handleChange(e) {
-    e.preventDefault()
-    this.setState({
-      [e.target.name]: e.target.value,
+    e.persist()
+    this.setState(prevState => ({
+      bookmarkInfo: {
+        ...prevState.bookmarkInfo,
+        [e.target.name]: e.target.value
+      },
       success: false,
       error: ''
-    })
+    }))
   }
 
   handleGoalChange(e) {
@@ -153,6 +156,7 @@ export class AllBookmarks extends React.Component {
     const {title, url, categoryId, goalId} = this.state.bookmarkInfo
     const bookmarksStr = JSON.stringify(this.props.bookmarks)
     const {bookmark} = this.props
+    const {isUpdate} = this.state
 
     const bookmarkToAddOrUpdate = {
       title: title,
@@ -170,14 +174,16 @@ export class AllBookmarks extends React.Component {
       this.setState({
         error: 'It must be a valid url!'
       })
-    } else if (this.state.isUpdate) {
-      this.props.updateBookmark(bookmark.id, bookmarkToAddOrUpdate)
-    } else if (bookmarksStr.indexOf(url) > -1) {
+    } else if (!isUpdate && bookmarksStr.indexOf(url) > -1) {
       this.setState({
         error: 'This bookmark already exists!'
       })
     } else {
-      this.props.addBookmark(bookmarkToAddOrUpdate)
+      if (isUpdate) {
+        this.props.updateBookmark(bookmark.id, bookmarkToAddOrUpdate)
+      } else {
+        this.props.addBookmark(bookmarkToAddOrUpdate)
+      }
       this.setState({
         bookmarkInfo: {
           title: '',

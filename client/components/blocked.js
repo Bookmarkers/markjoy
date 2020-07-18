@@ -97,7 +97,8 @@ export class Blocked extends React.Component {
                 floated="right"
                 type="submit"
                 content="Add Blocked Url"
-                color="teal"
+                inverted
+                style={{backgroundColor: '#DC267F'}}
               />
             </Form>
             <Item.Group relaxed style={{width: '100%', marginTop: '100px'}}>
@@ -121,7 +122,7 @@ export class Blocked extends React.Component {
                             remove(user.id, block.id)
                           }}
                           content="Remove"
-                          color="teal"
+                          color="black"
                         />
                       </Item>
                     )

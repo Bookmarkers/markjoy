@@ -234,16 +234,19 @@ export class AllBookmarks extends React.Component {
               <h1 className="title" style={{flex: 1}}>
                 {category}
               </h1>
-              {/* EMPTY SINGLE BOOKMARK AFTER */}
-              <Button color="orange" floated="right" onClick={this.toggleModal}>
+              <Button
+                style={{backgroundColor: '#648FFF', color: 'white'}}
+                floated="right"
+                onClick={this.toggleModal}
+              >
                 Add Bookmark
               </Button>
               {category === 'All Bookmarks' ? (
                 <Button
                   floated="right"
                   // onClick={} dispatch sync-bookmark thunk
-                  content="Sync"
-                  color="purple"
+                  content="Import"
+                  style={{backgroundColor: '#785EF0', color: 'white'}}
                 />
               ) : (
                 ''

@@ -122,6 +122,7 @@ export default function bookmarksReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        selectedBookmark: {},
         bookmarks: [...state.bookmarks].map(bookmark => {
           if (bookmark.id === action.bookmarkId) {
             return {...bookmark, ...action.updateInfo}

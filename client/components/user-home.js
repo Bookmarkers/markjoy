@@ -64,8 +64,10 @@ export class UserHome extends React.Component {
                   <Item.Header
                     style={{
                       fontWeight: '800',
-                      fontSize: '2em',
-                      margin: '50px -50px'
+                      fontSize: '3em',
+                      margin: '100px -50px'
+                      // textDecoration: 'underline',
+                      // textDecorationStyle: 'double'
                     }}
                   >
                     {goals[0].detail}
@@ -93,12 +95,15 @@ export class UserHome extends React.Component {
                       )}
                       {goalBookmarks.length > 0 ? (
                         <Button
-                          floated="right"
                           onClick={() =>
                             this.handleShuffleClick(randomNum, goalBookmarks)
                           }
                           content="Shuffle"
-                          color="teal"
+                          style={{
+                            backgroundColor: '#FFB000',
+                            color: 'black',
+                            marginTop: '30px'
+                          }}
                         />
                       ) : (
                         ''

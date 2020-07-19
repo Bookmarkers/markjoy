@@ -1,9 +1,29 @@
 /* eslint-disable no-alert */
 import axios from 'axios'
 
+const SET_SINGLE_BOOKMARK = 'SET_SINGLE_BOOKMARK'
 const SET_BOOKMARKS = 'SET_BOOKMARKS'
 const ADD_BOOKMARK = 'ADD_BOOKMARK'
 const DELETE_BOOKMARK = 'DELETE_BOOKMARK'
+const UPDATE_BOOKMARK = 'UPDATE_BOOKMARK'
+
+export const setSingleBookmark = bookmark => ({
+  type: SET_SINGLE_BOOKMARK,
+  bookmark
+})
+
+export const fetchSingleBookmark = bookmarkId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/bookmarks/${bookmarkId}`)
+    if (data) {
+      dispatch(setSingleBookmark(data))
+    } else {
+      dispatch(setSingleBookmark({}))
+    }
+  } catch (error) {
+    console.error('There was a problem fetching a bookmark!', error)
+  }
+}
 
 export const setBookmarks = bookmarks => ({
   type: SET_BOOKMARKS,
@@ -55,9 +75,20 @@ export const addBookmark = bookmarkInfo => async dispatch => {
   }
 }
 
-// export const updatedBookmark
+export const updatedBookmark = (bookmarkId, updateInfo) => ({
+  type: UPDATE_BOOKMARK,
+  bookmarkId,
+  updateInfo
+})
 
-// export const updateBookmark using axios.put(`/api/bookmarks/${id}`, updateInfo)
+export const updateBookmark = (bookmarkId, updateInfo) => async dispatch => {
+  try {
+    await axios.put(`/api/bookmarks/${bookmarkId}`, updateInfo)
+    dispatch(updatedBookmark(bookmarkId, updateInfo))
+  } catch (error) {
+    console.error('There was a problem updating a new bookmark!', error)
+  }
+}
 
 export const deletedBookmark = bookmarkId => ({
   type: DELETE_BOOKMARK,
@@ -73,10 +104,12 @@ export const deleteBookmark = bookmarkId => async dispatch => {
   }
 }
 
-const initialState = {loading: true, bookmarks: []}
+const initialState = {loading: true, bookmarks: [], selectedBookmark: {}}
 
 export default function bookmarksReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_SINGLE_BOOKMARK:
+      return {...state, loading: false, selectedBookmark: action.bookmark}
     case SET_BOOKMARKS:
       return {...state, loading: false, bookmarks: action.bookmarks}
     case ADD_BOOKMARK:
@@ -84,6 +117,19 @@ export default function bookmarksReducer(state = initialState, action) {
         ...state,
         loading: false,
         bookmarks: [...state.bookmarks, action.bookmark]
+      }
+    case UPDATE_BOOKMARK:
+      return {
+        ...state,
+        loading: false,
+        selectedBookmark: {},
+        bookmarks: [...state.bookmarks].map(bookmark => {
+          if (bookmark.id === action.bookmarkId) {
+            return {...bookmark, ...action.updateInfo}
+          } else {
+            return bookmark
+          }
+        })
       }
     case DELETE_BOOKMARK:
       return {

@@ -69,7 +69,7 @@ export class AllGoals extends React.Component {
                         <Button
                           floated="right"
                           content="Cancel"
-                          color="teal"
+                          style={{backgroundColor: '#FE6100', color: 'white'}}
                           onClick={() => this.edit(null, '')}
                         />
                         <Button
@@ -183,7 +183,7 @@ export class AllGoals extends React.Component {
                       floated="right"
                       type="submit"
                       content="Add Goal"
-                      color="teal"
+                      style={{backgroundColor: '#648FFF', color: 'white'}}
                     />
                   </Form>
                 </Item.Content>

@@ -2,15 +2,15 @@ const faker = require('faker')
 faker.seed(123)
 
 const bookmarkUrls = [
-  'www.google.com',
-  'www.medium.com',
-  'www.twitter.com',
-  'www.instagram.com',
-  'www.amazon.com',
-  'www.facebook.com',
-  'www.cnn.com',
-  'www.bbc.com',
-  'www.nytimes.com'
+  'https://google.com',
+  'https://medium.com',
+  'https://twitter.com',
+  'https://instagram.com',
+  'https://amazon.com',
+  'https://facebook.com',
+  'https://cnn.com',
+  'https://bbc.com',
+  'https://nytimes.com'
 ]
 
 const bookmarkSeed = []

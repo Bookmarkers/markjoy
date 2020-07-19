@@ -1,17 +1,21 @@
+/* eslint-disable no-alert */
 import React from 'react'
 import {connect} from 'react-redux'
 import {
+  fetchSingleBookmark,
   fetchBookmarks,
   fetchBookmarksByCategory,
   addBookmark,
+  updateBookmark,
   deleteBookmark
 } from '../store/bookmark'
+import {fetchGoals} from '../store/goal'
 import {Button, Image, List, Popup} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
-import AddBookmark from './create-or-update-bookmark'
+import BookmarkForm from './bookmark-form'
 
-const titles = {
+const categories = {
   '/bookmarks': 'All Bookmarks',
   '/bookmarks/category/1': 'Learning',
   '/bookmarks/category/2': 'Community',
@@ -35,10 +39,27 @@ export class AllBookmarks extends React.Component {
     super(props)
     this.state = {
       path: '',
-      title: ''
+      category: '',
+      isUpdate: false,
+      modalOpen: false,
+      success: false,
+      error: '',
+      bookmarkInfo: {
+        title: '',
+        url: '',
+        categoryId: 6,
+        goalId: null
+      }
     }
     this.getBookmarks = this.getBookmarks.bind(this)
+    this.prefill = this.prefill.bind(this)
     this.pathChanged = this.pathChanged.bind(this)
+    this.toggleUpdate = this.toggleUpdate.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
+    this.toggleSuccess = this.toggleSuccess.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleGoalChange = this.handleGoalChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   getBookmarks(path) {
@@ -56,6 +77,21 @@ export class AllBookmarks extends React.Component {
 
   componentDidMount() {
     this.pathChanged()
+    this.props.fetchGoals()
+  }
+
+  prefill() {
+    const bookmark = this.props.bookmark
+    if (bookmark.id) {
+      this.setState({
+        bookmarkInfo: {
+          title: bookmark.title,
+          url: bookmark.url,
+          categoryId: bookmark.categoryId,
+          goalId: bookmark.goalId
+        }
+      })
+    }
   }
 
   pathChanged() {
@@ -64,17 +100,127 @@ export class AllBookmarks extends React.Component {
       this.getBookmarks(currPath)
       this.setState({
         path: currPath,
-        title: titles[currPath]
+        category: categories[currPath]
+      })
+    }
+  }
+
+  handleChange(e) {
+    e.persist()
+    this.setState(prevState => ({
+      bookmarkInfo: {
+        ...prevState.bookmarkInfo,
+        [e.target.name]: e.target.value
+      },
+      success: false,
+      error: ''
+    }))
+  }
+
+  handleGoalChange(e) {
+    e.persist()
+    const goalId = e._targetInst.return.key
+    this.setState(prevState => ({
+      bookmarkInfo: {
+        ...prevState.bookmarkInfo,
+        goalId: goalId
+      }
+    }))
+  }
+
+  toggleUpdate(bookmark) {
+    if (bookmark) {
+      this.setState({
+        isUpdate: true
+      })
+    } else {
+      this.setState({
+        isUpdate: false
+      })
+    }
+  }
+
+  toggleModal() {
+    this.setState(prevState => ({modalOpen: !prevState.modalOpen}))
+  }
+
+  toggleSuccess() {
+    this.setState({
+      success: false
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    const {title, url, categoryId, goalId} = this.state.bookmarkInfo
+    const bookmarksStr = JSON.stringify(this.props.bookmarks)
+    const {bookmark} = this.props
+    const {isUpdate} = this.state
+
+    const bookmarkToAddOrUpdate = {
+      title: title,
+      url: url,
+      categoryId: categoryId,
+      goalId: goalId,
+      userId: this.props.user.id
+    }
+
+    if (url === '') {
+      this.setState({
+        error: 'Url is a required field!'
+      })
+    } else if (!url.includes('.')) {
+      this.setState({
+        error: 'It must be a valid url!'
+      })
+    } else if (!isUpdate && bookmarksStr.indexOf(url) > -1) {
+      this.setState({
+        error: 'This bookmark already exists!'
+      })
+    } else {
+      if (isUpdate) {
+        this.props.updateBookmark(bookmark.id, bookmarkToAddOrUpdate)
+      } else {
+        this.props.addBookmark(bookmarkToAddOrUpdate)
+      }
+      this.setState({
+        bookmarkInfo: {
+          title: '',
+          url: '',
+          categoryId: 6,
+          goalId: null
+        },
+        success: true
       })
     }
   }
 
   render() {
-    const bookmarks = this.props.bookmarks
-    const title = this.state.title
+    const {bookmarks} = this.props
+    const {category, modalOpen, isUpdate, bookmarkInfo} = this.state
+    const goalOptions = this.props.goals.map(goal => ({
+      key: goal.id,
+      text: goal.detail,
+      value: goal.id
+    }))
+
     return (
       <div onClick={this.pathChanged}>
         <Navbar />
+        <BookmarkForm
+          toggleModal={this.toggleModal}
+          handleChange={this.handleChange}
+          handleGoalChange={this.handleGoalChange}
+          toggleSuccess={this.toggleSuccess}
+          toggleUpdate={this.toggleUpdate}
+          handleSubmit={this.handleSubmit}
+          modalOpen={modalOpen}
+          isUpdate={isUpdate}
+          bookmarkInfo={bookmarkInfo}
+          goalOptions={goalOptions}
+          success={this.state.success}
+          error={this.state.error}
+        />
         <div style={{display: 'flex'}}>
           <div
             style={{
@@ -84,15 +230,29 @@ export class AllBookmarks extends React.Component {
               flexDirection: 'column'
             }}
           >
-            <h1 className="title">{title}</h1>
-            <AddBookmark />
-            <Button
-              floated="right"
-              // onClick={} dispatch sync-bookmark thunk
-              content="Sync"
-              color="teal"
-            />
-            <List animated verticalAlign="middle">
+            <div style={{display: 'flex'}}>
+              <h1 className="title" style={{flex: 1}}>
+                {category}
+              </h1>
+              <Button
+                style={{backgroundColor: '#648FFF', color: 'white'}}
+                floated="right"
+                onClick={this.toggleModal}
+              >
+                Add Bookmark
+              </Button>
+              {category === 'All Bookmarks' ? (
+                <Button
+                  floated="right"
+                  // onClick={} dispatch sync-bookmark thunk
+                  content="Import"
+                  style={{backgroundColor: '#785EF0', color: 'white'}}
+                />
+              ) : (
+                ''
+              )}
+            </div>
+            <List animated verticalAlign="middle" style={{marginTop: '30px'}}>
               {bookmarks && bookmarks.length > 0 ? (
                 bookmarks.map(bookmark => {
                   return (
@@ -106,7 +266,7 @@ export class AllBookmarks extends React.Component {
                         <Popup
                           content={bookmark.url}
                           trigger={
-                            <List.Header a href={`//${bookmark.url}`}>
+                            <List.Header a href={`${bookmark.url}`}>
                               {cleanUrl(bookmark.url)}
                             </List.Header>
                           }
@@ -123,11 +283,28 @@ export class AllBookmarks extends React.Component {
                       >
                         Delete
                       </Button>
+                      <Button
+                        floated="right"
+                        color="teal"
+                        onClick={() => {
+                          this.props
+                            .fetchSingleBookmark(bookmark.id)
+                            .then(() => {
+                              this.prefill()
+                            })
+                            .then(() => {
+                              this.toggleUpdate(bookmark)
+                              this.toggleModal()
+                            })
+                        }}
+                      >
+                        Edit
+                      </Button>
                     </List.Item>
                   )
                 })
               ) : (
-                <div style={{margin: '30px'}}>
+                <div style={{margin: '30px 0'}}>
                   You don't have any bookmarks under this category!
                 </div>
               )}
@@ -143,18 +320,25 @@ export class AllBookmarks extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
+    goals: state.goals.goals,
     bookmarks: state.bookmarks.bookmarks,
+    bookmark: state.bookmarks.selectedBookmark,
     loading: state.bookmarks.loading
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    fetchSingleBookmark: bookmarkId =>
+      dispatch(fetchSingleBookmark(bookmarkId)),
     fetchBookmarks: () => dispatch(fetchBookmarks()),
     fetchBookmarksByCategory: (categoryId, userId) =>
       dispatch(fetchBookmarksByCategory(categoryId, userId)),
     addBookmark: bookmarkInfo => dispatch(addBookmark(bookmarkInfo)),
-    deleteBookmark: bookmarkId => dispatch(deleteBookmark(bookmarkId))
+    deleteBookmark: bookmarkId => dispatch(deleteBookmark(bookmarkId)),
+    updateBookmark: (bookmarkId, updateInfo) =>
+      dispatch(updateBookmark(bookmarkId, updateInfo)),
+    fetchGoals: () => dispatch(fetchGoals())
   }
 }
 

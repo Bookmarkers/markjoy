@@ -10,9 +10,18 @@ import {
   fetchBookmarks,
   deleteBookmark
 } from '../store/bookmark'
-import {Item, Button, Icon} from 'semantic-ui-react'
+import {Item, Button, Icon, Popup} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
+
+const cleanUrl = url => {
+  if (url.length > 30) {
+    url = `${url.slice(0, 30)}...`
+  } else {
+    url = url.slice()
+  }
+  return url
+}
 
 export class SingleGoal extends React.Component {
   constructor(props) {
@@ -59,7 +68,14 @@ export class SingleGoal extends React.Component {
                             <div key={bookmark.id}>
                               <Item.Description>
                                 <Icon name="like" />
-                                <a href={`//${bookmark.url}`}>{bookmark.url}</a>
+                                <Popup
+                                  content={bookmark.url}
+                                  trigger={
+                                    <a href={`//${bookmark.url}`}>
+                                      {cleanUrl(bookmark.url)}
+                                    </a>
+                                  }
+                                />
                                 <Item.Extra>
                                   <Button
                                     floated="right"

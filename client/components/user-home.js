@@ -49,6 +49,21 @@ export class UserHome extends React.Component {
     window.localStorage.removeItem('blockedUrls')
     window.localStorage.setItem('blockedUrls', JSON.stringify(blockedUrls))
 
+    const header = (goals, size) => (
+      <Item.Header
+        style={{
+          fontWeight: '800',
+          lineHeight: '50px',
+          fontSize: size === 'tablet' ? '8vw' : '3.3vw',
+          margin: '100px -50px',
+          padding: '0 30px',
+          textAlign: size === 'tablet' ? 'left' : 'center'
+        }}
+      >
+        {goals[0].detail}
+      </Item.Header>
+    )
+
     return this.props.loading ? (
       <div className="ui active loader" />
     ) : (
@@ -58,20 +73,24 @@ export class UserHome extends React.Component {
           <div style={{flex: 1, padding: '50px'}}>
             {goals.length > 0 ? (
               <div style={{textAlign: 'center'}}>
-                <h3>Welcome back, {user.firstName}</h3>
+                <Responsive maxWidth={Responsive.onlyTablet.minWidth - 1}>
+                  <h3 style={{fontSize: '4vw'}}>
+                    Welcome back, {user.firstName}
+                  </h3>
+                </Responsive>
+                <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                  <h3 style={{fontSize: '2.5vw'}}>
+                    Welcome back, {user.firstName}
+                  </h3>
+                </Responsive>
                 <p>Here's a goal for you today:</p>
                 <Item.Content>
-                  <Item.Header
-                    style={{
-                      fontWeight: '800',
-                      fontSize: '3em',
-                      margin: '100px -50px'
-                      // textDecoration: 'underline',
-                      // textDecorationStyle: 'double'
-                    }}
-                  >
-                    {goals[0].detail}
-                  </Item.Header>
+                  <Responsive maxWidth={Responsive.onlyTablet.minWidth - 1}>
+                    {header(goals, 'tablet')}
+                  </Responsive>
+                  <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                    {header(goals, 'desktop')}
+                  </Responsive>
                   <Item.Extra>
                     <Item.Description>
                       <Item.Meta>
@@ -81,7 +100,7 @@ export class UserHome extends React.Component {
                       goalBookmarks[randomNum].id ? (
                         <div
                           key={goalBookmarks[randomNum].id}
-                          style={{marginTop: '25px'}}
+                          style={{marginTop: '25px', fontSize: '2vw'}}
                         >
                           <a href={goalBookmarks[randomNum].url}>
                             {goalBookmarks[randomNum].url}

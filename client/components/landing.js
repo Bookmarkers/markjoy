@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Button, Header, Icon} from 'semantic-ui-react'
+import {Button, Header, Icon, Responsive} from 'semantic-ui-react'
 
 const Landing = props => {
   const {user} = props
@@ -40,18 +40,53 @@ const Landing = props => {
           paddingLeft: '15%'
         }}
       />
-      <Button
+      {/* <Button
         color="teal"
         size="huge"
         style={{marginRight: '1em', marginLeft: '15%'}}
       >
         Install Extension
-      </Button>
-
-      <Button color="teal" size="huge" href="/auth">
-        Sign In
-        <Icon name="right arrow" />
-      </Button>
+      </Button> */}
+      <Responsive maxWidth={700}>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <Button
+            color="teal"
+            size="huge"
+            style={{marginRight: '1em', marginLeft: '15%', width: '210px'}}
+          >
+            Install Extension
+          </Button>
+          <Button
+            color="teal"
+            size="huge"
+            href="/auth"
+            style={{
+              marginRight: '1em',
+              marginLeft: '15%',
+              marginTop: '25px',
+              width: '150px'
+            }}
+          >
+            Sign In
+            <Icon name="right arrow" />
+          </Button>
+        </div>
+      </Responsive>
+      <Responsive minWidth={701}>
+        <div style={{display: 'flex'}}>
+          <Button
+            color="teal"
+            size="huge"
+            style={{marginRight: '1em', marginLeft: '15%'}}
+          >
+            Install Extension
+          </Button>
+          <Button color="teal" size="huge" href="/auth">
+            Sign In
+            <Icon name="right arrow" />
+          </Button>
+        </div>
+      </Responsive>
     </div>
   )
 }

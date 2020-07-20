@@ -22,11 +22,11 @@
 // pass in string for the gettree
 
 // const ourHost = "http://markjoy.herokuapp.com"
-const ourHost = 'http://localhost:8080'
+const host = 'http://localhost:8080'
 
 // modularize this function so it can be called when adding a blockedUrl
 function fetchUserBlocked() {
-  fetch(`${ourHost}/auth/me`, {
+  fetch(`${host}/auth/me`, {
     method: 'GET',
     headers: {
       Accept: 'application/json'
@@ -36,7 +36,7 @@ function fetchUserBlocked() {
     .then(text => (text ? JSON.parse(text) : {}))
     .then(user => {
       if (user.id) {
-        fetch(`${ourHost}/api/blocked/user/${user.id}`, {
+        fetch(`${host}/api/blocked/user/${user.id}`, {
           method: 'GET',
           headers: {
             Accept: 'application/json'
@@ -81,7 +81,7 @@ window.onload = function() {
     console.log('blockedUrls string', blockedUrls)
     console.log('window.location.href', window.location.href)
     if (blockedUrls.indexOf(window.location.href) > -1) {
-      window.location.replace('http://localhost:8080/home')
+      window.location.replace(`${host}/delay`)
       // alert("your url contains the name twitter");
     }
   }

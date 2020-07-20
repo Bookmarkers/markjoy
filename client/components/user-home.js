@@ -7,6 +7,24 @@ import {fetchBookmarks} from '../store/bookmark'
 import {fetchBlocked} from '../store/blocked'
 import {Item, Button, Responsive} from 'semantic-ui-react'
 
+const cleanUrl = url => {
+  if (url.length > 30) {
+    url = `${url.slice(0, 30)}...`
+  } else {
+    url = url.slice()
+  }
+  return url
+}
+
+const cleanTitle = title => {
+  if (title.length > 70) {
+    title = `${title.slice(0, 70)}...`
+  } else {
+    title = title.slice()
+  }
+  return title
+}
+
 /**
  * COMPONENT
  */
@@ -64,6 +82,19 @@ export class UserHome extends React.Component {
       </Item.Header>
     )
 
+    const bookmarkSuggest = (randomNum, size) => (
+      <div
+        key={goalBookmarks[randomNum].id}
+        style={{marginTop: '25px', fontSize: size === 'tablet' ? '3vw' : '2vw'}}
+      >
+        <a href={goalBookmarks[randomNum].url}>
+          {goalBookmarks[randomNum].title.length > 0
+            ? cleanTitle(goalBookmarks[randomNum].title)
+            : cleanUrl(goalBookmarks[randomNum].url)}
+        </a>
+      </div>
+    )
+
     return this.props.loading ? (
       <div className="ui active loader" />
     ) : (
@@ -98,13 +129,15 @@ export class UserHome extends React.Component {
                       </Item.Meta>
                       {goalBookmarks[randomNum] &&
                       goalBookmarks[randomNum].id ? (
-                        <div
-                          key={goalBookmarks[randomNum].id}
-                          style={{marginTop: '25px', fontSize: '2vw'}}
-                        >
-                          <a href={goalBookmarks[randomNum].url}>
-                            {goalBookmarks[randomNum].url}
-                          </a>
+                        <div>
+                          <Responsive
+                            maxWidth={Responsive.onlyTablet.minWidth - 1}
+                          >
+                            {bookmarkSuggest(randomNum, 'tablet')}
+                          </Responsive>
+                          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                            {bookmarkSuggest(randomNum, 'desktop')}
+                          </Responsive>
                         </div>
                       ) : (
                         <div style={{marginTop: '25px'}}>

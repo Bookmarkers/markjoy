@@ -34,6 +34,15 @@ const cleanUrl = url => {
   return url
 }
 
+const cleanTitle = title => {
+  if (title.length > 70) {
+    title = `${title.slice(0, 70)}...`
+  } else {
+    title = title.slice()
+  }
+  return title
+}
+
 export class AllBookmarks extends React.Component {
   constructor(props) {
     super(props)
@@ -267,7 +276,9 @@ export class AllBookmarks extends React.Component {
                           content={bookmark.url}
                           trigger={
                             <List.Header a href={`${bookmark.url}`}>
-                              {cleanUrl(bookmark.url)}
+                              {bookmark.title.length > 0
+                                ? cleanTitle(bookmark.title)
+                                : cleanUrl(bookmark.url)}
                             </List.Header>
                           }
                         />

@@ -83,13 +83,9 @@ export class AllGoals extends React.Component {
                   ) : (
                     <Item.Content verticalAlign="middle">
                       <Item.Header as="div" style={{width: '100%'}}>
-                        <Link to={`/goals/${goal.id}`}>
-                          GOAL: {goal.detail}
-                        </Link>
+                        <Link to={`/goals/${goal.id}`}>{goal.detail}</Link>
                         <Item.Extra>
-                          <Item.Meta>
-                            Here's something to help with this goal: {'  '}
-                          </Item.Meta>
+                          <Item.Meta>{'  '}</Item.Meta>
                           <Item.Description>
                             {goalBookmarks(goal.id, bookmarks)[0] ? (
                               <a
@@ -99,7 +95,7 @@ export class AllGoals extends React.Component {
                                 {goalBookmarks(goal.id, bookmarks)[0].url}
                               </a>
                             ) : (
-                              'There are no bookmarks for this goal!'
+                              'No bookmarks for this goal :('
                             )}
                           </Item.Description>
                           <Button
@@ -154,11 +150,10 @@ export class AllGoals extends React.Component {
         <div style={{display: 'flex'}}>
           <div style={{flex: 1}}>
             <Header style={{textAlign: 'center', marginTop: '50px'}}>
-              You have {goals.length} goals
+              Goals
             </Header>
             {goals.length < 5 ? (
               <div>
-                <p style={{textAlign: 'center'}}>You can add up to 5 goals</p>
                 <Item.Content
                   style={{padding: '20px 50px'}}
                   verticalAlign="middle"
@@ -177,6 +172,7 @@ export class AllGoals extends React.Component {
                         name="newGoalDetail"
                         value={this.state.newGoalDetail}
                         onChange={this.handleChange}
+                        placeholder={`Add up to five goals. Example: 'Make more vegan recipes' `}
                       />
                     </Form.Field>
                     <Button

@@ -145,8 +145,12 @@ export const BookmarkForm = props => {
           <Message
             success
             color="teal"
-            header="Bookmark Added!"
-            content="You've successfully added a new bookmark."
+            header={isUpdate ? 'Bookmark Updated!' : 'Bookmark Added!'}
+            content={
+              isUpdate
+                ? "You've successfully updated a bookmark."
+                : "You've successfully added a new bookmark."
+            }
           />
           <Button
             type="submit"

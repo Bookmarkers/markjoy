@@ -10,6 +10,7 @@ import {
   AllGoals,
   SingleGoal,
   Blocked,
+  Delay,
   ErrorMessage
 } from './components'
 import {me} from './store'
@@ -29,6 +30,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are only available after logging in */}
         <Redirect from="/auth" to="/home" />
+        <Route exact path="/delay" component={Delay} />
         <Route exact path="/home" component={UserHome} />
         <Route exact path="/bookmarks" component={AllBookmarks} />
         <Route

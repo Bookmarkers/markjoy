@@ -14,6 +14,24 @@ import {Item, Button, Form, Input, Header, Responsive} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 
+const cleanUrl = url => {
+  if (url.length > 30) {
+    url = `${url.slice(0, 30)}...`
+  } else {
+    url = url.slice()
+  }
+  return url
+}
+
+const cleanTitle = title => {
+  if (title.length > 70) {
+    title = `${title.slice(0, 70)}...`
+  } else {
+    title = title.slice()
+  }
+  return title
+}
+
 export class AllGoals extends React.Component {
   constructor(props) {
     super(props)

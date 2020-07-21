@@ -80,7 +80,11 @@ export class SingleGoal extends React.Component {
                                 <Popup
                                   content={bookmark.url}
                                   trigger={
-                                    <a href={`//${bookmark.url}`}>
+                                    // eslint-disable-next-line react/jsx-no-target-blank
+                                    <a
+                                      target="_blank"
+                                      href={`//${bookmark.url}`}
+                                    >
                                       {bookmark.title.length > 0
                                         ? cleanTitle(bookmark.title)
                                         : cleanUrl(bookmark.url)}

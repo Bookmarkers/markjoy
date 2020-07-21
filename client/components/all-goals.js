@@ -107,7 +107,9 @@ export class AllGoals extends React.Component {
                           <Item.Description>
                             {goalBookmarks(goal.id, bookmarks)[0] ? (
                               <a
+                                // eslint-disable-next-line react/jsx-no-target-blank
                                 style={{color: 'teal'}}
+                                target="_blank"
                                 href={goalBookmarks(goal.id, bookmarks)[0].url}
                               >
                                 {goalBookmarks(goal.id, bookmarks)[0].title

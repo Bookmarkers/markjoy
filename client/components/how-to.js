@@ -10,7 +10,7 @@ const HowTo = () => (
         <br />
         <Icon name="check" />gets distracted online
         <br />
-        <Icon name="check" />bookmark webpages then forgets about them
+        <Icon name="check" />forgets about bookmarks they've saved
         <br />
         <Icon name="check" />needs to categorize all the bookmarks they’ve saved
       </div>

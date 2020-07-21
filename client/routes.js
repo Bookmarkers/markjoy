@@ -11,6 +11,7 @@ import {
   SingleGoal,
   Blocked,
   Delay,
+  Importing,
   HowItWorks
 } from './components'
 import {me} from './store'
@@ -31,6 +32,7 @@ class Routes extends Component {
         {/* Routes placed here are only available after logging in */}
         <Redirect from="/auth" to="/home" />
         <Route exact path="/delay" component={Delay} />
+        <Route exact path="/importing" component={Importing} />
         <Route exact path="/home" component={UserHome} />
         <Route exact path="/bookmarks" component={AllBookmarks} />
         <Route

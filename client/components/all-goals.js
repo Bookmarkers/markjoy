@@ -173,9 +173,7 @@ export class AllGoals extends React.Component {
         <Navbar />
         <div style={{display: 'flex'}}>
           <div style={{flex: 1, height: '100vh'}}>
-            <Header style={{textAlign: 'center', marginTop: '50px'}}>
-              Goals
-            </Header>
+            <h1 style={{textAlign: 'center', marginTop: '50px'}}>Goals</h1>
             {goals.length < 5 ? (
               <div>
                 <Item.Content

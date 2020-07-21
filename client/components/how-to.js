@@ -1,5 +1,5 @@
 import React from 'react'
-import {Icon} from 'semantic-ui-react'
+import {Icon, Button} from 'semantic-ui-react'
 
 const HowTo = () => (
   <div style={{textAlign: 'left', margin: '40px 0'}}>
@@ -40,7 +40,12 @@ const HowTo = () => (
       <li>Tell your friends how much you love bookmarq.</li>
     </ol>
     <h3>Let bookmarq help you achieve your dreams.</h3>
-    <a href="/goals">Get started today.</a>
+    <Button animated a href="/goals" color="blue">
+      <Button.Content visible>Get started today</Button.Content>
+      <Button.Content hidden>
+        <Icon name="arrow right" />
+      </Button.Content>
+    </Button>
   </div>
 )
 

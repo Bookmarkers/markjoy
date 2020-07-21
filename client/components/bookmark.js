@@ -275,7 +275,11 @@ export class AllBookmarks extends React.Component {
                         <Popup
                           content={bookmark.url}
                           trigger={
-                            <List.Header a href={`${bookmark.url}`}>
+                            <List.Header
+                              a
+                              href={`${bookmark.url}`}
+                              target="_blank"
+                            >
                               {bookmark.title.length > 0
                                 ? cleanTitle(bookmark.title)
                                 : cleanUrl(bookmark.url)}

@@ -110,7 +110,14 @@ export class AllGoals extends React.Component {
                                 style={{color: 'teal'}}
                                 href={goalBookmarks(goal.id, bookmarks)[0].url}
                               >
-                                {goalBookmarks(goal.id, bookmarks)[0].url}
+                                {goalBookmarks(goal.id, bookmarks)[0].title
+                                  .length > 0
+                                  ? cleanTitle(
+                                      goalBookmarks(goal.id, bookmarks)[0].title
+                                    )
+                                  : cleanUrl(
+                                      goalBookmarks(goal.id, bookmarks)[0].url
+                                    )}
                               </a>
                             ) : (
                               'No bookmarks for this goal :('
@@ -119,14 +126,13 @@ export class AllGoals extends React.Component {
                           <Button
                             floated="right"
                             secondary
+                            content="Delete"
                             onClick={() => {
                               if (window.confirm('Delete this goal?')) {
                                 this.props.deleteGoal(goal.id)
                               }
                             }}
-                          >
-                            Delete
-                          </Button>
+                          />
                           <Button
                             floated="right"
                             onClick={() => this.edit(goal.id, goal.detail)}
@@ -140,7 +146,7 @@ export class AllGoals extends React.Component {
                 </Item>
               )
             })
-          : 'please add some goals!'}
+          : 'Please add some goals!'}
       </Item.Group>
     )
   }
@@ -166,7 +172,7 @@ export class AllGoals extends React.Component {
       <div>
         <Navbar />
         <div style={{display: 'flex'}}>
-          <div style={{flex: 1}}>
+          <div style={{flex: 1, height: '100vh'}}>
             <Header style={{textAlign: 'center', marginTop: '50px'}}>
               Goals
             </Header>
@@ -184,15 +190,24 @@ export class AllGoals extends React.Component {
                       })
                       this.setState({newGoalDetail: ''})
                     }}
+                    style={{
+                      display: 'flex',
+                      width: '100%',
+                      alignItems: 'center'
+                    }}
                   >
-                    <Form.Field control={Input}>
+                    <div
+                      control={Input}
+                      style={{flex: 1, margin: '0 15px 0 0'}}
+                    >
                       <Input
                         name="newGoalDetail"
                         value={this.state.newGoalDetail}
                         onChange={this.handleChange}
                         placeholder={`Add up to five goals. Example: 'Make more vegan recipes' `}
+                        style={{width: '100%'}}
                       />
-                    </Form.Field>
+                    </div>
                     <Button
                       floated="right"
                       type="submit"

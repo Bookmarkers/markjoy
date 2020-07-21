@@ -11,7 +11,7 @@ import {
   SingleGoal,
   Blocked,
   Delay,
-  ErrorMessage
+  HowItWorks
 } from './components'
 import {me} from './store'
 
@@ -41,6 +41,7 @@ class Routes extends Component {
         <Route exact path="/goals" component={AllGoals} />
         <Route exact path="/goals/:id" component={SingleGoal} />
         <Route exact path="/blocked" component={Blocked} />
+        <Route exact path="/how" component={HowItWorks} />
         {/* Landing as a fallback for logged in users */}
         <Route component={Landing} />
       </Switch>

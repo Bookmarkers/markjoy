@@ -56,7 +56,7 @@ export const BookmarkForm = props => {
               name="url"
               onChange={handleChange}
               value={url}
-              placeholder="Whats the bookmark url?"
+              placeholder="What is the bookmark url?"
             />
           </Form.Field>
           {error !== '' && (

@@ -33,10 +33,10 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
             {isLoggedIn ? (
               <Dropdown
                 text={`Hi, ${user.firstName}`}
-                style={{marginRight: '15px'}}
+                style={{marginRight: '30px'}}
               >
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#">My profile</Dropdown.Item>
+                  <Dropdown.Item href="/how">How it works</Dropdown.Item>
                   <Dropdown.Item href="/blocked">My blocks</Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
@@ -75,7 +75,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => {
           style={{
             position: 'absolute',
             top: 0,
-            right: 100,
+            right: 120,
             height: '71.41px',
             padding: '28px'
           }}

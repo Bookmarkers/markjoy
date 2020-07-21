@@ -253,7 +253,7 @@ export class AllBookmarks extends React.Component {
               {category === 'All Bookmarks' ? (
                 <Button
                   floated="right"
-                  // onClick={} dispatch sync-bookmark thunk
+                  id="import-bookmarks"
                   content="Import"
                   style={{backgroundColor: '#785EF0', color: 'white'}}
                 />

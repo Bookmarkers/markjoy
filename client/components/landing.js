@@ -40,16 +40,10 @@ const Landing = props => {
           paddingLeft: '15%'
         }}
       />
-      {/* <Button
-        color="teal"
-        size="huge"
-        style={{marginRight: '1em', marginLeft: '15%'}}
-      >
-        Install Extension
-      </Button> */}
       <Responsive maxWidth={700}>
         <div style={{display: 'flex', flexDirection: 'column'}}>
           <Button
+            href="https://github.com/Bookmarkers/extension"
             color="teal"
             size="huge"
             style={{marginRight: '1em', marginLeft: '15%', width: '210px'}}
@@ -75,6 +69,7 @@ const Landing = props => {
       <Responsive minWidth={701}>
         <div style={{display: 'flex'}}>
           <Button
+            href="https://github.com/Bookmarkers/extension"
             color="teal"
             size="huge"
             style={{marginRight: '1em', marginLeft: '15%'}}

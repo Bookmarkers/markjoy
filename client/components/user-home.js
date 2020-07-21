@@ -2,10 +2,29 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
+import HowTo from './how-to'
 import {fetchGoals} from '../store/goal'
 import {fetchBookmarks} from '../store/bookmark'
 import {fetchBlocked} from '../store/blocked'
 import {Item, Button, Responsive} from 'semantic-ui-react'
+
+const cleanUrl = url => {
+  if (url.length > 30) {
+    url = `${url.slice(0, 30)}...`
+  } else {
+    url = url.slice()
+  }
+  return url
+}
+
+const cleanTitle = title => {
+  if (title.length > 70) {
+    title = `${title.slice(0, 70)}...`
+  } else {
+    title = title.slice()
+  }
+  return title
+}
 
 /**
  * COMPONENT
@@ -64,6 +83,19 @@ export class UserHome extends React.Component {
       </Item.Header>
     )
 
+    const bookmarkSuggest = (randomNum, size) => (
+      <div
+        key={goalBookmarks[randomNum].id}
+        style={{marginTop: '25px', fontSize: size === 'tablet' ? '3vw' : '2vw'}}
+      >
+        <a href={goalBookmarks[randomNum].url}>
+          {goalBookmarks[randomNum].title.length > 0
+            ? cleanTitle(goalBookmarks[randomNum].title)
+            : cleanUrl(goalBookmarks[randomNum].url)}
+        </a>
+      </div>
+    )
+
     return this.props.loading ? (
       <div className="ui active loader" />
     ) : (
@@ -98,13 +130,15 @@ export class UserHome extends React.Component {
                       </Item.Meta>
                       {goalBookmarks[randomNum] &&
                       goalBookmarks[randomNum].id ? (
-                        <div
-                          key={goalBookmarks[randomNum].id}
-                          style={{marginTop: '25px', fontSize: '2vw'}}
-                        >
-                          <a href={goalBookmarks[randomNum].url}>
-                            {goalBookmarks[randomNum].url}
-                          </a>
+                        <div>
+                          <Responsive
+                            maxWidth={Responsive.onlyTablet.minWidth - 1}
+                          >
+                            {bookmarkSuggest(randomNum, 'tablet')}
+                          </Responsive>
+                          <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                            {bookmarkSuggest(randomNum, 'desktop')}
+                          </Responsive>
                         </div>
                       ) : (
                         <div style={{marginTop: '25px'}}>
@@ -133,11 +167,13 @@ export class UserHome extends React.Component {
               </div>
             ) : (
               <div style={{textAlign: 'center'}}>
-                <h3>Welcome to bookmarq, {user.firstName}</h3>
-                <h4>You don't have any goal yet!</h4>
-                <p>
-                  Set your very first goal <a href="/goals">here</a>
-                </p>
+                <Responsive maxWidth={Responsive.onlyTablet.minWidth - 1}>
+                  <h2 style={{fontSize: '4vw'}}>Welcome to bookmarq!</h2>
+                </Responsive>
+                <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                  <h2 style={{fontSize: '2.5vw'}}>Welcome to bookmarq!</h2>
+                </Responsive>
+                <HowTo />
               </div>
             )}
           </div>

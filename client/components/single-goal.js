@@ -23,6 +23,15 @@ const cleanUrl = url => {
   return url
 }
 
+const cleanTitle = title => {
+  if (title.length > 70) {
+    title = `${title.slice(0, 70)}...`
+  } else {
+    title = title.slice()
+  }
+  return title
+}
+
 export class SingleGoal extends React.Component {
   constructor(props) {
     super(props)
@@ -72,7 +81,9 @@ export class SingleGoal extends React.Component {
                                   content={bookmark.url}
                                   trigger={
                                     <a href={`//${bookmark.url}`}>
-                                      {cleanUrl(bookmark.url)}
+                                      {bookmark.title.length > 0
+                                        ? cleanTitle(bookmark.title)
+                                        : cleanUrl(bookmark.url)}
                                     </a>
                                   }
                                 />

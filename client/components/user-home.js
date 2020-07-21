@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
+import HowTo from './how-to'
 import {fetchGoals} from '../store/goal'
 import {fetchBookmarks} from '../store/bookmark'
 import {fetchBlocked} from '../store/blocked'
@@ -166,11 +167,13 @@ export class UserHome extends React.Component {
               </div>
             ) : (
               <div style={{textAlign: 'center'}}>
-                <h3>Welcome to bookmarq, {user.firstName}</h3>
-                <h4>You don't have any goal yet!</h4>
-                <p>
-                  Set your very first goal <a href="/goals">here</a>
-                </p>
+                <Responsive maxWidth={Responsive.onlyTablet.minWidth - 1}>
+                  <h2 style={{fontSize: '4vw'}}>Welcome to bookmarq!</h2>
+                </Responsive>
+                <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+                  <h2 style={{fontSize: '2.5vw'}}>Welcome to bookmarq!</h2>
+                </Responsive>
+                <HowTo />
               </div>
             )}
           </div>

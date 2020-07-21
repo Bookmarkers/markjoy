@@ -230,7 +230,7 @@ export class AllBookmarks extends React.Component {
           success={this.state.success}
           error={this.state.error}
         />
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', height: '100vh'}}>
           <div
             style={{
               padding: '50px',

@@ -172,7 +172,7 @@ export class AllGoals extends React.Component {
       <div>
         <Navbar />
         <div style={{display: 'flex'}}>
-          <div style={{flex: 1}}>
+          <div style={{flex: 1, height: '100vh'}}>
             <Header style={{textAlign: 'center', marginTop: '50px'}}>
               Goals
             </Header>

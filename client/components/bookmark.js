@@ -10,7 +10,7 @@ import {
   deleteBookmark
 } from '../store/bookmark'
 import {fetchGoals} from '../store/goal'
-import {Button, Image, List, Popup} from 'semantic-ui-react'
+import {Button, Image, List, Popup, Responsive} from 'semantic-ui-react'
 import {Navbar} from './index'
 import {CustomSidebar} from './sidemenu'
 import BookmarkForm from './bookmark-form'
@@ -239,28 +239,73 @@ export class AllBookmarks extends React.Component {
               flexDirection: 'column'
             }}
           >
-            <div style={{display: 'flex'}}>
-              <h1 className="title" style={{flex: 1}}>
-                {category}
-              </h1>
-              <Button
-                style={{backgroundColor: '#648FFF', color: 'white'}}
-                floated="right"
-                onClick={this.toggleModal}
-              >
-                Add Bookmark
-              </Button>
-              {category === 'All Bookmarks' ? (
+            {category === 'All Bookmarks' ? (
+              <div>
+                <Responsive maxWidth={375}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column'
+                    }}
+                  >
+                    <h1 className="title" style={{flex: 1}}>
+                      {category}
+                    </h1>
+                    <div>
+                      <Button
+                        floated="right"
+                        id="import-bookmarks"
+                        content="Import"
+                        style={{backgroundColor: '#785EF0', color: 'white'}}
+                      />
+                      <Button
+                        style={{backgroundColor: '#648FFF', color: 'white'}}
+                        floated="right"
+                        onClick={this.toggleModal}
+                      >
+                        Add Bookmark
+                      </Button>
+                    </div>
+                  </div>
+                </Responsive>
+                <Responsive minWidth={376}>
+                  <div style={{display: 'flex'}}>
+                    <h1 className="title" style={{flex: 1}}>
+                      {category}
+                    </h1>
+                    <div>
+                      <Button
+                        floated="right"
+                        id="import-bookmarks"
+                        content="Import"
+                        style={{backgroundColor: '#785EF0', color: 'white'}}
+                      />
+                      <Button
+                        style={{backgroundColor: '#648FFF', color: 'white'}}
+                        floated="right"
+                        onClick={this.toggleModal}
+                      >
+                        Add Bookmark
+                      </Button>
+                    </div>
+                  </div>
+                </Responsive>
+              </div>
+            ) : (
+              <div style={{display: 'flex'}}>
+                <h1 className="title" style={{flex: 1}}>
+                  {category}
+                </h1>
                 <Button
+                  style={{backgroundColor: '#648FFF', color: 'white'}}
                   floated="right"
-                  id="import-bookmarks"
-                  content="Import"
-                  style={{backgroundColor: '#785EF0', color: 'white'}}
-                />
-              ) : (
-                ''
-              )}
-            </div>
+                  onClick={this.toggleModal}
+                >
+                  Add Bookmark
+                </Button>
+              </div>
+            )}
             <List animated verticalAlign="middle" style={{marginTop: '30px'}}>
               {bookmarks && bookmarks.length > 0 ? (
                 bookmarks.map(bookmark => {

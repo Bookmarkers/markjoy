@@ -9,6 +9,8 @@ Click below to watch our demo:
 
 bookmarq is a bookmark management and productivity tool that allows the user to assign bookmarks to relevant goals and categories. The user can also define "blocked" websites; upon visiting one of the blocked URLs, the user will be redirected to the user home page that suggests readings based on their saved links.
 
+Developed with Node.js, Express, Sequelize, PostgreSQL, React, Redux, and Semantic UI.
+
 ## Usage
 
 Visit our web application [here](https://markjoy.herokuapp.com/)

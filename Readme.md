@@ -1,4 +1,35 @@
-### GENERAL
+# bookmarq
+
+![GitHub repo size](https://img.shields.io/github/repo-size/Bookmarkers/markjoy)
+![Contributors](https://img.shields.io/badge/contributors-3-yellow)
+
+Click below to watch our demo:
+
+[![2004 Demo Day Presentation](http://img.youtube.com/vi/laxrZAfsxZo/0.jpg)](https://www.youtube.com/watch?v=laxrZAfsxZo&list=PLx0iOsdUOUmkqg_8ixMky0s59-C2RJnDB&index=2&t=11s)
+
+bookmarq is a bookmark management and productivity tool that allows the user to assign bookmarks to relevant goals and categories. The user can also define "blocked" websites; upon visiting one of the blocked URLs, the user will be redirected to the user home page that suggests readings based on their saved links.
+
+Developed with Node.js, Express, Sequelize, PostgreSQL, React, Redux, and Semantic UI.
+
+## Usage
+
+Visit our web application [here](https://markjoy.herokuapp.com/)
+
+Install our Chrome extension [here](https://github.com/Bookmarkers/extension)
+
+Please watch our demo for a complete user flow.
+
+## Contributors
+
+* [@yanjaaw](https://github.com/yanjaaw) 🤔 💻 🐛
+* [@vjrodriguez](https://github.com/vjrodriguez) 🤔 💻 🐛
+* [@jiannapark](https://github.com/jiannapark) 🤔 💻 🐛 
+
+## Bookmarkers' Eyes Only ✨
+
+<details>
+  
+  ### GENERAL
 
 * [Tasks and Roles, Schema design](https://docs.google.com/spreadsheets/d/1kYgUQhWzOdwSfBvEf4vBLWRi_LOee8W9BV-fL2SOMNY/edit?ts=5efbb45f#gid=0)
 * [MVP details, Team Contract, Github Org info](https://docs.google.com/document/d/1k9i_jV-R90ww2q3NZ-o9igq9lcLuM2A8qnBKjagLfks/edit#)
@@ -43,9 +74,6 @@
 
 * [ ] Everyone writes their own ~3 tests for each file after the project has started to take shape / stabilize.
 
-### Done!
-
-<details>
 
 * [x] Create a Readme file to keep track of tasks and goals.
 * [x] Download / use similar apps to see what we like and don't

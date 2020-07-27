@@ -13,11 +13,11 @@ Developed with Node.js, Express, Sequelize, PostgreSQL, React, Redux, and Semant
 
 ## Usage
 
-Visit our web application [here](https://markjoy.herokuapp.com/)
+Visit our web application [here](https://markjoy.herokuapp.com/).
 
-Install our Chrome extension [here](https://github.com/Bookmarkers/extension)
+Install our Chrome extension [here](https://github.com/Bookmarkers/extension).
 
-Please watch our demo for a complete user flow.
+Please watch our demo for a complete user flow :)
 
 ## Contributors
 

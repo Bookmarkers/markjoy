@@ -13,6 +13,9 @@ export const fetchBlocked = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/blocked/user/${userId}`)
     if (data) {
+      const blockedUrls = data.map(block => block.url)
+      window.localStorage.removeItem('blockedUrls')
+      window.localStorage.setItem('blockedUrls', JSON.stringify(blockedUrls))
       dispatch(gotBlocked(data))
     } else {
       dispatch(gotBlocked({}))

@@ -5,3 +5,7 @@ secrets.js
 .DS_Store
 npm-debug.log
 yarn-error.log
+public/sw.js
+pubplic/sw.js.map
+public/workbox-468c4d03.js
+public/workbox-468c4d03.js.map

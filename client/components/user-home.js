@@ -56,17 +56,13 @@ export class UserHome extends React.Component {
 
   render() {
     const randomNum = this.state.randomNum
-    const {user, goals, bookmarks, blocked} = this.props
+    const {user, goals, bookmarks} = this.props
 
     const goalBookmarks = bookmarks.filter(bookmark => {
       if (goals[0] && goals[0].id) {
         return bookmark.goalId === goals[0].id
       }
     })
-
-    const blockedUrls = blocked.map(block => block.url)
-    window.localStorage.removeItem('blockedUrls')
-    window.localStorage.setItem('blockedUrls', JSON.stringify(blockedUrls))
 
     const header = (goals, size) => (
       <Item.Header
@@ -192,8 +188,7 @@ const mapState = state => {
     user: state.user,
     goals: state.goals.goals,
     loading: state.goals.loading,
-    bookmarks: state.bookmarks.bookmarks,
-    blocked: state.blocked
+    bookmarks: state.bookmarks.bookmarks
   }
 }
 

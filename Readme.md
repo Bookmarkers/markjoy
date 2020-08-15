@@ -5,7 +5,7 @@
 
 Click below to watch our demo:
 
-[![2004 Demo Day Presentation](http://img.youtube.com/vi/laxrZAfsxZo/0.jpg)](https://www.youtube.com/watch?v=laxrZAfsxZo&list=PLx0iOsdUOUmkqg_8ixMky0s59-C2RJnDB&index=2&t=11s)
+[![2004 Demo Day Presentation](http://img.youtube.com/vi/laxrZAfsxZo/0.jpg)](https://www.youtube.com/watch?v=laxrZAfsxZo&list=PLx0iOsdUOUmkqg_8ixMky0s59-C2RJnDB&index=2&t)
 
 bookmarq is a bookmark management and productivity tool that allows the user to assign bookmarks to relevant goals and categories. The user can also define "blocked" websites; upon visiting one of the blocked URLs, the user will be redirected to the user home page that suggests readings based on their saved links.
 
@@ -13,11 +13,11 @@ Developed with Node.js, Express, Sequelize, PostgreSQL, React, Redux, and Semant
 
 ## Usage
 
-Visit our web application [here](https://markjoy.herokuapp.com/)
+Visit our web application [here](https://markjoy.herokuapp.com/).
 
-Install our Chrome extension [here](https://github.com/Bookmarkers/extension)
+Install our Chrome extension [here](https://github.com/Bookmarkers/extension).
 
-Please watch our demo for a complete user flow.
+Please watch our demo for a complete user flow :)
 
 ## Contributors
 

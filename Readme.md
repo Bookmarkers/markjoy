@@ -5,7 +5,7 @@
 
 Click below to watch our demo:
 
-[![2004 Demo Day Presentation](http://img.youtube.com/vi/laxrZAfsxZo/0.jpg)](https://www.youtube.com/watch?v=laxrZAfsxZo&list=PLx0iOsdUOUmkqg_8ixMky0s59-C2RJnDB&index=2&t=11s)
+[![2004 Demo Day Presentation](http://img.youtube.com/vi/laxrZAfsxZo/0.jpg)](https://www.youtube.com/watch?v=laxrZAfsxZo&list=PLx0iOsdUOUmkqg_8ixMky0s59-C2RJnDB&index=2&t)
 
 bookmarq is a bookmark management and productivity tool that allows the user to assign bookmarks to relevant goals and categories. The user can also define "blocked" websites; upon visiting one of the blocked URLs, the user will be redirected to the user home page that suggests readings based on their saved links.
 
@@ -13,17 +13,17 @@ Developed with Node.js, Express, Sequelize, PostgreSQL, React, Redux, and Semant
 
 ## Usage
 
-Visit our web application [here](https://markjoy.herokuapp.com/)
+Visit our web application [here](https://markjoy.herokuapp.com/).
 
-Install our Chrome extension [here](https://github.com/Bookmarkers/extension)
+Install our Chrome extension [here](https://github.com/Bookmarkers/extension).
 
-Please watch our demo for a complete user flow.
+Please watch our demo for a complete user flow :)
 
 ## Contributors
 
 * [@yanjaaw](https://github.com/yanjaaw) 🤔 💻 🐛
 * [@vjrodriguez](https://github.com/vjrodriguez) 🤔 💻 🐛
-* [@jiannapark](https://github.com/jiannapark) 🤔 💻 🐛 
+* [@jiannapark](https://github.com/jiannapark) 🤔 💻 🐛
 
 ## Bookmarkers' Eyes Only ✨
 
@@ -74,20 +74,19 @@ Please watch our demo for a complete user flow.
 
 * [ ] Everyone writes their own ~3 tests for each file after the project has started to take shape / stabilize.
 
-
-* [x] Create a Readme file to keep track of tasks and goals.
-* [x] Download / use similar apps to see what we like and don't
-* [x] Schema design v.1
-* [x] Project tasks
-* [x] User stories
-* [x] Come up with 5-ish main categories (defaults) + name for the unsorted category
-* [x] Review and implement schema design v1.1
-* [x] Finalize Wireframe v1.0
-* [x] Finalize Tech stack by EOD Thursday July 2nd
-* [x] Read up on PWA's
-* [x] Experiment with PWA's
-* [x] Research Vue and Firestore
-* [x] Lightweight favicon
-* [Wireframe OLD example](https://www.figma.com/file/SBvVSY7WpNCI8OjR4xJSOb/Bookmarkers?node-id=0%3A1)
+- [x] Create a Readme file to keep track of tasks and goals.
+- [x] Download / use similar apps to see what we like and don't
+- [x] Schema design v.1
+- [x] Project tasks
+- [x] User stories
+- [x] Come up with 5-ish main categories (defaults) + name for the unsorted category
+- [x] Review and implement schema design v1.1
+- [x] Finalize Wireframe v1.0
+- [x] Finalize Tech stack by EOD Thursday July 2nd
+- [x] Read up on PWA's
+- [x] Experiment with PWA's
+- [x] Research Vue and Firestore
+- [x] Lightweight favicon
+- [Wireframe OLD example](https://www.figma.com/file/SBvVSY7WpNCI8OjR4xJSOb/Bookmarkers?node-id=0%3A1)
 
 </details>
